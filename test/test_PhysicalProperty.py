@@ -45,14 +45,16 @@ class StandaloneInstantiation(unittest.TestCase):
         self.assertRaises(ValueError, PhysicalProperty, "A", -1, 1)
 
 
-    def test_bad_input_non_numeric(self):
+    # __set__ method tests
+    # ====================
+    def test_set_non_numeric(self):
         """
         Set with non-numeric, non-Quantity input raises ValueError
         """
         pp = PhysicalProperty()
         self.assertRaises(ValueError, pp.__set__, MockClassEmpty, "not a number")
 
-    def test_set_bad_input_Quantity_incompatible_units(self):
+    def test_set_Quantity_incompatible_units(self):
         """
         Raise UnitsException when setting with Quantity of incompatible units.
         """
@@ -61,7 +63,7 @@ class StandaloneInstantiation(unittest.TestCase):
         
         self.assertRaises(units.UnitsException, pp.__set__, MockClassEmpty, qty)
 
-    def test_set_bad_input_numeric_above_up_bnd(self):
+    def test_set_numeric_above_up_bnd(self):
         """
         Raises ValueError when attempting to set with numeric above up_bnd.
         """
@@ -70,7 +72,7 @@ class StandaloneInstantiation(unittest.TestCase):
         pp = PhysicalProperty(up_bnd = ubnd)
         self.assertRaises(ValueError, pp.__set__, MockClassEmpty, 12.)
 
-    def test_set_bad_input_numeric_below_lo_bnd(self):
+    def test_set_numeric_below_lo_bnd(self):
         """
         Raises ValueError when attempting to set with numeric below lo_bnd.
         """
@@ -79,7 +81,7 @@ class StandaloneInstantiation(unittest.TestCase):
         pp = PhysicalProperty(lo_bnd = lbnd)
         self.assertRaises(ValueError, pp.__set__, MockClassEmpty, -12.)
 
-    def test_set_bad_input_Quantity_above_up_bnd_same_units(self):
+    def test_set_Quantity_above_up_bnd_same_units(self):
         """
         Raises ValueError when attempting to set with Quantity in same units above up_bnd.
         """
@@ -90,7 +92,7 @@ class StandaloneInstantiation(unittest.TestCase):
         qty = units.Quantity(12., unit)
         self.assertRaises(ValueError, pp.__set__, MockClassEmpty, qty)
 
-    def test_set_bad_input_Quantity_above_up_bnd_compatible_units(self):
+    def test_set_Quantity_above_up_bnd_compatible_units(self):
         """
         Raises ValueError when attempting to set with Quantity in compatible units above up_bnd.
         """
@@ -102,7 +104,7 @@ class StandaloneInstantiation(unittest.TestCase):
         qty = units.Quantity(1., "m")
         self.assertRaises(ValueError, pp.__set__, MockClassEmpty, qty)
 
-    def test_set_bad_input_Quantity_below_lo_bnd_same_units(self):
+    def test_set_Quantity_below_lo_bnd_same_units(self):
         """
         Raises ValueError when attempting to set with Quantity in same units below lo_bnd.
         """
@@ -113,7 +115,7 @@ class StandaloneInstantiation(unittest.TestCase):
         qty = units.Quantity(-12., unit)
         self.assertRaises(ValueError, pp.__set__, MockClassEmpty, qty)
 
-    def test_set_bad_input_Quantity_below_lo_bnd_compatible_units(self):
+    def test_set_Quantity_below_lo_bnd_compatible_units(self):
         """
         Raises ValueError when attempting to set with Quantity in compatible units below lo_bnd.
         """
