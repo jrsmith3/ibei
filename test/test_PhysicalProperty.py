@@ -49,10 +49,10 @@ class StandaloneInstantiation(unittest.TestCase):
     # ====================
     def test_set_non_numeric(self):
         """
-        Set with non-numeric, non-Quantity input raises ValueError
+        Set with non-numeric, non-Quantity input raises TypeError
         """
         pp = PhysicalProperty()
-        self.assertRaises(ValueError, pp.__set__, MockClassEmpty, "not a number")
+        self.assertRaises(TypeError, pp.__set__, MockClassEmpty, "not a number")
 
     def test_set_Quantity_incompatible_units(self):
         """

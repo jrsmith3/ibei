@@ -35,7 +35,10 @@ class PhysicalProperty(object):
         if type(val) == units.Quantity:
             val = val.to(self._unit)
         else:
-            val = float(val)
+            try:
+                val = float(val)
+            except ValueError:
+                raise TypeError("PhysicalProperty must be set with type numeric.")
             val = units.Quantity(val, self._unit)
 
         if val < self._lo_bnd:
