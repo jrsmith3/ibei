@@ -36,7 +36,7 @@ class MockClassUserDefinedUnitAmp(object):
 # =====
 class StandaloneInstantiation(unittest.TestCase):
     """
-    Functionality of instantiation.
+    PhysicalProperty instantiated as a standalone object.
     """
     def test_instantiate_lo_bnd_greater_than_up_bnd(self):
         """
