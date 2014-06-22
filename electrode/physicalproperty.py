@@ -4,6 +4,7 @@ from weakref import WeakKeyDictionary
 import constants
 import numpy as np
 import scipy
+import inspect
 from astropy import units
 
 class PhysicalProperty(object):
@@ -47,3 +48,19 @@ class PhysicalProperty(object):
             raise ValueError("Cannot set greater than %s" % str(self._up_bnd))
 
         self._data[instance] = val
+
+
+def find_PhysicalProperty(obj):
+    """
+    List of data attributes of obj implemented as `PhysicalProperty` descriptors.
+    """
+
+    physical_prop_names = []
+
+    for attr in dir(obj.__class__):
+        for cls in inspect.getmro(obj.__class__):
+            if type(cls.__dict__.get(attr)) is PhysicalProperty:
+                physical_prop_names.append(attr)
+
+    return sorted(physical_prop_names)
+    
