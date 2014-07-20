@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from weakref import WeakKeyDictionary
-import constants
 import numpy as np
-import scipy
 import inspect
 from astropy import units
 
