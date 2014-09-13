@@ -1,1 +1,1 @@
-incomplete_be - Simple calculator for incomplete Bose-Einstein integral
+ibei - Simple calculator for incomplete Bose-Einstein integral
