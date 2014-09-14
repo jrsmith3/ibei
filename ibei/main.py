@@ -26,3 +26,10 @@ def uibei(order, energy_lo, temp, chem_potential):
         summand += term
 
     return summand
+
+
+def bb_rad_power(temp):
+    """
+    Blackbody radiant power (Stefan-Boltzmann).
+    """
+    return constants.sigma_sb * temp**4
