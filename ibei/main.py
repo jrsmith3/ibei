@@ -33,3 +33,13 @@ def bb_rad_power(temp):
     Blackbody radiant power (Stefan-Boltzmann).
     """
     return constants.sigma_sb * temp**4
+
+
+def devos_power(bandgap, temp_sun, temp_planet, voltage):
+    """
+    Power calculated according to DeVos Eq. 6.4.
+    """
+    sun = uibei(2, bandgap, temp_sun, 0)
+    solar_cell = uibei(2, bandgap, temp_sun, constants.q * voltage)
+    return voltage * constants.e * (sun - solar_cell)
+
