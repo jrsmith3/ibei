@@ -9,6 +9,13 @@ from sympy.mpmath import polylog
 def uibei(order, energy_lo, temp, chem_potential):
     """
     Upper incomplete Bose-Einstein integral.
+
+    :param int order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux.
+    :param float energy_lo: Lower bound of integral [eV].
+    :param float temp: Temperature of photon ensemble [K].
+    :param float chem_potential: Chemical potential of photon ensemble [eV].
+
+    Note that the float quantities above can also be astropy.units.Quantity.
     """
     kT = temp * constants.k_B
 
