@@ -41,9 +41,13 @@ def bb_rad_power(temp):
 
 def devos_power(bandgap, temp_sun, temp_planet, voltage):
     """
-    Power calculated according to DeVos Eq. 6.4.
-    """
-    sun = uibei(2, bandgap, temp_sun, 0)
-    solar_cell = uibei(2, bandgap, temp_sun, constants.q * voltage)
-    return voltage * constants.e * (sun - solar_cell)
+    Power calculated according to DeVos Eq. 6.4. (9780198513926).
 
+    This method assumes fully concentrated sunlight.
+    """
+    electron_energy = constants.q * voltage
+
+    solar_flux = uibei(2, bandgap, temp_sun, 0)
+    solar_cell_flux = uibei(2, bandgap, temp_sun, electron_energy)
+
+    return electron_energy * (solar_flux - solar_cell_flux)
