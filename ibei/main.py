@@ -47,6 +47,7 @@ def bb_rad_power(temp):
     """
     Blackbody radiant power (Stefan-Boltzmann).
     """
+    temp = units.Quantity(temp, "K")
     return constants.sigma_sb * temp**4
 
 
