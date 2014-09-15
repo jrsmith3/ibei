@@ -62,7 +62,7 @@ def devos_power(bandgap, temp_sun, temp_planet, voltage):
     electron_energy = constants.e * voltage
 
     solar_flux = uibei(2, bandgap, temp_sun, 0)
-    solar_cell_flux = uibei(2, bandgap, temp_sun, electron_energy)
+    solar_cell_flux = uibei(2, bandgap, temp_planet, electron_energy)
 
     return electron_energy * (solar_flux - solar_cell_flux)
 
