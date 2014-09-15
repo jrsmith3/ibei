@@ -34,7 +34,7 @@ def uibei(order, energy_lo, temp, chem_potential):
     for indx in range(1, order + 2):
         index = order - indx + 1
         expt = (reduced_chem_potential - reduced_energy_lo).decompose()
-        real_arg = np.exp(expt)
+        real_arg = np.exp(expt.value)
 
         term = reduced_energy_lo**index * polylog(indx, real_arg) / np.math.factorial(index)
 
