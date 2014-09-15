@@ -51,3 +51,11 @@ def devos_power(bandgap, temp_sun, temp_planet, voltage):
     solar_cell_flux = uibei(2, bandgap, temp_sun, electron_energy)
 
     return electron_energy * (solar_flux - solar_cell_flux)
+
+def sq_power(bandgap, temp_sun):
+    """
+    Power calculated according to Shockley & Queisser Eq. 2.4. (10.1063/1.1736034).
+    """
+    solar_flux = uibei(2, bandgap, temp_sun, 0)
+
+    return bandgap * solar_flux
