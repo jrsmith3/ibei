@@ -68,3 +68,12 @@ def sq_power(bandgap, temp_sun):
     solar_flux = uibei(2, bandgap, temp_sun, 0)
 
     return bandgap * solar_flux
+
+def sq_efficiency(bandgap, temp_sun):
+    """
+    Efficiency calculated according to Shockley & Queisser Eq. 2.8. (10.1063/1.1736034).
+    """
+    cell_power = sq_power(bandgap, temp_sun)
+    solar_power = bb_rad_power(temp_sun)
+
+    return cell_power/solar_power
