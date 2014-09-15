@@ -57,6 +57,8 @@ def devos_power(bandgap, temp_sun, temp_planet, voltage):
 
     This method assumes fully concentrated sunlight.
     """
+    voltage = units.Quantity(voltage, "V")
+
     electron_energy = constants.q * voltage
 
     solar_flux = uibei(2, bandgap, temp_sun, 0)
