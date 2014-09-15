@@ -71,7 +71,9 @@ def devos_efficiency(bandgap, temp_sun, temp_planet, voltage):
     cell_power = devos_power(bandgap, temp_sun, temp_planet, voltage)
     solar_power = bb_rad_power(temp_sun)
 
-    return cell_power/solar_power
+    efficiency = cell_power/solar_power
+
+    return efficiency.decompose().value
 
 def sq_power(bandgap, temp_sun):
     """
@@ -91,4 +93,6 @@ def sq_efficiency(bandgap, temp_sun):
     cell_power = sq_power(bandgap, temp_sun)
     solar_power = bb_rad_power(temp_sun)
 
-    return cell_power/solar_power
+    efficiency = cell_power/solar_power
+
+    return efficiency.decompose().value
