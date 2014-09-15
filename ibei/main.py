@@ -17,6 +17,10 @@ def uibei(order, energy_lo, temp, chem_potential):
 
     Note that the float quantities above can also be astropy.units.Quantity.
     """
+    energy_lo = units.Quantity(energy_lo, "eV")
+    temp = units.Quantity(temp, "K")
+    chem_potential = units.Quantity(chem_potential, "eV")
+
     kT = temp * constants.k_B
 
     reduced_energy_lo = energy_lo / kT
