@@ -21,11 +21,15 @@ def uibei(order, energy_lo, temp, chem_potential):
     summand = 0
 
     for indx in range(1, order + 2):
+        index = order - indx + 1
         expt = (reduced_chem_potential - reduced_energy_lo).decompose()
-        term = reduced_energy_lo**(order - indx + 1) * polylog(indx, np.exp(expt)) / np.math.factorial(order - indx + 1)
+        real_arg = np.exp(expt)
+
+        term = reduced_energy_lo**index * polylog(indx, real_arg) / np.math.factorial(index)
+
         summand += term
 
-    return summand
+    return prefactor * summand
 
 
 def bb_rad_power(temp):
