@@ -77,6 +77,9 @@ def sq_power(bandgap, temp_sun):
     """
     Power calculated according to Shockley & Queisser Eq. 2.4. (10.1063/1.1736034).
     """
+    bandgap = units.Quantity(bandgap, "eV")
+    temp_sun = units.Quantity(temp_sun, "K")
+
     solar_flux = uibei(2, bandgap, temp_sun, 0)
 
     return bandgap * solar_flux
