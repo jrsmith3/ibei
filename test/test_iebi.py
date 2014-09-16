@@ -21,5 +21,20 @@ class Issues(unittest.TestCase):
         except:
             self.fail("Unit system not initialized.")
 
+    def test_issue_2_devos_efficiency(self):
+        """
+        devos_efficiency unexpectedly raises TypeError for certain args
+
+        >>> bandgap = 1.15
+        >>> temp_sun = 5762.
+        >>> temp_earth = 288.
+        >>> ibei.devos_efficiency(bandgap, temp_sun, temp_earth, 1.2)
+        """
+        try:
+            ibei.devos_efficiency(bandgap, temp_sun, temp_earth, 1.2)
+        except:
+            self.fail("Error raised with arguments.")
+
+
 if __name__ == "__main__":
     pass
