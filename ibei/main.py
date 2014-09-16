@@ -25,6 +25,13 @@ def uibei(order, energy_lo, temp, chem_potential):
 
     [1] Levy, M. Y. and Honsberg, C. (2006) Solid-State Electronics 50(78), 1400 – 1405, 10.1016/j.sse.2006.06.017.
     """
+    if energy_lo < 0:
+        raise ValueError("energy_lo < 0")
+    elif temp < 0:
+        raise ValueError("temp < 0")
+    elif chem_potential < 0:
+        raise ValueError("chem_potential < 0")
+
     energy_lo = units.Quantity(energy_lo, "eV")
     temp = units.Quantity(temp, "K")
     chem_potential = units.Quantity(chem_potential, "eV")
