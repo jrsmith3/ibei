@@ -26,6 +26,20 @@ class Issues(unittest.TestCase):
     #         ibei.devos_efficiency(bandgap, temp_sun, temp_earth, 1.09)
     #     except:
     #         self.fail("Unit system not initialized.")
+    def test_issue_3_DeVosSolarcell(self):
+        """
+        Inconsistent units cause exception when chem_potential > energy_lo.
+        """
+        ip = {"temp_sun": 5762,
+              "temp_planet": 288,
+              "bandgap": 0.1,
+              "voltage": 0.5,}
+        sc = ibei.DeVosSolarcell(ip)
+        try:
+            sc.calc_power_density()
+        except:
+            self.fail("Succumbing to issue #3.")
+
 
 class SBSolarcellCalculatorsReturnUnits(unittest.TestCase):
     """
