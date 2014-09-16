@@ -101,12 +101,31 @@ class SQSolarcell(object):
 
         return dict(zip(physical_prop_names, physical_prop_vals))
 
-def bb_rad_power(temp):
-    """
-    Blackbody radiant power (Stefan-Boltzmann).
-    """
-    temp = units.Quantity(temp, "K")
-    return constants.sigma_sb * temp**4
+    def calc_blackbody_radiant_power_density(self):
+        """
+        Stefan-Boltzmann radiant power density from sun
+
+        The Stefan-Boltzmann radiant power density is given by 
+
+        $W = \sigma T^{4}$
+
+        where
+
+        $\sigma = \frac{2 \pi^{5} k^{4}}{15 c^{2} h^{3}}
+
+        and
+
+        * $T$: Solar temperature
+        * $k$: Boltzmann's constant
+        * $h$: Planck's constant
+        * $c$: Speed of light in vacuum
+
+        This method returns values of type `astropy.units.Quantity` with units of [W m^-2].
+        """
+        radiant_power_density = constants.sigma_sb * self.temp_sun**4
+
+        return radiant_power_density.to("W/m2")
+
 
 
 def devos_power(bandgap, temp_sun, temp_planet, voltage):
