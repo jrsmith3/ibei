@@ -130,7 +130,10 @@ class SQSolarcell(object):
 
         The output power density is calculated according to a slight modification of Shockley & Queisser's Eq. 2.4. This method returns values of type `astropy.units.Quantity` with units of [W m^-2].
         """
-        solar_flux = uibei(2, self.bandgap, self.temp_sun, 0)
+        if self.bandgap == 0:
+            solar_flux = units.Quantity(0., "1/(m2*s)")
+        else:
+            solar_flux = uibei(2, self.bandgap, self.temp_sun, 0)
         power_density = self.bandgap * solar_flux
 
         return power_density.to("W/m^2")
