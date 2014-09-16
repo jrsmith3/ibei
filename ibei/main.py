@@ -4,6 +4,7 @@ import numpy as np
 from astropy import constants
 from astropy import units
 from sympy.mpmath import polylog
+from electrode import PhysicalProperty, find_PhysicalProperty
 
 
 def uibei(order, energy_lo, temp, chem_potential):
@@ -60,6 +61,45 @@ def uibei(order, energy_lo, temp, chem_potential):
 
     return prefactor * summand
 
+
+class SQSolarcell(object):
+    """
+    Shockley-Queisser single-junction solar cell
+
+    This class implements a solar cell as described by Shockley and Queisser [1].
+
+    An SQSolarcell is instantiated with a dict having keys identical to the class's public data attributes. Each key's value must satisfy the constraints noted with the corresponding public data attribute. Dictionary values can be some kind of numeric type or of type `astropy.units.Quantity` so long as the units are compatible with what's listed.
+
+    All numerical methods return data of type astropy.units.Quantity.
+
+    [1] Shockley, W. and Queisser, H. J. (1961) Journal of Applied Physics 32(3), 510–519, 10.1063/1.1736034. 
+    """
+
+    temp_sun = PhysicalProperty(unit = "K", lo_bnd = 0)
+    """
+    Solar temperature > 0 [K]
+    """
+
+    bandgap = PhysicalProperty(unit = "eV", lo_bnd = 0)
+    """
+    Bandgap of single homojunction > 0 [eV]
+    """
+
+    def __init__(self, params):
+        for attr in find_PhysicalProperty(self):
+            setattr(self, attr, params[attr])
+
+    def __repr__(self):
+        return str(self._to_dict())
+
+    def _to_dict(self):
+        """
+        Return a dictionary representation of the current object.
+        """
+        physical_prop_names = find_PhysicalProperty(self)
+        physical_prop_vals = [getattr(self, prop) for prop in physical_prop_names]
+
+        return dict(zip(physical_prop_names, physical_prop_vals))
 
 def bb_rad_power(temp):
     """
