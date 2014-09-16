@@ -181,8 +181,13 @@ class DeVosSolarcell(SQSolarcell):
         This method returns values of type `astropy.units.Quantity` with units of [W m^-2].
         """
         electron_energy = constants.e.si * self.voltage
-        solar_flux = uibei(2, self.bandgap, self.temp_sun, 0)
-        solar_cell_flux = uibei(2, self.bandgap, self.temp_planet, electron_energy)
+
+        if self.bandgap == 0:
+            solar_flux = units.Quantity(0., "1/(m2*s)")
+            solar_cell_flux = units.Quantity(0., "1/(m2*s)")
+        else:
+            solar_flux = uibei(2, self.bandgap, self.temp_sun, 0)
+            solar_cell_flux = uibei(2, self.bandgap, self.temp_planet, electron_energy)
         power_density = electron_energy * (solar_flux - solar_cell_flux)
 
         return power_density.to("W/m^2")
