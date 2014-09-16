@@ -92,7 +92,26 @@ class CalculatorsArgsOutsideConstraints(unittest.TestCase):
     """
     Tests calling with args are outside constraints.
     """
-    pass
+    def test_uibei_energy_lo(self):
+        """
+        uibei should raise UnitsError for energy_lo values < 0.
+        """
+        energy_lo = -1.
+        self.assertRaises(ValueError, ibei.uibei, 2, energy_lo, temp_sun, 0.)
+
+    def test_uibei_temp(self):
+        """
+        uibei should raise UnitsError for temp values < 0.
+        """
+        temp = -1.
+        self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp, 0.)
+
+    def test_uibei_chem_potential(self):
+        """
+        uibei should raise UnitsError for chem_potential values < 0.
+        """
+        cp = -1.
+        self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp_sun, cp)
 
 
 if __name__ == "__main__":
