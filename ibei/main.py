@@ -42,11 +42,11 @@ def uibei(order, energy_lo, temp, chem_potential):
     reduced_energy_lo = energy_lo / kT
     reduced_chem_potential = chem_potential / kT
 
-    if reduced_chem_potential > reduced_energy_lo:
-        return 0.
-
     prefactor = (2 * np.pi * np.math.factorial(order) * kT**(order + 1)) / \
         (constants.h**3 * constants.c**2)
+
+    if reduced_chem_potential > reduced_energy_lo:
+        return 0 * prefactor
 
     summand = 0
     expt = (reduced_chem_potential - reduced_energy_lo).decompose()
