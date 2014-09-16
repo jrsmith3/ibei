@@ -47,5 +47,14 @@ class SBSolarcellCalculatorsReturnUnits(unittest.TestCase):
         self.assertEqual(tested_unit, target_unit)
 
 
+    def test_calc_power_density(self):
+        """
+        calc_power_density should return value with unit of W m^-2.
+        """
+        tested_unit = self.solarcell.calc_power_density().unit
+        target_unit = units.Unit("W/m2")
+        self.assertEqual(tested_unit, target_unit)
+
+
 if __name__ == "__main__":
     pass
