@@ -22,5 +22,26 @@ class Issues(unittest.TestCase):
             self.fail("Error raised with arguments.")
 
 
+class CalculatorsArgsWrongType(unittest.TestCase):
+    """
+    Tests calling with args of invalid type.
+    """
+    pass
+
+
+class CalculatorsArgsWrongUnits(unittest.TestCase):
+    """
+    Tests calling with args with incorrect units.
+    """
+    pass
+
+
+class CalculatorsArgsOutsideConstraints(unittest.TestCase):
+    """
+    Tests calling with args are outside constraints.
+    """
+    pass
+
+
 if __name__ == "__main__":
     pass
