@@ -10,12 +10,20 @@ def uibei(order, energy_lo, temp, chem_potential):
     """
     Upper incomplete Bose-Einstein integral.
 
-    :param int order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux.
-    :param float energy_lo: Lower bound of integral [eV].
-    :param float temp: Temperature of photon ensemble [K].
-    :param float chem_potential: Chemical potential of photon ensemble [eV].
+    The upper incomplete Bose-Einstein integral is given by (cf. [1]):
+
+    $F_{m}(E_{A},T,\mu) = \frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \frac{1}{\exp \left( \frac{E - \mu}{kT} \right) - 1} dE$
+
+    for condition $\mu < E_{A}$; the value of $F_{m}$ is zero when the previous condition is not met.
+
+    :param int order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux. Corresponds to $m$.
+    :param float energy_lo: Lower bound of integral [eV]. Corresponds to $E_{A}$.
+    :param float temp: Temperature of photon ensemble [K]. Corresponds to $T$.
+    :param float chem_potential: Chemical potential of photon ensemble [eV]. Corresponds to $\mu$.
 
     Note that the float quantities above can also be astropy.units.Quantity.
+
+    [1] Levy, M. Y. and Honsberg, C. (2006) Solid-State Electronics 50(78), 1400 – 1405, 10.1016/j.sse.2006.06.017.
     """
     energy_lo = units.Quantity(energy_lo, "eV")
     temp = units.Quantity(temp, "K")
@@ -25,6 +33,9 @@ def uibei(order, energy_lo, temp, chem_potential):
 
     reduced_energy_lo = energy_lo / kT
     reduced_chem_potential = chem_potential / kT
+
+    if reduced_chem_potential > reduced_energy_lo:
+        return 0.
 
     prefactor = (2 * np.pi * np.math.factorial(order) * kT**(order + 1)) / \
         (constants.h**3 * constants.c**2)
