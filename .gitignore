@@ -48,6 +48,9 @@ obj
 # -------------------------------------------------
 *.py[cod]
 
+# virtualenv
+env
+
 # C extensions
 *.so
 
