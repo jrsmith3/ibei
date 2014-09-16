@@ -70,8 +70,6 @@ class SQSolarcell(object):
 
     An SQSolarcell is instantiated with a dict having keys identical to the class's public data attributes. Each key's value must satisfy the constraints noted with the corresponding public data attribute. Dictionary values can be some kind of numeric type or of type `astropy.units.Quantity` so long as the units are compatible with what's listed.
 
-    All numerical methods return data of type astropy.units.Quantity.
-
     [1] Shockley, W. and Queisser, H. J. (1961) Journal of Applied Physics 32(3), 510–519, 10.1063/1.1736034. 
     """
 
@@ -150,29 +148,38 @@ class SQSolarcell(object):
         return efficiency.decompose().value
 
 
-
-def devos_power(bandgap, temp_sun, temp_planet, voltage):
+class DeVosSolarcell(SQSolarcell):
     """
-    Power calculated according to DeVos Eq. 6.4. (9780198513926).
+    DeVos single-junction solar cell
 
-    This method assumes fully concentrated sunlight.
+    This class implements a solar cell as described by DeVos Ch. 6 [1].
+
+    An DeVosSolarcell is instantiated with a dict having keys identical to the class's public data attributes. Each key's value must satisfy the constraints noted with the corresponding public data attribute. Dictionary values can be some kind of numeric type or of type `astropy.units.Quantity` so long as the units are compatible with what's listed.
+
+    [1] DeVos, A., Endoreversible Thermodynamics of Solar Energy Conversion (Oxford University Press, New York, 1992)
     """
-    voltage = units.Quantity(voltage, "V")
 
-    electron_energy = constants.e.si * voltage
-
-    solar_flux = uibei(2, bandgap, temp_sun, 0)
-    solar_cell_flux = uibei(2, bandgap, temp_planet, electron_energy)
-
-    return electron_energy * (solar_flux - solar_cell_flux)
-
-def devos_efficiency(bandgap, temp_sun, temp_planet, voltage):
+    temp_planet = PhysicalProperty(unit = "K", lo_bnd = 0)
     """
-    Efficiency calculated according to DeVos Eqs. 6.4 and prior.
+    Planet temperature > 0 [K]
     """
-    cell_power = devos_power(bandgap, temp_sun, temp_planet, voltage)
-    solar_power = bb_rad_power(temp_sun)
 
-    efficiency = cell_power/solar_power
+    voltage = PhysicalProperty(unit = "V")
+    """
+    Bias voltage [V]
+    """
 
-    return efficiency.decompose().value
+    def calc_power_density(self):
+        """
+        Solar cell power density
+
+        The output power density is calculated according to DeVos's Eq. 6.4. Note that this expression assumes fully concentrated sunlight and is therefore not completely general. 
+
+        This method returns values of type `astropy.units.Quantity` with units of [W m^-2].
+        """
+        electron_energy = constants.e.si * self.voltage
+        solar_flux = uibei(2, self.bandgap, self.temp_sun, 0)
+        solar_cell_flux = uibei(2, self.bandgap, self.temp_planet, electron_energy)
+        power_density = electron_energy * (solar_flux - solar_cell_flux)
+
+        return power_density.to("W/m^2")
