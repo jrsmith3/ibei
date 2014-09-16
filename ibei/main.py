@@ -126,6 +126,17 @@ class SQSolarcell(object):
 
         return radiant_power_density.to("W/m2")
 
+    def calc_power_density(self):
+        """
+        Solar cell power density
+
+        The output power density is calculated according to a slight modification of Shockley & Queisser's Eq. 2.4. This method returns values of type `astropy.units.Quantity` with units of [W m^-2].
+        """
+        solar_flux = uibei(2, self.bandgap, self.temp_sun, 0)
+        power_density = self.bandgap * solar_flux
+
+        return power_density.to("W/m^2")
+
 
 
 def devos_power(bandgap, temp_sun, temp_planet, voltage):
@@ -153,17 +164,6 @@ def devos_efficiency(bandgap, temp_sun, temp_planet, voltage):
     efficiency = cell_power/solar_power
 
     return efficiency.decompose().value
-
-def sq_power(bandgap, temp_sun):
-    """
-    Power calculated according to Shockley & Queisser Eq. 2.4. (10.1063/1.1736034).
-    """
-    bandgap = units.Quantity(bandgap, "eV")
-    temp_sun = units.Quantity(temp_sun, "K")
-
-    solar_flux = uibei(2, bandgap, temp_sun, 0)
-
-    return bandgap * solar_flux
 
 def sq_efficiency(bandgap, temp_sun):
     """
