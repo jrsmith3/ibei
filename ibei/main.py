@@ -17,11 +17,11 @@ def uibei(order, energy_lo, temp, chem_potential):
     for condition $\mu < E_{A}$; the value of $F_{m}$ is zero when the previous condition is not met.
 
     :param int order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux. Corresponds to $m$.
-    :param float energy_lo: Lower bound of integral [eV]. Corresponds to $E_{A}$.
-    :param float temp: Temperature of photon ensemble [K]. Corresponds to $T$.
-    :param float chem_potential: Chemical potential of photon ensemble [eV]. Corresponds to $\mu$.
+    :param float energy_lo: Lower bound of integral [eV]. Corresponds to $E_{A}$. Bound: > 0.
+    :param float temp: Temperature of photon ensemble [K]. Corresponds to $T$. Bound: > 0.
+    :param float chem_potential: Chemical potential of photon ensemble [eV]. Corresponds to $\mu$. Bound > 0.
 
-    Note that the float quantities above can also be astropy.units.Quantity.
+    Note that the float quantities above can also be astropy.units.Quantity as long as the units are compatible.
 
     [1] Levy, M. Y. and Honsberg, C. (2006) Solid-State Electronics 50(78), 1400 – 1405, 10.1016/j.sse.2006.06.017.
     """
