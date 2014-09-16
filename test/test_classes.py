@@ -18,14 +18,6 @@ class Issues(unittest.TestCase):
     Tests output types of the calculator methods.
     """
 
-    # def test_issue_1_devos_efficiency(self):
-    #     """
-    #     Unit system needs to be specified for astropy.constants.e to work.
-    #     """
-    #     try:
-    #         ibei.devos_efficiency(bandgap, temp_sun, temp_earth, 1.09)
-    #     except:
-    #         self.fail("Unit system not initialized.")
     def test_issue_3_DeVosSolarcell(self):
         """
         Inconsistent units cause exception when chem_potential > energy_lo.
