@@ -37,7 +37,6 @@ class SBSolarcellCalculatorsReturnUnits(unittest.TestCase):
         """
         self.solarcell = ibei.SQSolarcell(input_params)
 
-
     def test_calc_blackbody_radiant_power_density(self):
         """
         calc_blackbody_radiant_power_density should return value with unit of W m^-2.
@@ -46,7 +45,6 @@ class SBSolarcellCalculatorsReturnUnits(unittest.TestCase):
         target_unit = units.Unit("W/m2")
         self.assertEqual(tested_unit, target_unit)
 
-
     def test_calc_power_density(self):
         """
         calc_power_density should return value with unit of W m^-2.
@@ -54,6 +52,23 @@ class SBSolarcellCalculatorsReturnUnits(unittest.TestCase):
         tested_unit = self.solarcell.calc_power_density().unit
         target_unit = units.Unit("W/m2")
         self.assertEqual(tested_unit, target_unit)
+
+
+class SBSolarcellCalculatorsReturnType(unittest.TestCase):
+    """
+    Tests type of the calculator methods returned values.
+    """
+    def setUp(self):
+        """
+        Initialize SBSolarcell object from input_params
+        """
+        self.solarcell = ibei.SQSolarcell(input_params)
+
+    def test_calc_efficiency(self):
+        """
+        calc_power_density should return value with unit of W m^-2.
+        """
+        self.assertIsInstance(self.solarcell.calc_efficiency(), float)
 
 
 if __name__ == "__main__":
