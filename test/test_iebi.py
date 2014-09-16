@@ -20,3 +20,6 @@ class Issues(unittest.TestCase):
             ibei.devos_efficiency(bandgap, temp_sun, temp_earth, 1.09)
         except:
             self.fail("Unit system not initialized.")
+
+if __name__ == "__main__":
+    pass
