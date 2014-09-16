@@ -53,6 +53,15 @@ class SBSolarcellCalculatorsReturnUnits(unittest.TestCase):
         target_unit = units.Unit("W/m2")
         self.assertEqual(tested_unit, target_unit)
 
+    def test_calc_power_density_zero_bandgap(self):
+        """
+        calc_power_density should return value with unit of W m^-2.
+        """
+        self.solarcell.bandgap = 0
+        tested_unit = self.solarcell.calc_power_density().unit
+        target_unit = units.Unit("W/m2")
+        self.assertEqual(tested_unit, target_unit)
+
 
 class SBSolarcellCalculatorsReturnType(unittest.TestCase):
     """
@@ -69,6 +78,24 @@ class SBSolarcellCalculatorsReturnType(unittest.TestCase):
         calc_power_density should return value with unit of W m^-2.
         """
         self.assertIsInstance(self.solarcell.calc_efficiency(), float)
+
+
+class SBSolarcellCalculatorsReturnValue(unittest.TestCase):
+    """
+    Tests special values of the calculator methods.
+    """
+    def setUp(self):
+        """
+        Initialize SBSolarcell object from input_params
+        """
+        self.solarcell = ibei.SQSolarcell(input_params)
+
+    def test_calc_power_density(self):
+        """
+        calc_power_density should return 0 when bandgap = 0.
+        """
+        self.solarcell.bandgap = 0
+        self.assertEqual(0, self.solarcell.calc_power_density())
 
 
 class DeVosSolarcellCalculatorsReturnUnits(unittest.TestCase):
