@@ -137,6 +137,18 @@ class SQSolarcell(object):
 
         return power_density.to("W/m^2")
 
+    def calc_efficiency(self):
+        """
+        Solar cell efficiency
+
+        The efficiency is calculated according to Shockley & Queisser's Eq. 2.8. This method returns a float.
+        """
+        cell_power = self.calc_power_density()
+        solar_power = self.calc_blackbody_radiant_power_density()
+        efficiency = cell_power/solar_power
+
+        return efficiency.decompose().value
+
 
 
 def devos_power(bandgap, temp_sun, temp_planet, voltage):
@@ -159,17 +171,6 @@ def devos_efficiency(bandgap, temp_sun, temp_planet, voltage):
     Efficiency calculated according to DeVos Eqs. 6.4 and prior.
     """
     cell_power = devos_power(bandgap, temp_sun, temp_planet, voltage)
-    solar_power = bb_rad_power(temp_sun)
-
-    efficiency = cell_power/solar_power
-
-    return efficiency.decompose().value
-
-def sq_efficiency(bandgap, temp_sun):
-    """
-    Efficiency calculated according to Shockley & Queisser Eq. 2.8. (10.1063/1.1736034).
-    """
-    cell_power = sq_power(bandgap, temp_sun)
     solar_power = bb_rad_power(temp_sun)
 
     efficiency = cell_power/solar_power
