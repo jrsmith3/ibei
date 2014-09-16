@@ -66,7 +66,26 @@ class CalculatorsArgsWrongUnits(unittest.TestCase):
     """
     Tests calling with args with incorrect units.
     """
-    pass
+    def test_uibei_energy_lo(self):
+        """
+        uibei should raise UnitsError for energy_lo with units not energy.
+        """
+        energy_lo = units.Quantity(1.)
+        self.assertRaises(units.UnitsError, ibei.uibei, 2, energy_lo, temp_sun, 0.)
+
+    def test_uibei_temp(self):
+        """
+        uibei should raise UnitsError for temp with units not temperature.
+        """
+        temp = units.Quantity(1.)
+        self.assertRaises(units.UnitsError, ibei.uibei, 2, bandgap, temp, 0.)
+
+    def test_uibei_chem_potential(self):
+        """
+        uibei should raise UnitsError for chem_potential with units not energy.
+        """
+        cp = units.Quantity(1.)
+        self.assertRaises(units.UnitsError, ibei.uibei, 2, bandgap, temp_sun, cp)
 
 
 class CalculatorsArgsOutsideConstraints(unittest.TestCase):
