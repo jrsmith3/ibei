@@ -9,7 +9,7 @@ temp_earth = 288.
 bandgap = 1.15
 
 input_params = {"temp_sun": temp_sun,
-                "temp_earth": temp_earth,
+                "temp_planet": temp_earth,
                 "bandgap": bandgap,
                 "voltage": 0.5,}
 
@@ -69,6 +69,25 @@ class SBSolarcellCalculatorsReturnType(unittest.TestCase):
         calc_power_density should return value with unit of W m^-2.
         """
         self.assertIsInstance(self.solarcell.calc_efficiency(), float)
+
+
+class DeVosSolarcellCalculatorsReturnUnits(unittest.TestCase):
+    """
+    Tests units of the calculator methods returned values.
+    """
+    def setUp(self):
+        """
+        Initialize DeVosSolarcell object from input_params
+        """
+        self.solarcell = ibei.DeVosSolarcell(input_params)
+
+    def test_calc_power_density(self):
+        """
+        calc_power_density should return value with unit of W m^-2.
+        """
+        tested_unit = self.solarcell.calc_power_density().unit
+        target_unit = units.Unit("W/m2")
+        self.assertEqual(tested_unit, target_unit)
 
 
 if __name__ == "__main__":
