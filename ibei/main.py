@@ -45,7 +45,7 @@ def uibei(order, energy_lo, temp, chem_potential):
     prefactor = (2 * np.pi * np.math.factorial(order) * kT**(order + 1)) / \
         (constants.h**3 * constants.c**2)
 
-    if reduced_chem_potential > reduced_energy_lo:
+    if reduced_chem_potential >= reduced_energy_lo:
         return 0 * prefactor
 
     summand = 0
