@@ -21,6 +21,16 @@ class Issues(unittest.TestCase):
         except:
             self.fail("Error raised with arguments.")
 
+    def test_issue_4(self):
+        """
+        uibei shouldn't fail when energy_lo == chem_potential
+        """
+        try:
+            ibei.uibei(2, 1., 300., 1.)
+        except:
+            self.fail("uibei fails when energy_lo == chem_potential")
+
+
 
 class CalculatorsArgsWrongType(unittest.TestCase):
     """
