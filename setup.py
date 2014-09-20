@@ -15,4 +15,6 @@ setup(name = "ibei",
                      "Intended Audience :: Science/Research",
                      "Topic :: Scientific/Engineering :: Physics",
                      "Natural Language :: English",],
-      install_requires = [],)
+      install_requires = ["numpy",
+                          "sympy",
+                          "astropy"],)
