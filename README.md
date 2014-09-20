@@ -86,3 +86,8 @@ The code is licensed under the MIT license. You can use this code in your projec
 Contributing
 ============
 The repository is hosted on [github](https://github.com/jrsmith3/ibei). Feel free to fork this project and/or submit a pull request. Please notify me of any issues using the [issue tracker](https://github.com/jrsmith3/ibei/issues).
+
+
+Citing
+======
+Github supports a [method of citable code](https://guides.github.com/activities/citable-code/).
