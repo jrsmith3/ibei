@@ -91,3 +91,8 @@ The repository is hosted on [github](https://github.com/jrsmith3/ibei). Feel fre
 Citing
 ======
 Github supports a [method of citable code](https://guides.github.com/activities/citable-code/).
+
+
+API Reference
+=============
+(ADD)
