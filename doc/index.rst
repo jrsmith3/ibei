@@ -96,9 +96,13 @@ Contributing
 ============
 The repository is hosted on `github <https://github.com/jrsmith3/ibei>`_ . Feel free to fork this project and/or submit a pull request. Please notify me of any issues using the `issue tracker <https://github.com/jrsmith3/ibei/issues>`_ .
 
+In the unlikely event that a community forms around this project, please adhere to the [Software Carpentry code of conduct](http://software-carpentry.org/conduct.html).
+
+
 Citing
 ======
 Github supports a `method of citable code <https://guides.github.com/activities/citable-code/>`_ .
+
 
 API Reference
 =============
