@@ -21,7 +21,7 @@ $F_{m}(E_{A},T,\mu) &= \frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \fra
 
 where $E$ is the photon energy, $\mu$ is the photon chemical potential, $E_{A}$ is the lower limit of integration, $T$ is the absolute temperature of the blackbody radiator, $h$ is Planck's constant, $c$ is the speed of light, $k$ is Boltzmann's constant, and $m$ is the integer order of the integration. For a value of $m = 2$, this integral returns the photon particle flux, whereas for $m = 3$, the integral yields the photon power flux.
 
-The `ibei` python module implements a calculation of the upper-incomplete Bose-Einstein integral which is given in terms of the [polylogarithm](https://en.wikipedia.org/wiki/Polylogarithm) function and described by Smith \ref{}. The `ibei` module provides a function, `uibei`, which returns the value of the upper incomplete Bose-Einstein integral as well as two convenience classes for calculating the power density and efficiency of a single-junction solar cell according to Shockley and Queisser \ref{10.1063/1.1736034} and deVos \ref{9780198513926}.
+The `ibei` python module implements a calculation of the upper-incomplete Bose-Einstein integral which is given in terms of the `polylogarithm <https://en.wikipedia.org/wiki/Polylogarithm>`_ function and described by Smith \ref{}. The `ibei` module provides a function, `uibei`, which returns the value of the upper incomplete Bose-Einstein integral as well as two convenience classes for calculating the power density and efficiency of a single-junction solar cell according to Shockley and Queisser \ref{10.1063/1.1736034} and deVos \ref{9780198513926}.
 
 
 Installation
@@ -29,7 +29,7 @@ Installation
 
 Prerequisites
 -------------
-The `ibei` module is implemented in python and depends on [numpy](http://www.numpy.org), [astropy](http://www.astropy.org), and [sympy](http://sympy.org/en/index.html). It isn't required, but I recommend installing [ipython](http://ipython.org) as well. These packages and more are available via Continuum Analytics's [anaconda](http://continuum.io/downloads) distribution. Anaconda is likely the quickest way to get set up with the prerequisites.
+The `ibei` module is implemented in python and depends on `numpy <http://www.numpy.org>`_, `astropy <http://www.astropy.org>`_, and `sympy <http://sympy.org/en/index.html>`_. It isn't required, but I recommend installing `ipython <http://ipython.org>`_ as well. These packages and more are available via Continuum Analytics's `anaconda <http://continuum.io/downloads>`_ distribution. Anaconda is likely the quickest way to get set up with the prerequisites.
 
 ibei installation
 -----------------
@@ -37,7 +37,7 @@ The code isn't on pypi, so you'll have to install from source. There are two way
 
 Zip file install
 ----------------
-Download the most recent copy of the zip file from the [releases](https://github.com/jrsmith3/ibei/releases) page and unzip it. Switch into the directory into which the zip file was uncompressed, then execute the following command at the command line.
+Download the most recent copy of the zip file from the `releases <https://github.com/jrsmith3/ibei/releases>`_ page and unzip it. Switch into the directory into which the zip file was uncompressed, then execute the following command at the command line.
 
     $ python setup.py install
 
@@ -101,13 +101,11 @@ The code is licensed under the MIT license. You can use this code in your projec
 
 Contributing
 ============
-The repository is hosted on [github](https://github.com/jrsmith3/ibei). Feel free to fork this project and/or submit a pull request. Please notify me of any issues using the [issue tracker](https://github.com/jrsmith3/ibei/issues).
-
+The repository is hosted on `github <https://github.com/jrsmith3/ibei>`_ . Feel free to fork this project and/or submit a pull request. Please notify me of any issues using the `issue tracker <https://github.com/jrsmith3/ibei/issues>`_ .
 
 Citing
 ======
-Github supports a [method of citable code](https://guides.github.com/activities/citable-code/).
-
+Github supports a `method of citable code <https://guides.github.com/activities/citable-code/>`_ .
 
 API Reference
 =============
