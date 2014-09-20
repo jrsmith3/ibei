@@ -12,7 +12,7 @@ ibei - Calculator for incomplete Bose-Einstein integral
 
 Scope
 =====
-The Bose-Einstein integral appears when calculating quantities pertaining to photons. Perhaps best known, it appears when calculating the detailed balance limit of a solar cell as described by Shockley and Queisser \ref{10.1063/1.1736034}, but also when calculating the photo-enhanced thermoelectron emission from a material first described by Schwede et.al. \ref{10.1038/nmat2814}.
+The Bose-Einstein integral appears when calculating quantities pertaining to photons. Perhaps best known, it appears when calculating the detailed balance limit of a solar cell as described by Shockley and Queisser :cite:`10.1063/1.1736034` , but also when calculating the photo-enhanced thermoelectron emission from a material first described by Schwede et.al. :cite:`10.1038/nmat2814` .
 
 The upper incomplete Bose-Einstein integral is given by
 
@@ -22,7 +22,7 @@ The upper incomplete Bose-Einstein integral is given by
 
 where :math:`E` is the photon energy, :math:`\mu` is the photon chemical potential, :math:`E_{A}` is the lower limit of integration, :math:`T` is the absolute temperature of the blackbody radiator, :math:`h` is Planck's constant, :math:`c` is the speed of light, :math:`k` is Boltzmann's constant, and :math:`m` is the integer order of the integration. For a value of :math:`m = 2` , this integral returns the photon particle flux, whereas for :math:`m = 3` , the integral yields the photon power flux.
 
-The `ibei` python module implements a calculation of the upper-incomplete Bose-Einstein integral which is given in terms of the `polylogarithm <https://en.wikipedia.org/wiki/Polylogarithm>`_ function and described by Smith \ref{}. The `ibei` module provides a function, `uibei`, which returns the value of the upper incomplete Bose-Einstein integral as well as two convenience classes for calculating the power density and efficiency of a single-junction solar cell according to Shockley and Queisser \ref{10.1063/1.1736034} and deVos \ref{9780198513926}.
+The `ibei` python module implements a calculation of the upper-incomplete Bose-Einstein integral which is given in terms of the `polylogarithm <https://en.wikipedia.org/wiki/Polylogarithm>`_ function and described by Smith :cite:`ADD_CITATION`. The `ibei` module provides a function, `uibei`, which returns the value of the upper incomplete Bose-Einstein integral as well as two convenience classes for calculating the power density and efficiency of a single-junction solar cell according to Shockley and Queisser :cite:`10.1063/1.1736034` and deVos :cite:`9780198513926`.
 
 
 Installation
@@ -61,7 +61,7 @@ Calculate the number of above-bandgap photons from Si at 300K::
     >>> ibei.uibei(2, bandgap, temp, 0.)
     <Quantity 10549122.240303338 1 / (m2 s)>
 
-Verify Shockley and Queisser's result \ref{10.1063/1.1736034} that the efficiency of a silicon solar cell is 44%::
+Verify Shockley and Queisser's result :cite:`10.1063/1.1736034` that the efficiency of a silicon solar cell is 44%::
 
     >>> import ibei
     >>> input_params = {"temp_sun": 6000, "bandgap": 1.1}
@@ -69,7 +69,7 @@ Verify Shockley and Queisser's result \ref{10.1063/1.1736034} that the efficienc
     >>> sc.calc_efficiency()
     0.43866804270206095
 
-Plot efficiency vs. bandgap of a single-junction solar cell as in Shockley and Queisser's Fig. 3 \ref{10.1063/1.1736034}::
+Plot efficiency vs. bandgap of a single-junction solar cell as in Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
 
     >>> import ibei
     >>> import numpy as np
@@ -108,3 +108,8 @@ Github supports a `method of citable code <https://guides.github.com/activities/
 API Reference
 =============
 (ADD)
+
+
+Bibliography
+============
+.. bibliography:: bib.bib
