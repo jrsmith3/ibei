@@ -81,3 +81,8 @@ Plot efficiency vs. bandgap of a single-junction solar cell as in Shockley and Q
 License
 =======
 The code is licensed under the MIT license.
+
+
+Contributing
+============
+The repository is hosted on [github](https://github.com/jrsmith3/ibei). Feel free to fork this project and/or submit a pull request. Please notify me of any issues using the [issue tracker](https://github.com/jrsmith3/ibei/issues).
