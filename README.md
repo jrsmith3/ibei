@@ -76,3 +76,8 @@ Plot efficiency vs. bandgap of a single-junction solar cell as in Shockley and Q
 >>> plt.show()
 
 (ADD FIGURE)
+
+
+License
+=======
+The code is licensed under the MIT license.
