@@ -60,7 +60,7 @@ Calculate the number of above-bandgap photons from Si at 300K::
     >>> ibei.uibei(2, bandgap, temp, 0.)
     <Quantity 10549122.240303338 1 / (m2 s)>
 
-Verify Shockley and Queisser's result \ref{10.1063/1.1736034} that the efficiency of a silicon solar cell has an efficiency of 44%::
+Verify Shockley and Queisser's result \ref{10.1063/1.1736034} that the efficiency of a silicon solar cell is 44%::
 
     >>> import ibei
     >>> input_params = {"temp_sun": 6000, "bandgap": 1.1}
