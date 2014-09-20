@@ -83,7 +83,8 @@ Plot efficiency vs. bandgap of a single-junction solar cell as in Shockley and Q
     ...     efficiencies.append(efficiency)
     >>> plt.plot(bandgaps, efficiencies)
     >>> plt.show()
-    # (ADD FIGURE)
+
+.. image:: _static/eta_vs_eg.png
 
 
 License
