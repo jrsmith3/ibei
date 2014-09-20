@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from astropy import units
 import unittest
-from electrode import PhysicalProperty
+from ibei.physicalproperty import PhysicalProperty
 
 # Classes used in tests
 # =====================

@@ -4,7 +4,7 @@ import numpy as np
 from astropy import constants
 from astropy import units
 from sympy.mpmath import polylog
-from electrode import PhysicalProperty, find_PhysicalProperty
+from physicalproperty import PhysicalProperty, find_PhysicalProperty
 
 
 def uibei(order, energy_lo, temp, chem_potential):

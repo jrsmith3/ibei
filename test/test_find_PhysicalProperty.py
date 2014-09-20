@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from electrode import PhysicalProperty, find_PhysicalProperty
+from ibei.physicalproperty import PhysicalProperty, find_PhysicalProperty
 
 # Classes used in tests
 # =====================
