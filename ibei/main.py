@@ -11,20 +11,20 @@ def uibei(order, energy_lo, temp, chem_potential):
     """
     Upper incomplete Bose-Einstein integral.
 
-    The upper incomplete Bose-Einstein integral is given by (cf. [1]):
+    The upper incomplete Bose-Einstein integral is given by (cf. Levy and Honsberg :cite:`10.1016/j.sse.2006.06.017`):
 
-    $F_{m}(E_{A},T,\mu) = \frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \frac{1}{\exp \left( \frac{E - \mu}{kT} \right) - 1} dE$
+    .. math::
 
-    for condition $\mu < E_{A}$; the value of $F_{m}$ is zero when the previous condition is not met.
+        F_{m}(E_{A},T,\mu) = \\frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \\frac{1}{\exp \left( \\frac{E - \mu}{kT} \\right) - 1} dE 
 
-    :param int order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux. Corresponds to $m$.
-    :param float energy_lo: Lower bound of integral [eV]. Corresponds to $E_{A}$. Bound: > 0.
-    :param float temp: Temperature of photon ensemble [K]. Corresponds to $T$. Bound: > 0.
-    :param float chem_potential: Chemical potential of photon ensemble [eV]. Corresponds to $\mu$. Bound > 0.
+    for condition :math:`\mu < E_{A}`; the value of :math:`F_{m}` is zero when the previous condition is not met.
 
-    Note that the float quantities above can also be astropy.units.Quantity as long as the units are compatible.
+    :param order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux. Corresponds to :math:`m`. Should be an integer.
+    :param energy_lo: Lower bound of integral. Corresponds to :math:`E_{A}`. Bound: > 0, unit: eV. Should be a float.
+    :param temp: Temperature of photon ensemble [K]. Corresponds to :math:`T`. bound: > 0, unit: K. Should be a float.
+    :param chem_potential: Chemical potential of photon ensemble [eV]. Corresponds to :math:`\mu`. bound > 0, unit: eV. Should be a float.
 
-    [1] Levy, M. Y. and Honsberg, C. (2006) Solid-State Electronics 50(78), 1400 – 1405, 10.1016/j.sse.2006.06.017.
+    Note that the float quantities above can also be :class:`astropy.units.Quantity` as long as the units are compatible.
     """
     if energy_lo < 0:
         raise ValueError("energy_lo < 0")
@@ -66,11 +66,9 @@ class SQSolarcell(object):
     """
     Shockley-Queisser single-junction solar cell
 
-    This class implements a solar cell as described by Shockley and Queisser [1].
+    This class implements a solar cell as described by Shockley and Queisser :cite:`10.1063/1.1736034`.
 
-    An SQSolarcell is instantiated with a dict having keys identical to the class's public data attributes. Each key's value must satisfy the constraints noted with the corresponding public data attribute. Dictionary values can be some kind of numeric type or of type `astropy.units.Quantity` so long as the units are compatible with what's listed.
-
-    [1] Shockley, W. and Queisser, H. J. (1961) Journal of Applied Physics 32(3), 510–519, 10.1063/1.1736034. 
+    An :class:`SQSolarcell` is instantiated with a :class:`dict` having keys identical to the class's public data attributes. Each key's value must satisfy the constraints noted with the corresponding public data attribute. Dictionary values can be some kind of numeric type or of type :class:`astropy.units.Quantity` so long as the units are compatible with what's listed.
     """
 
     temp_sun = PhysicalProperty(unit = "K", lo_bnd = 0)
@@ -105,20 +103,22 @@ class SQSolarcell(object):
 
         The Stefan-Boltzmann radiant power density is given by 
 
-        $W = \sigma T^{4}$
+        .. math::
+            W = \sigma T^{4}
 
         where
 
-        $\sigma = \frac{2 \pi^{5} k^{4}}{15 c^{2} h^{3}}
+        .. math::
+            \sigma = \\frac{2 \pi^{5} k^{4}}{15 c^{2} h^{3}}
 
         and
 
-        * $T$: Solar temperature
-        * $k$: Boltzmann's constant
-        * $h$: Planck's constant
-        * $c$: Speed of light in vacuum
+        * :math:`T`: Solar temperature
+        * :math:`k`: Boltzmann's constant
+        * :math:`h`: Planck's constant
+        * :math:`c`: Speed of light in vacuum
 
-        This method returns values of type `astropy.units.Quantity` with units of [W m^-2].
+        This method returns values of type :class:`astropy.units.Quantity` with units of W m^-2.
         """
         radiant_power_density = constants.sigma_sb * self.temp_sun**4
 
@@ -128,7 +128,7 @@ class SQSolarcell(object):
         """
         Solar cell power density
 
-        The output power density is calculated according to a slight modification of Shockley & Queisser's Eq. 2.4. This method returns values of type `astropy.units.Quantity` with units of [W m^-2].
+        The output power density is calculated according to a slight modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq. 2.4. This method returns values of type :class:`astropy.units.Quantity` with units of W m^-2.
         """
         if self.bandgap == 0:
             solar_flux = units.Quantity(0., "1/(m2*s)")
@@ -142,7 +142,7 @@ class SQSolarcell(object):
         """
         Solar cell efficiency
 
-        The efficiency is calculated according to Shockley & Queisser's Eq. 2.8. This method returns a float.
+        The efficiency is calculated according to Shockley & Queisser's :cite:`10.1063/1.1736034` Eq. 2.8. This method returns a :class:`float`.
         """
         cell_power = self.calc_power_density()
         solar_power = self.calc_blackbody_radiant_power_density()
@@ -155,11 +155,9 @@ class DeVosSolarcell(SQSolarcell):
     """
     DeVos single-junction solar cell
 
-    This class implements a solar cell as described by DeVos Ch. 6 [1].
+    This class implements a solar cell as described by DeVos :cite:`9780198513926` Ch. 6.
 
-    An DeVosSolarcell is instantiated with a dict having keys identical to the class's public data attributes. Each key's value must satisfy the constraints noted with the corresponding public data attribute. Dictionary values can be some kind of numeric type or of type `astropy.units.Quantity` so long as the units are compatible with what's listed.
-
-    [1] DeVos, A., Endoreversible Thermodynamics of Solar Energy Conversion (Oxford University Press, New York, 1992)
+    An DeVosSolarcell is instantiated with a :class:`dict` having keys identical to the class's public data attributes. Each key's value must satisfy the constraints noted with the corresponding public data attribute. Dictionary values can be some kind of numeric type or of type :class:`astropy.units.Quantity` so long as the units are compatible with what's listed.
     """
 
     temp_planet = PhysicalProperty(unit = "K", lo_bnd = 0)
@@ -176,9 +174,9 @@ class DeVosSolarcell(SQSolarcell):
         """
         Solar cell power density
 
-        The output power density is calculated according to DeVos's Eq. 6.4. Note that this expression assumes fully concentrated sunlight and is therefore not completely general. 
+        The output power density is calculated according to DeVos's :cite:`9780198513926` Eq. 6.4. Note that this expression assumes fully concentrated sunlight and is therefore not completely general.
 
-        This method returns values of type `astropy.units.Quantity` with units of [W m^-2].
+        This method returns values of type :class:`astropy.units.Quantity` with units of W m^-2.
         """
         electron_energy = constants.e.si * self.voltage
 
