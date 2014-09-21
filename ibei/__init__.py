@@ -7,4 +7,4 @@ Base Library (:mod:`ibei`)
 .. currentmodule:: ibei
 """
 
-from main import *
+from main import uibei, SQSolarcell, DeVosSolarcell
