@@ -22,7 +22,7 @@ The upper incomplete Bose-Einstein integral is given by
 
 where :math:`E` is the photon energy, :math:`\mu` is the photon chemical potential, :math:`E_{A}` is the lower limit of integration, :math:`T` is the absolute temperature of the blackbody radiator, :math:`h` is Planck's constant, :math:`c` is the speed of light, :math:`k` is Boltzmann's constant, and :math:`m` is the integer order of the integration. For a value of :math:`m = 2` , this integral returns the photon particle flux, whereas for :math:`m = 3` , the integral yields the photon power flux.
 
-The `ibei` python module implements a calculation of the upper-incomplete Bose-Einstein integral which is given in terms of the `polylogarithm <https://en.wikipedia.org/wiki/Polylogarithm>`_ function and described by Smith :cite:`ADD_CITATION`. The `ibei` module provides a function, `uibei`, which returns the value of the upper incomplete Bose-Einstein integral as well as two convenience classes for calculating the power density and efficiency of a single-junction solar cell according to Shockley and Queisser :cite:`10.1063/1.1736034` and deVos :cite:`9780198513926`.
+The :mod:`ibei` python module implements a calculation of the upper-incomplete Bose-Einstein integral which is given in terms of the `polylogarithm <https://en.wikipedia.org/wiki/Polylogarithm>`_ function and described by Smith :cite:`ADD_CITATION`. The :mod:`ibei` module provides a function, `uibei`, which returns the value of the upper incomplete Bose-Einstein integral as well as two convenience classes for calculating the power density and efficiency of a single-junction solar cell according to Shockley and Queisser :cite:`10.1063/1.1736034` and deVos :cite:`9780198513926`.
 
 
 Installation
@@ -30,7 +30,7 @@ Installation
 
 Prerequisites
 -------------
-The `ibei` module is implemented in python and depends on `numpy <http://www.numpy.org>`_, `astropy <http://www.astropy.org>`_, and `sympy <http://sympy.org/en/index.html>`_. It isn't required, but I recommend installing `ipython <http://ipython.org>`_ as well. These packages and more are available via Continuum Analytics's `anaconda <http://continuum.io/downloads>`_ distribution. Anaconda is likely the quickest way to get set up with the prerequisites.
+The :mod:`ibei` module is implemented in python and depends on `numpy <http://www.numpy.org>`_, `astropy <http://www.astropy.org>`_, and `sympy <http://sympy.org/en/index.html>`_. It isn't required, but I recommend installing `ipython <http://ipython.org>`_ as well. These packages and more are available via Continuum Analytics's `anaconda <http://continuum.io/downloads>`_ distribution. Anaconda is likely the quickest way to get set up with the prerequisites.
 
 ibei installation
 -----------------
