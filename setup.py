@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from distutils.core import setup
+import ibei
 
 setup(name = "ibei",
-      version = "0.0.2",
+      version = ibei.__version__,
       author = "Joshua Ryan Smith",
       author_email = "joshua.r.smith@gmail.com",
       packages = ["ibei"],
