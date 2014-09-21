@@ -90,7 +90,7 @@ Plot efficiency vs. bandgap of a single-junction solar cell as in Shockley and Q
 
 License
 =======
-The code is licensed under the MIT license. You can use this code in your project without telling me, but it would be great to hear about who's using the code. You can reach me at joshua.r.smith@gmail.com.
+The code is licensed under the `MIT license <http://opensource.org/licenses/MIT>`_. You can use this code in your project without telling me, but it would be great to hear about who's using the code. You can reach me at joshua.r.smith@gmail.com.
 
 
 Contributing
