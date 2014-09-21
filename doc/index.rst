@@ -97,7 +97,7 @@ Contributing
 ============
 The repository is hosted on `github <https://github.com/jrsmith3/ibei>`_ . Feel free to fork this project and/or submit a pull request. Please notify me of any issues using the `issue tracker <https://github.com/jrsmith3/ibei/issues>`_ .
 
-In the unlikely event that a community forms around this project, please adhere to the [Software Carpentry code of conduct](http://software-carpentry.org/conduct.html).
+In the unlikely event that a community forms around this project, please adhere to the `Python Community code of conduct <https://www.python.org/psf/codeofconduct/>`_.
 
 Version numbers follow the `semver <http://semver.org>`_ rubric.
 
