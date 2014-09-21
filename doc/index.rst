@@ -99,6 +99,8 @@ The repository is hosted on `github <https://github.com/jrsmith3/ibei>`_ . Feel 
 
 In the unlikely event that a community forms around this project, please adhere to the [Software Carpentry code of conduct](http://software-carpentry.org/conduct.html).
 
+Version numbers follow the `semver <http://semver.org>`_ rubric.
+
 
 Citing
 ======
