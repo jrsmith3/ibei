@@ -109,7 +109,10 @@ Github supports a `method of citable code <https://guides.github.com/activities/
 
 API Reference
 =============
-(ADD)
+.. toctree::
+    :maxdepth: 2
+
+    api
 
 
 Bibliography
