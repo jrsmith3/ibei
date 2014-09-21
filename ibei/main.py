@@ -19,10 +19,11 @@ def uibei(order, energy_lo, temp, chem_potential):
 
     for condition :math:`\mu < E_{A}`; the value of :math:`F_{m}` is zero when the previous condition is not met.
 
-    :param order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux. Corresponds to :math:`m`. Should be an integer.
-    :param energy_lo: Lower bound of integral. Corresponds to :math:`E_{A}`. Bound: > 0, unit: eV. Should be a float.
-    :param temp: Temperature of photon ensemble [K]. Corresponds to :math:`T`. bound: > 0, unit: K. Should be a float.
-    :param chem_potential: Chemical potential of photon ensemble [eV]. Corresponds to :math:`\mu`. bound > 0, unit: eV. Should be a float.
+    :param int order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux. Corresponds to :math:`m`.
+    :param float energy_lo: Lower bound of integral > 0 [eV]. Corresponds to :math:`E_{A}`.
+    :param float temp: Temperature of photon ensemble > 0 [K]. Corresponds to :math:`T`.
+    :param float chem_potential: Chemical potential of photon ensemble > 0 [eV]. Corresponds to :math:`\mu`.
+    :rtype: :class:`astropy.units.Quantity`
 
     Note that the float quantities above can also be :class:`astropy.units.Quantity` as long as the units are compatible.
     """
@@ -118,7 +119,7 @@ class SQSolarcell(object):
         * :math:`h`: Planck's constant
         * :math:`c`: Speed of light in vacuum
 
-        This method returns values of type :class:`astropy.units.Quantity` with units of W m^-2.
+        This method returns values of type :class:`astropy.units.Quantity` with units of [W m^-2].
         """
         radiant_power_density = constants.sigma_sb * self.temp_sun**4
 
@@ -128,7 +129,7 @@ class SQSolarcell(object):
         """
         Solar cell power density
 
-        The output power density is calculated according to a slight modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq. 2.4. This method returns values of type :class:`astropy.units.Quantity` with units of W m^-2.
+        The output power density is calculated according to a slight modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq. 2.4. This method returns values of type :class:`astropy.units.Quantity` with units of [W m^-2].
         """
         if self.bandgap == 0:
             solar_flux = units.Quantity(0., "1/(m2*s)")
@@ -176,7 +177,7 @@ class DeVosSolarcell(SQSolarcell):
 
         The output power density is calculated according to DeVos's :cite:`9780198513926` Eq. 6.4. Note that this expression assumes fully concentrated sunlight and is therefore not completely general.
 
-        This method returns values of type :class:`astropy.units.Quantity` with units of W m^-2.
+        This method returns values of type :class:`astropy.units.Quantity` with units of [W m^-2].
         """
         electron_energy = constants.e.si * self.voltage
 
