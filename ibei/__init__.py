@@ -9,4 +9,4 @@ Base Library (:mod:`ibei`)
 
 from main import uibei, SQSolarcell, DeVosSolarcell
 
-__version__ = "1.0.0"
+__version__ = "1.0.2"
