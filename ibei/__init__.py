@@ -7,6 +7,8 @@ Base Library (:mod:`ibei`)
 .. currentmodule:: ibei
 """
 
-from main import uibei, SQSolarcell, DeVosSolarcell
+from uibei import uibei
+from sqsolarcell import SQSolarcell
+from devossolarcell import DeVosSolarcell
 
 __version__ = "1.0.2"
