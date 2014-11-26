@@ -4,7 +4,7 @@ import numpy as np
 from astropy import constants, units
 from sympy.mpmath import polylog
 from physicalproperty import PhysicalProperty, find_PhysicalProperty
-from ibei import SQSolarcell
+from ibei import uibei, SQSolarcell
 
 
 class DeVosSolarcell(SQSolarcell):
