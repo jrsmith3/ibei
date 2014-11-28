@@ -61,4 +61,3 @@ def find_PhysicalProperty(obj):
                 physical_prop_names.append(attr)
 
     return sorted(physical_prop_names)
-    
