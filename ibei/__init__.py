@@ -11,4 +11,4 @@ from uibei import uibei
 from sqsolarcell import SQSolarcell
 from devossolarcell import DeVosSolarcell
 
-__version__ = "1.0.3"
+__version__ = "1.0.4"
