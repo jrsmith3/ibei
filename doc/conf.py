@@ -14,6 +14,13 @@
 
 import sys
 import os
+import mock
+
+# Set up some mocks so sphinx can build the docs without having the
+# dependencies installed.
+MOCK_MODULES = ["numpy", "astropy", "sympy", "sympy.mpmath", "physicalproperty"]
+for mod_name in MOCK_MODULES:
+    sys.modules[mod_name] = mock.MagicMock()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
