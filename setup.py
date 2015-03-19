@@ -18,4 +18,5 @@ setup(name="ibei",
                    "Natural Language :: English", ],
       install_requires=["numpy",
                         "sympy",
-                        "astropy"],)
+                        "astropy",
+                        "physicalproperty"],)
