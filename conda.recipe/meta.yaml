@@ -14,13 +14,13 @@ requirements:
         - numpy
         - astropy
         - sympy
-        - jrsmith3/physicalproperty
+        - physicalproperty
     run:
         - python
         - numpy
         - astropy
         - sympy
-        - jrsmith3/physicalproperty
+        - physicalproperty
 
 test:
     files:
