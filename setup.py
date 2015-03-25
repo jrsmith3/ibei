@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup
-import ibei
+execfile("ibei/version.py")
 
 setup(name="ibei",
-      version=ibei.__version__,
+      version=__version__,
       author="Joshua Ryan Smith",
       author_email="joshua.r.smith@gmail.com",
-      packages=["ibei", "physicalproperty"],
+      packages=["ibei"],
       url="https://github.com/jrsmith3/ibei",
       description="Calculator for incomplete Bose-Einstein integral",
       classifiers=["Programming Language :: Python",
