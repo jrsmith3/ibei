@@ -30,25 +30,16 @@ Installation
 
 Prerequisites
 -------------
-The :mod:`ibei` module is implemented in python and depends on `numpy <http://www.numpy.org>`_, `astropy <http://www.astropy.org>`_, and `sympy <http://sympy.org/en/index.html>`_. It isn't required, but I recommend installing `ipython <http://ipython.org>`_ as well. These packages and more are available via Continuum Analytics's `anaconda <http://continuum.io/downloads>`_ distribution. Anaconda is likely the quickest way to get set up with the prerequisites.
+The :mod:`ibei` module is implemented in python and depends on:
 
-ibei installation
------------------
-The code isn't on pypi, so you'll have to install from source. There are two ways to do it: 1. downloading and installing from the zip file and 2. installing with pip over git from github. If you don't understand the phrase, "installing over git from github", you want to use the first option.
+* `numpy <http://www.numpy.org>`_
+* `astropy <http://www.astropy.org>`_
+* `sympy <http://sympy.org/en/index.html>`_
+* `physicalproperty <https://physicalproperty.rtfd.org>`_
 
-Zip file install
-----------------
-Download the most recent copy of the zip file from the `releases <https://github.com/jrsmith3/ibei/releases>`_ page and unzip it. Switch into the directory into which the zip file was uncompressed, then execute the following command at the command line.
+Since this package depends on `numpy`, I've eschewed the tradiational pip/pypi approach for packaging and distribution and instead opted for `conda <http://conda.pydata.org/docs/index.html>`_/`binstar <https://binstar.org>`_. I recommend using the most recent release of the `Anaconda scientific python distribution <https://store.continuum.io/cshop/anaconda/>`_ by `Continuum Analytics <https://www.continuum.io>`_ to mitigate the difficulty of installing `numpy` on your system. Once you've installed anaconda, you can install the most recent version of `ibei` like so::
 
-    $ python setup.py install
-
-pip + git + github
-------------------
-If you have pip installed, execute
-
-    $ pip install git+git://github.com/jrsmith3/ibei.git
-
-from the command line.
+    conda install -c jrsmith3 ibei
 
 
 Examples
@@ -104,7 +95,7 @@ Version numbers follow the `semver <http://semver.org>`_ rubric.
 
 Citing
 ======
-Github supports a `method of citable code <https://guides.github.com/activities/citable-code/>`_ .
+TBD
 
 
 API Reference
