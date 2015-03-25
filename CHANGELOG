@@ -1,0 +1,20 @@
+1.0.6
+=====
+Properly package and distribute using conda
+
+The prior version of `ibei`, which was [hosted on
+pypi](https://pypi.python.org/pypi/ibei/), directly included the
+[`physicalproperty`](https://github.com/jrsmith3/physicalproperty)
+code in its codebase. The `physicalproperty` code has been removed
+from this release in favor of an `import`.
+
+`ibei is now available on binstar via conda install since it depends
+`on numpy. New versions will only be distributed on binstar and not
+`pypi due to difficulties installing numpy.
+
+The online documentation has moved to
+[ReadTheDocs](http://ibei.rtfd.org) and is no longer hosted with
+github pages. The documentation has also been edited for clarity.
+
+This package now uses [Travis-CI](https://travis-ci.org/jrsmith3/ibei)
+for continuous integration testing.
