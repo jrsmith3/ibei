@@ -1,0 +1,36 @@
+package:
+    name: ibei
+    # version: x.y.z
+    # The version string is stored in `ibei/version.py`.
+    # `build.sh` includes code to properly incorporate the version
+    # string in the built package.
+
+source:
+    path: ..
+
+requirements:
+    build:
+        - python
+        - numpy
+        - astropy
+        - sympy
+        - jrsmith3/physicalproperty
+    run:
+        - python
+        - numpy
+        - astropy
+        - sympy
+        - jrsmith3/physicalproperty
+
+test:
+    files:
+        - ../test/test_DeVosSolarcell.py
+        - ../test/test_SBSolarcell.py
+        - ../test/test_uiebi.py
+    requires:
+        - nose
+
+about:
+    home: https://github.com/jrsmith3/ibei
+    license: MIT
+    summary: Calculator for incomplete Bose-Einstein integral
