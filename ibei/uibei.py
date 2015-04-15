@@ -45,16 +45,17 @@ def uibei(order, energy_lo, temp, chem_potential):
     prefactor = (2 * np.pi * np.math.factorial(order) * kT**(order + 1)) / \
         (constants.h**3 * constants.c**2)
 
+    expt = (reduced_chem_potential - reduced_energy_lo).decompose()
+    real_arg = np.exp(expt.value)
+
     if reduced_chem_potential == 0 and reduced_energy_lo == 0:
         # Specify this condition just to skip the next condition.
-        pass
+        term = float(polylog(order + 1, real_arg))
+        return term * prefactor
     elif reduced_chem_potential >= reduced_energy_lo:
         return 0 * prefactor
 
     summand = 0
-    expt = (reduced_chem_potential - reduced_energy_lo).decompose()
-    real_arg = np.exp(expt.value)
-
     for indx in range(1, order + 2):
         index = order - indx + 1
 
