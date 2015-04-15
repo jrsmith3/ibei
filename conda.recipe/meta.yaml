@@ -13,6 +13,9 @@ about:
 source:
     git_url: ..
 
+build:
+    string: {{ environ.get('GIT_BUILD_STR', '') }}
+
 requirements:
     build:
         - python
