@@ -11,7 +11,7 @@ about:
     summary: Calculator for incomplete Bose-Einstein integral
 
 source:
-    path: ..
+    git_url: ..
 
 requirements:
     build:
