@@ -5,6 +5,11 @@ package:
     # `build.sh` includes code to properly incorporate the version
     # string in the built package.
 
+about:
+    home: https://github.com/jrsmith3/ibei
+    license: MIT
+    summary: Calculator for incomplete Bose-Einstein integral
+
 source:
     path: ..
 
@@ -29,8 +34,3 @@ test:
         - ../test/test_uiebi.py
     requires:
         - nose
-
-about:
-    home: https://github.com/jrsmith3/ibei
-    license: MIT
-    summary: Calculator for incomplete Bose-Einstein integral
