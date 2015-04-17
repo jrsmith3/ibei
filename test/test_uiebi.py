@@ -30,6 +30,12 @@ class Issues(unittest.TestCase):
         except:
             self.fail("uibei fails when energy_lo == chem_potential")
 
+    def test_issue_31(self):
+        """
+        Passing `energy_lo=0` with `chem_potential=0` should yield nonzero result
+        """
+        energy_flux = ibei.uibei(3, 0., 300., 0.)
+        self.assertGreater(energy_flux, 0)
 
 
 class CalculatorsArgsWrongType(unittest.TestCase):
