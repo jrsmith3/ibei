@@ -8,9 +8,9 @@ pypi](https://pypi.python.org/pypi/ibei/), directly included the
 code in its codebase. The `physicalproperty` code has been removed
 from this release in favor of an `import`.
 
-`ibei is now available on binstar via conda install since it depends
-`on numpy. New versions will only be distributed on binstar and not
-`pypi due to difficulties installing numpy.
+`ibei` is now available on binstar via conda install since it depends
+on `numpy`. New versions will only be distributed on binstar and not
+pypi due to difficulties installing `numpy`.
 
 The online documentation has moved to
 [ReadTheDocs](http://ibei.rtfd.org) and is no longer hosted with
