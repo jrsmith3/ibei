@@ -90,7 +90,7 @@ The repository is hosted on `github <https://github.com/jrsmith3/ibei>`_ . Feel 
 
 In the unlikely event that a community forms around this project, please adhere to the `Python Community code of conduct <https://www.python.org/psf/codeofconduct/>`_.
 
-Version numbers follow the `semver <http://semver.org>`_ rubric.
+Version numbers follow the `PEP440 <https://www.python.org/dev/peps/pep-0440/>`_ rubric. Versions will have three components: major.minor.patch. These components can be understood within the `semver <http://semver.org/>`_ rubric.
 
 
 Citing
