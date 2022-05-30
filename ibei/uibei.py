@@ -2,7 +2,7 @@
 
 import numpy as np
 from astropy import constants, units
-from sympy.mpmath import polylog
+from mpmath import polylog
 from physicalproperty import PhysicalProperty, find_PhysicalProperty
 
 
