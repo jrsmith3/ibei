@@ -2,8 +2,7 @@
 
 import numpy as np
 from astropy import constants, units
-from sympy.mpmath import polylog
-from physicalproperty import PhysicalProperty, find_PhysicalProperty
+from mpmath import polylog
 
 
 def uibei(order, energy_lo, temp, chem_potential):
