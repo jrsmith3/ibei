@@ -1,3 +1,8 @@
+2.0.0
+=====
+* 39: Update for basic compatibility with Python 3.
+
+
 1.0.6
 =====
 Properly package and distribute using conda
