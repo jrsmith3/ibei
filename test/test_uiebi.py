@@ -102,14 +102,14 @@ def test_arg_incompatible_unit(valid_quantity_args, argname, val):
 
 
 @pytest.mark.parametrize("argname", [
-        "energy_lo",
-        "temp",
-        "chem_potential",
+            "energy_lo",
+            "temp",
+            "chem_potential",
         ]
     )
 def test_arg_lt_0(valid_quantity_args, argname):
     """
-    Tests calling with args are outside constraints.
+    Arguments outside constraints raise `ValueError`
     """
     invalid_args = valid_quantity_args.copy()
     invalid_args[argname] *= -1
