@@ -112,13 +112,6 @@ class CalculatorsArgsOutsideConstraints(unittest.TestCase):
     """
     Tests calling with args are outside constraints.
     """
-    def test_uibei_energy_lo(self):
-        """
-        uibei should raise UnitsError for energy_lo values < 0.
-        """
-        energy_lo = -1.
-        self.assertRaises(ValueError, ibei.uibei, 2, energy_lo, temp_sun, 0.)
-
     def test_uibei_temp(self):
         """
         uibei should raise UnitsError for temp values < 0.
@@ -132,6 +125,21 @@ class CalculatorsArgsOutsideConstraints(unittest.TestCase):
         """
         cp = -1.
         self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp_sun, cp)
+
+
+class TestArgsOutsideConstraints():
+    """
+    Tests calling with args are outside constraints.
+    """
+    def test_energy_lo_lt_0(self, valid_quantity_args):
+        """
+        `uibei` should raise `ValueError` for `energy_lo` < 0.
+        """
+        invalid_args = valid_quantity_args.copy()
+        invalid_args["energy_lo"] *= -1
+
+        with pytest.raises(ValueError):
+            val = ibei.uibei(**invalid_args)
 
 
 @pytest.fixture
