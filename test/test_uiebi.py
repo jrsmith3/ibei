@@ -82,30 +82,23 @@ class CalculatorsArgsWrongType(unittest.TestCase):
         self.assertRaises(TypeError, ibei.uibei, [2, bandgap, temp_sun, cp])
 
 
-class CalculatorsArgsWrongUnits(unittest.TestCase):
+@pytest.mark.parametrize("argname,val", [
+            ("energy_lo", units.s),
+            ("temp", units.s),
+            ("chem_potential", units.s),
+        ]
+    )
+def test_arg_incompatible_unit(valid_quantity_args, argname, val):
     """
-    Tests calling with args with incorrect units.
+    Incompatible units raise `astropy.units.UnitConversionError`
     """
-    def test_uibei_energy_lo(self):
-        """
-        uibei should raise UnitsError for energy_lo with units not energy.
-        """
-        energy_lo = units.Quantity(1.)
-        self.assertRaises(units.UnitsError, ibei.uibei, 2, energy_lo, temp_sun, 0.)
+    valid_arg_value = valid_quantity_args[argname].value
 
-    def test_uibei_temp(self):
-        """
-        uibei should raise UnitsError for temp with units not temperature.
-        """
-        temp = units.Quantity(1.)
-        self.assertRaises(units.UnitsError, ibei.uibei, 2, bandgap, temp, 0.)
+    invalid_args = valid_quantity_args.copy()
+    invalid_args[argname] = units.Quantity(valid_arg_value, val)
 
-    def test_uibei_chem_potential(self):
-        """
-        uibei should raise UnitsError for chem_potential with units not energy.
-        """
-        cp = units.Quantity(1.)
-        self.assertRaises(units.UnitsError, ibei.uibei, 2, bandgap, temp_sun, cp)
+    with pytest.raises(units.UnitConversionError):
+        val = ibei.uibei(**invalid_args)
 
 
 @pytest.mark.parametrize("argname", [
