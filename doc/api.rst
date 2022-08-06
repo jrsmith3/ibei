@@ -1,3 +1,3 @@
 .. automodule:: ibei
-    :members: uibei, SQSolarcell, DeVosSolarcell
+    :members: uibei
     

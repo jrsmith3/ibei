@@ -38,7 +38,7 @@ integral returns the photon particle flux, whereas for :math:`m =
 The :mod:`ibei` python module implements a calculation of the
 upper-incomplete Bose-Einstein integral which is given in terms of
 the `polylogarithm <https://en.wikipedia.org/wiki/Polylogarithm>`_
-function and described by Smith :cite:`ADD_CITATION`. The :mod:`ibei`
+function and described by Smith (ADD_CITATION). The :mod:`ibei`
 module provides a function, `uibei`, which returns the value of the
 upper incomplete Bose-Einstein integral as well as two convenience
 classes for calculating the power density and efficiency of a
