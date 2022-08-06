@@ -119,9 +119,6 @@ class TestArgsOutsideConstraints():
             ]
         )
     def test_arg_lt_0(self, valid_quantity_args, argname):
-        """
-        `uibei` should raise `ValueError` for `energy_lo` < 0.
-        """
         invalid_args = valid_quantity_args.copy()
         invalid_args[argname] *= -1
 
