@@ -1,6 +1,5 @@
 ibei - Calculator for incomplete Bose-Einstein integral
 =======================================================
-
 This README is a quickstart. See the [full documentation](https://ibei.readthedocs.org) for more details.
 
 
@@ -11,12 +10,16 @@ The `ibei` python module implements a calculation of the upper-incomplete Bose-E
 
 Installation
 ============
-The `ibei` package is available on binstar.org and can be installed via `conda` since it depends on `numpy` (among other packages). I recommend installing [Anaconda scientific python distribution](https://store.continuum.io/cshop/anaconda/) by [Continuum Analytics](https://www.continuum.io) instead of trying to roll your own `numpy` install.
+This section is subject to change.
 
-Once anaconda and `conda` are installed, installation of `ibei` is simple:
+Download the source, install [`hatch`](https://hatch.pypa.io/latest/),
+and build.
 
-```
-$ conda install -c jrsmith3 ibei
+```bash
+git clone git@github.com:jrsmith3/ibei.git
+pip install hatch
+hatch build
+pip install dist/ibei-1.0.6.tar.gz
 ```
 
 
