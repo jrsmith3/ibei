@@ -1,134 +1,94 @@
 # -*- coding: utf-8 -*-
-import numpy as np
 import ibei
+import pytest
+
 from astropy import units
-import unittest
+from contextlib import nullcontext as does_not_raise
 
-temp_sun = 5762.
-temp_earth = 288.
-bandgap = 1.15
 
-class Issues(unittest.TestCase):
+class TestIssues():
     """
-    Tests output types of the calculator methods.
+    Tests corresponding to issues raised due to bugs
     """
     def test_issue_2_uibei(self):
         """
         Refactor of issue 2 focusing on uibei
         """
-        try:
-            ibei.uibei(2, bandgap, temp_sun, 1.2)
-        except:
-            self.fail("Error raised with arguments.")
+        with does_not_raise():
+            ibei.uibei(2, 1.15, 5762., 1.2)
 
     def test_issue_4(self):
         """
         uibei shouldn't fail when energy_lo == chem_potential
         """
-        try:
+        with does_not_raise():
             ibei.uibei(2, 1., 300., 1.)
-        except:
-            self.fail("uibei fails when energy_lo == chem_potential")
 
     def test_issue_31(self):
         """
         Passing `energy_lo=0` with `chem_potential=0` should yield nonzero result
         """
         energy_flux = ibei.uibei(3, 0., 300., 0.)
-        self.assertGreater(energy_flux, 0)
+        assert energy_flux > 0
 
 
-class CalculatorsArgsWrongType(unittest.TestCase):
+@pytest.mark.parametrize("argname,val", [
+            ("energy_lo", units.s),
+            ("temp", units.s),
+            ("chem_potential", units.s),
+        ]
+    )
+def test_arg_incompatible_unit(valid_quantity_args, argname, val):
     """
-    Tests calling with args of invalid type.
+    Incompatible units raise `astropy.units.UnitConversionError`
     """
-    def test_uibei_order_nonint(self):
-        """
-        uibei should raise TypeError for non-int order.
-        """
-        order = "not even numeric"
-        self.assertRaises(TypeError, ibei.uibei, [order, bandgap, temp_sun, 0.])
+    valid_arg_value = valid_quantity_args[argname].value
 
-    def test_uibei_order_float(self):
-        """
-        uibei should raise TypeError for order of type float.
-        """
-        order = 2.3
-        self.assertRaises(TypeError, ibei.uibei, [order, bandgap, temp_sun, 0.])
+    invalid_args = valid_quantity_args.copy()
+    invalid_args[argname] = units.Quantity(valid_arg_value, val)
 
-    def test_uibei_energy_lo_nonnumeric(self):
-        """
-        uibei should raise TypeError for non-numeric energy_lo.
-        """
-        energy_lo = "non numeric"
-        self.assertRaises(TypeError, ibei.uibei, [2, energy_lo, temp_sun, 0.])
-
-    def test_uibei_temp_nonnumeric(self):
-        """
-        uibei should raise TypeError for non-numeric temp.
-        """
-        temp = "non numeric"
-        self.assertRaises(TypeError, ibei.uibei, [2, bandgap, temp, 0.])
-
-    def test_uibei_chem_potential_nonnumeric(self):
-        """
-        uibei should raise TypeError for non-numeric chem_potential.
-        """
-        cp = "non numeric"
-        self.assertRaises(TypeError, ibei.uibei, [2, bandgap, temp_sun, cp])
+    with pytest.raises(units.UnitConversionError):
+        val = ibei.uibei(**invalid_args)
 
 
-class CalculatorsArgsWrongUnits(unittest.TestCase):
+@pytest.mark.parametrize("argname", [
+            "energy_lo",
+            "temp",
+            "chem_potential",
+        ]
+    )
+def test_arg_lt_0(valid_args, argname):
     """
-    Tests calling with args with incorrect units.
+    Arguments outside constraints raise `ValueError`
     """
-    def test_uibei_energy_lo(self):
-        """
-        uibei should raise UnitsError for energy_lo with units not energy.
-        """
-        energy_lo = units.Quantity(1.)
-        self.assertRaises(units.UnitsError, ibei.uibei, 2, energy_lo, temp_sun, 0.)
+    invalid_args = valid_args.copy()
+    invalid_args[argname] *= -1
 
-    def test_uibei_temp(self):
-        """
-        uibei should raise UnitsError for temp with units not temperature.
-        """
-        temp = units.Quantity(1.)
-        self.assertRaises(units.UnitsError, ibei.uibei, 2, bandgap, temp, 0.)
+    assert invalid_args[argname] < 0
 
-    def test_uibei_chem_potential(self):
-        """
-        uibei should raise UnitsError for chem_potential with units not energy.
-        """
-        cp = units.Quantity(1.)
-        self.assertRaises(units.UnitsError, ibei.uibei, 2, bandgap, temp_sun, cp)
+    with pytest.raises(ValueError):
+        val = ibei.uibei(**invalid_args)
 
 
-class CalculatorsArgsOutsideConstraints(unittest.TestCase):
+# Pytest fixture definitions
+# ==========================
+@pytest.fixture
+def valid_quantity_args():
     """
-    Tests calling with args are outside constraints.
+    Valid arguments for `ibei.uibei` function
     """
-    def test_uibei_energy_lo(self):
-        """
-        uibei should raise UnitsError for energy_lo values < 0.
-        """
-        energy_lo = -1.
-        self.assertRaises(ValueError, ibei.uibei, 2, energy_lo, temp_sun, 0.)
+    args = {
+        "order": 2,
+        "energy_lo": units.Quantity(1.15, units.eV),
+        "temp": units.Quantity(5762., units.K),
+        "chem_potential": units.Quantity(0.5, units.eV),
+    }
 
-    def test_uibei_temp(self):
-        """
-        uibei should raise UnitsError for temp values < 0.
-        """
-        temp = -1.
-        self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp, 0.)
-
-    def test_uibei_chem_potential(self):
-        """
-        uibei should raise UnitsError for chem_potential values < 0.
-        """
-        cp = -1.
-        self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp_sun, cp)
+    return args
 
 
-if __name__ == "__main__":
-    pass
+@pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
+def valid_args(request, valid_quantity_args):
+    args = {key: request.param(val) for key, val in valid_quantity_args.items()}
+
+    return args

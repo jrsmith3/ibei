@@ -9,21 +9,56 @@ def uibei(order, energy_lo, temp, chem_potential):
     """
     Upper incomplete Bose-Einstein integral.
 
-    The upper incomplete Bose-Einstein integral is given by (cf. Levy and Honsberg :cite:`10.1016/j.sse.2006.06.017`):
+    The upper incomplete Bose-Einstein integral is given by the following
+    expression [1]_ for condition :math:`\mu < E_{A}`, and is equal to
+    zero when this condition is not met.
 
     .. math::
 
         F_{m}(E_{A},T,\mu) = \\frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \\frac{1}{\exp \left( \\frac{E - \mu}{kT} \\right) - 1} dE 
 
-    for condition :math:`\mu < E_{A}`; the value of :math:`F_{m}` is zero when the previous condition is not met.
+    The quantities are as follows: :math:`E` is the photon
+    energy, :math:`\mu` is the photon chemical potential, :math:`E_{A}` is
+    the lower limit of integration, :math:`T` is the absolute temperature
+    of the blackbody radiator, :math:`h` is Planck's constant, :math:`c`
+    is the speed of light, :math:`k` is Boltzmann's constant,
+    and :math:`m` is the integer order of the integration. For a value
+    of :math:`m = 2` , this integral returns the photon particle flux,
+    whereas for :math:`m = 3` , the integral yields the photon power
+    flux.
 
-    :param int order: Order of Bose-Einstein integral. A value of 2 yields the particle flux, a value of 3 yields energy flux. Corresponds to :math:`m`.
-    :param float energy_lo: Lower bound of integral > 0 [eV]. Corresponds to :math:`E_{A}`.
-    :param float temp: Temperature of photon ensemble > 0 [K]. Corresponds to :math:`T`.
-    :param float chem_potential: Chemical potential of photon ensemble > 0 [eV]. Corresponds to :math:`\mu`.
-    :rtype: :class:`astropy.units.Quantity`
+    
+    Parameters
+    ----------
+    order: int
+        Order of Bose-Einstein integral. Corresponds to :math:`m`.
+    energy_lo: float or astropy.units.Quantity[units.eV]
+        Lower bound of integral. Corresponds to :math:`E_{A}`.
+    temp: float or astropy.units.Quantity[units.K]
+        Temperature of photon ensemble. Corresponds to :math:`T`.
+    chem_potential: float or astropy.units.Quantity
+        Chemical potential of photon ensemble. Corresponds to:math:`\mu`.
+    
 
-    Note that the float quantities above can also be :class:`astropy.units.Quantity` as long as the units are compatible.
+    Returns
+    -------
+    astropy.units.Quantity
+        Value of upper-incomplete Bose-Einstein integral.
+
+
+    Raises
+    ------
+    ValueError
+        If `energy_lo` <= 0
+    ValueError
+        If `temp` <= 0
+    ValueError
+        If `chem_potential` < 0
+
+
+    References
+    ----------
+    .. [1] :cite:`10.1016/j.sse.2006.06.017`
     """
     if energy_lo < 0:
         raise ValueError("energy_lo < 0")
