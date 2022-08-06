@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 import ibei
 import numpy as np
+import pytest
 import unittest
 
 from astropy import units
 
+
 temp_sun = 5762.
 temp_earth = 288.
 bandgap = 1.15
+
 
 class Issues(unittest.TestCase):
     """
@@ -129,3 +132,18 @@ class CalculatorsArgsOutsideConstraints(unittest.TestCase):
         """
         cp = -1.
         self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp_sun, cp)
+
+
+@pytest.fixture
+def valid_quantity_args():
+    """
+    Valid arguments for `ibei.uibei` function
+    """
+    args = {
+        "order": 2,
+        "energy_lo": units.Quantity(1.15, units.eV),
+        "temp": units.Quantity(5762., units.K),
+        "chem_potential": units.Quantity(0., units.eV),
+    }
+
+    return args
