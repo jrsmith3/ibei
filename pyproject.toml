@@ -1,0 +1,47 @@
+# coding=utf-8
+[build-system]
+requires = [
+  "hatchling"
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "ibei"
+description = 'Calculator for incomplete Bose-Einstein integral'
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+authors = [
+  { name = "Joshua Ryan Smith", email = "joshua.r.smith@gmail.com" },
+]
+keywords = [
+  "thermal radiation",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+  "astropy",
+  "numpy",
+  "physicalproperty",
+  "sympy",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://ibei.readthedocs.io/en/latest/"
+Issues = "https://github.com/jrsmith3/ibei/issues"
+Source = "https://github.com/jrsmith3/ibei"
+
+[tool.hatch.version]
+path = "ibei/version.py"
