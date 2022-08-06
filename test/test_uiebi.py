@@ -6,13 +6,6 @@ from astropy import units
 from contextlib import nullcontext as does_not_raise
 
 
-def test_fail():
-    """
-    This test will fail
-    """
-    assert False
-
-
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
