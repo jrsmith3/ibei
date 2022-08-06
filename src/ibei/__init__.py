@@ -6,5 +6,10 @@ Base Library (:mod:`ibei`)
 .. currentmodule:: ibei
 """
 
-from .version import __version__
 from .uibei import uibei
+
+try:
+    from ._version import __version__
+except ModuleNotFoundError:
+    __version__ = ""
+

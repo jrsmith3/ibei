@@ -27,19 +27,17 @@ The :mod:`ibei` python module implements a calculation of the upper-incomplete B
 
 Installation
 ============
+This section is subject to change.
 
-Prerequisites
--------------
-The :mod:`ibei` module is implemented in python and depends on:
+Download the source, install `hatch <https://hatch.pypa.io/latest>`_
+and build.
 
-* `numpy <http://www.numpy.org>`_
-* `astropy <http://www.astropy.org>`_
-* `sympy <http://sympy.org/en/index.html>`_
-* `physicalproperty <https://physicalproperty.rtfd.org>`_
+.. code-block:: bash
 
-Since this package depends on `numpy`, I've eschewed the tradiational pip/pypi approach for packaging and distribution and instead opted for `conda <http://conda.pydata.org/docs/index.html>`_/`binstar <https://binstar.org>`_. I recommend using the most recent release of the `Anaconda scientific python distribution <https://store.continuum.io/cshop/anaconda/>`_ by `Continuum Analytics <https://www.continuum.io>`_ to mitigate the difficulty of installing `numpy` on your system. Once you've installed anaconda, you can install the most recent version of `ibei` like so::
-
-    conda install -c jrsmith3 ibei
+    git clone git@github.com:jrsmith3/ibei.git
+    pip install hatch
+    hatch build
+    pip install dist/ibei-1.0.6.tar.gz
 
 
 Examples
