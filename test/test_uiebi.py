@@ -1,45 +1,35 @@
 # -*- coding: utf-8 -*-
 import ibei
-import numpy as np
 import pytest
-import unittest
 
 from astropy import units
+from contextlib import nullcontext as does_not_raise
 
 
-temp_sun = 5762.
-temp_earth = 288.
-bandgap = 1.15
-
-
-class Issues(unittest.TestCase):
+class TestIssues():
     """
-    Tests output types of the calculator methods.
+    Tests corresponding to issues raised due to bugs
     """
     def test_issue_2_uibei(self):
         """
         Refactor of issue 2 focusing on uibei
         """
-        try:
-            ibei.uibei(2, bandgap, temp_sun, 1.2)
-        except:
-            self.fail("Error raised with arguments.")
+        with does_not_raise():
+            ibei.uibei(2, 1.15, 5762., 1.2)
 
     def test_issue_4(self):
         """
         uibei shouldn't fail when energy_lo == chem_potential
         """
-        try:
+        with does_not_raise():
             ibei.uibei(2, 1., 300., 1.)
-        except:
-            self.fail("uibei fails when energy_lo == chem_potential")
 
     def test_issue_31(self):
         """
         Passing `energy_lo=0` with `chem_potential=0` should yield nonzero result
         """
         energy_flux = ibei.uibei(3, 0., 300., 0.)
-        self.assertGreater(energy_flux, 0)
+        assert energy_flux > 0
 
 
 @pytest.mark.parametrize("argname,val", [
