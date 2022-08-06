@@ -1,7 +1,9 @@
 # coding=utf-8
 [build-system]
 requires = [
-  "hatchling"
+    "hatchling>=1.4.1",
+    "hatch-vcs",
+    "setuptools>=45",
 ]
 build-backend = "hatchling.build"
 
@@ -44,4 +46,7 @@ Issues = "https://github.com/jrsmith3/ibei/issues"
 Source = "https://github.com/jrsmith3/ibei"
 
 [tool.hatch.version]
-path = "src/ibei/version.py"
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/ibei/_version.py"
