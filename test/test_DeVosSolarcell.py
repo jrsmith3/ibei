@@ -77,7 +77,3 @@ class CalculatorsReturnValue(unittest.TestCase):
         """
         self.solarcell.bandgap = 0
         self.assertEqual(0, self.solarcell.calc_power_density())
-
-
-if __name__ == "__main__":
-    pass

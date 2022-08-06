@@ -128,7 +128,3 @@ class CalculatorsArgsOutsideConstraints(unittest.TestCase):
         """
         cp = -1.
         self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp_sun, cp)
-
-
-if __name__ == "__main__":
-    pass
