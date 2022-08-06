@@ -107,11 +107,11 @@ def test_arg_incompatible_unit(valid_quantity_args, argname, val):
             "chem_potential",
         ]
     )
-def test_arg_lt_0(valid_quantity_args, argname):
+def test_arg_lt_0(valid_args, argname):
     """
     Arguments outside constraints raise `ValueError`
     """
-    invalid_args = valid_quantity_args.copy()
+    invalid_args = valid_args.copy()
     invalid_args[argname] *= -1
 
     assert invalid_args[argname] < 0
@@ -120,6 +120,8 @@ def test_arg_lt_0(valid_quantity_args, argname):
         val = ibei.uibei(**invalid_args)
 
 
+# Pytest fixture definitions
+# ==========================
 @pytest.fixture
 def valid_quantity_args():
     """
@@ -131,5 +133,12 @@ def valid_quantity_args():
         "temp": units.Quantity(5762., units.K),
         "chem_potential": units.Quantity(0.5, units.eV),
     }
+
+    return args
+
+
+@pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
+def valid_args(request, valid_quantity_args):
+    args = {key: request.param(val) for key, val in valid_quantity_args.items()}
 
     return args
