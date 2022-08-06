@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-import numpy as np
 import ibei
-from astropy import units
+import numpy as np
 import unittest
+
+from astropy import units
+
 
 temp_sun = 5762.
 temp_earth = 288.
