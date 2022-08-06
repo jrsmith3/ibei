@@ -108,24 +108,23 @@ class CalculatorsArgsWrongUnits(unittest.TestCase):
         self.assertRaises(units.UnitsError, ibei.uibei, 2, bandgap, temp_sun, cp)
 
 
-class TestArgsOutsideConstraints():
+@pytest.mark.parametrize("argname", [
+        "energy_lo",
+        "temp",
+        "chem_potential",
+        ]
+    )
+def test_arg_lt_0(valid_quantity_args, argname):
     """
     Tests calling with args are outside constraints.
     """
-    @pytest.mark.parametrize("argname", [
-            "energy_lo",
-            "temp",
-            "chem_potential",
-            ]
-        )
-    def test_arg_lt_0(self, valid_quantity_args, argname):
-        invalid_args = valid_quantity_args.copy()
-        invalid_args[argname] *= -1
+    invalid_args = valid_quantity_args.copy()
+    invalid_args[argname] *= -1
 
-        assert invalid_args[argname] < 0
+    assert invalid_args[argname] < 0
 
-        with pytest.raises(ValueError):
-            val = ibei.uibei(**invalid_args)
+    with pytest.raises(ValueError):
+        val = ibei.uibei(**invalid_args)
 
 
 @pytest.fixture
