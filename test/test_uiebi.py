@@ -42,46 +42,6 @@ class Issues(unittest.TestCase):
         self.assertGreater(energy_flux, 0)
 
 
-class CalculatorsArgsWrongType(unittest.TestCase):
-    """
-    Tests calling with args of invalid type.
-    """
-    def test_uibei_order_nonint(self):
-        """
-        uibei should raise TypeError for non-int order.
-        """
-        order = "not even numeric"
-        self.assertRaises(TypeError, ibei.uibei, [order, bandgap, temp_sun, 0.])
-
-    def test_uibei_order_float(self):
-        """
-        uibei should raise TypeError for order of type float.
-        """
-        order = 2.3
-        self.assertRaises(TypeError, ibei.uibei, [order, bandgap, temp_sun, 0.])
-
-    def test_uibei_energy_lo_nonnumeric(self):
-        """
-        uibei should raise TypeError for non-numeric energy_lo.
-        """
-        energy_lo = "non numeric"
-        self.assertRaises(TypeError, ibei.uibei, [2, energy_lo, temp_sun, 0.])
-
-    def test_uibei_temp_nonnumeric(self):
-        """
-        uibei should raise TypeError for non-numeric temp.
-        """
-        temp = "non numeric"
-        self.assertRaises(TypeError, ibei.uibei, [2, bandgap, temp, 0.])
-
-    def test_uibei_chem_potential_nonnumeric(self):
-        """
-        uibei should raise TypeError for non-numeric chem_potential.
-        """
-        cp = "non numeric"
-        self.assertRaises(TypeError, ibei.uibei, [2, bandgap, temp_sun, cp])
-
-
 @pytest.mark.parametrize("argname,val", [
             ("energy_lo", units.s),
             ("temp", units.s),
