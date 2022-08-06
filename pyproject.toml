@@ -32,7 +32,6 @@ classifiers = [
 dependencies = [
   "astropy",
   "numpy",
-  "physicalproperty",
   "sympy",
 ]
 dynamic = ["version"]
