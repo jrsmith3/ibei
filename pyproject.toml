@@ -44,4 +44,4 @@ Issues = "https://github.com/jrsmith3/ibei/issues"
 Source = "https://github.com/jrsmith3/ibei"
 
 [tool.hatch.version]
-path = "ibei/version.py"
+path = "src/ibei/version.py"
