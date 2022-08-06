@@ -1,6 +1,7 @@
 2.0.0
 =====
 * 58: Cosmetic documentation edits.
+* 56: Update Python dependency to 3.10.
 * 48: Replace `conda` with `hatch`.
 * 39: Update for basic compatibility with Python 3.
 
