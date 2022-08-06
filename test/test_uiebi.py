@@ -108,35 +108,24 @@ class CalculatorsArgsWrongUnits(unittest.TestCase):
         self.assertRaises(units.UnitsError, ibei.uibei, 2, bandgap, temp_sun, cp)
 
 
-class CalculatorsArgsOutsideConstraints(unittest.TestCase):
-    """
-    Tests calling with args are outside constraints.
-    """
-    def test_uibei_temp(self):
-        """
-        uibei should raise UnitsError for temp values < 0.
-        """
-        temp = -1.
-        self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp, 0.)
-
-    def test_uibei_chem_potential(self):
-        """
-        uibei should raise UnitsError for chem_potential values < 0.
-        """
-        cp = -1.
-        self.assertRaises(ValueError, ibei.uibei, 2, bandgap, temp_sun, cp)
-
-
 class TestArgsOutsideConstraints():
     """
     Tests calling with args are outside constraints.
     """
-    def test_energy_lo_lt_0(self, valid_quantity_args):
+    @pytest.mark.parametrize("argname", [
+            "energy_lo",
+            "temp",
+            "chem_potential",
+            ]
+        )
+    def test_arg_lt_0(self, valid_quantity_args, argname):
         """
         `uibei` should raise `ValueError` for `energy_lo` < 0.
         """
         invalid_args = valid_quantity_args.copy()
-        invalid_args["energy_lo"] *= -1
+        invalid_args[argname] *= -1
+
+        assert invalid_args[argname] < 0
 
         with pytest.raises(ValueError):
             val = ibei.uibei(**invalid_args)
@@ -151,7 +140,7 @@ def valid_quantity_args():
         "order": 2,
         "energy_lo": units.Quantity(1.15, units.eV),
         "temp": units.Quantity(5762., units.K),
-        "chem_potential": units.Quantity(0., units.eV),
+        "chem_potential": units.Quantity(0.5, units.eV),
     }
 
     return args
