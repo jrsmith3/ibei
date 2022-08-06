@@ -1,14 +1,6 @@
-.. ibei documentation master file, created by
-   sphinx-quickstart on Sat Sep 20 16:05:43 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
+=======================================================
 ibei - Calculator for incomplete Bose-Einstein integral
 =======================================================
-
-.. toctree::
-   :maxdepth: 2
-
 
 Scope
 =====
@@ -38,7 +30,7 @@ integral returns the photon particle flux, whereas for :math:`m =
 The :mod:`ibei` python module implements a calculation of the
 upper-incomplete Bose-Einstein integral which is given in terms of
 the `polylogarithm <https://en.wikipedia.org/wiki/Polylogarithm>`_
-function and described by Smith :cite:`ADD_CITATION`. The :mod:`ibei`
+function and described by Smith (ADD_CITATION). The :mod:`ibei`
 module provides a function, `uibei`, which returns the value of the
 upper incomplete Bose-Einstein integral as well as two convenience
 classes for calculating the power density and efficiency of a
