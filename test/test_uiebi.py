@@ -15,20 +15,20 @@ class TestIssues():
         Refactor of issue 2 focusing on uibei
         """
         with does_not_raise():
-            ibei.uibei(2, 1.15, 5762., 1.2)
+            ibei.models.uibei(2, 1.15, 5762., 1.2)
 
     def test_issue_4(self):
         """
         uibei shouldn't fail when energy_lo == chem_potential
         """
         with does_not_raise():
-            ibei.uibei(2, 1., 300., 1.)
+            ibei.models.uibei(2, 1., 300., 1.)
 
     def test_issue_31(self):
         """
         Passing `energy_lo=0` with `chem_potential=0` should yield nonzero result
         """
-        energy_flux = ibei.uibei(3, 0., 300., 0.)
+        energy_flux = ibei.models.uibei(3, 0., 300., 0.)
         assert energy_flux > 0
 
 
@@ -48,7 +48,7 @@ def test_arg_incompatible_unit(valid_quantity_args, argname, val):
     invalid_args[argname] = units.Quantity(valid_arg_value, val)
 
     with pytest.raises(units.UnitConversionError):
-        val = ibei.uibei(**invalid_args)
+        val = ibei.models.uibei(**invalid_args)
 
 
 @pytest.mark.parametrize("argname", [
@@ -67,7 +67,7 @@ def test_arg_lt_0(valid_args, argname):
     assert invalid_args[argname] < 0
 
     with pytest.raises(ValueError):
-        val = ibei.uibei(**invalid_args)
+        val = ibei.models.uibei(**invalid_args)
 
 
 # Pytest fixture definitions
@@ -75,7 +75,7 @@ def test_arg_lt_0(valid_args, argname):
 @pytest.fixture
 def valid_quantity_args():
     """
-    Valid arguments for `ibei.uibei` function
+    Valid arguments for `ibei.models.uibei` function
     """
     args = {
         "order": 2,
