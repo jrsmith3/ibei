@@ -112,6 +112,16 @@ def _temperature_converter(value):
     return temperature
 
 
+def _int_converter(value):
+    if isinstance(value, str):
+        try:
+            int(value)
+        except ValueError:
+            raise TypeError("Argument must be coercible to type int.")
+
+    return int(value)
+
+
 @attrs.frozen
 class BEI():
     """
@@ -154,7 +164,9 @@ class BEI():
     and the use of `Quantity` objects throughout will expose arithmetic
     implementation errors and unit conversion errors.
     """
-    order: int = attrs.field()
+    order: int = attrs.field(
+            converter=_int_converter
+        )
     energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
             converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
         )
