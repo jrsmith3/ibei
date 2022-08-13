@@ -119,7 +119,7 @@ class BEI():
     chemical_potential:
         Chemical potential of photon ensemble. Corresponds to:math:`\mu`.
     """
-    order = attrs.field()
-    energy_bound = attrs.field()
-    temperature = attrs.field()
-    chemical_potential = attrs.field()
+    order: int = attrs.field()
+    energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field()
+    temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field()
+    chemical_potential: float | astropy.units.Quantity[astropy.units.eV] = attrs.field()
