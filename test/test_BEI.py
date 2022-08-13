@@ -78,6 +78,23 @@ class TestBEIConstructorArgsOutsideConstraints():
             bei = ibei.models.BEI(**invalid_constructor_args)
 
 
+    @pytest.mark.parametrize("argname", [
+                "energy_bound",
+                "temperature",
+                "chemical_potential",
+            ]
+        )
+    def test_arg_lt_0(self, valid_constructor_args, argname):
+        """
+        BEI raises ValueError if arg less than zero
+        """
+        invalid_constructor_args = valid_constructor_args.copy()
+        invalid_constructor_args[argname] *= -1
+
+        with pytest.raises(ValueError):
+            bei = ibei.models.BEI(**invalid_constructor_args)
+
+
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
