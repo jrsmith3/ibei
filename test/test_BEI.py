@@ -67,9 +67,9 @@ class TestBEIConstructorArgsOutsideConstraints():
                 "temperature",
             ]
         )
-    def test_param_eq_0(self, valid_constructor_args, argname):
+    def test_arg_eq_0(self, valid_constructor_args, argname):
         """
-        BEI raises ValueError if param equal to zero
+        BEI raises ValueError if arg equal to zero
         """
         invalid_constructor_args = valid_constructor_args.copy()
         invalid_constructor_args[argname] *= 0
