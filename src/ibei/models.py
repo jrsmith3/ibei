@@ -18,7 +18,7 @@ def uibei(order, energy_lo, temp, chem_potential):
 
     .. math::
 
-        F_{m}(E_{A},T,\mu) = \\frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \\frac{1}{\exp \left( \\frac{E - \mu}{kT} \\right) - 1} dE 
+        F_{m}(E_{A},T,\mu) = \\frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \\frac{1}{\exp \left( \\frac{E - \mu}{kT} \\right) - 1} dE
 
     The quantities are as follows: :math:`E` is the photon
     energy, :math:`\mu` is the photon chemical potential, :math:`E_{A}` is
@@ -30,7 +30,7 @@ def uibei(order, energy_lo, temp, chem_potential):
     whereas for :math:`m = 3` , the integral yields the photon power
     flux.
 
-    
+
     Parameters
     ----------
     order: int
@@ -41,7 +41,7 @@ def uibei(order, energy_lo, temp, chem_potential):
         Temperature of photon ensemble. Corresponds to :math:`T`.
     chem_potential: float or astropy.units.Quantity
         Chemical potential of photon ensemble. Corresponds to:math:`\mu`.
-    
+
 
     Returns
     -------
@@ -126,7 +126,7 @@ def _int_converter(value):
         # ```
         # return int(value)
         # ```
-        # 
+        #
         # I'd not be able to catch this case because the attribute
         # would be assigned to the possibly truncated value.
         raise TypeError("Argument must be coercible to type int without truncation.")
