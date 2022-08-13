@@ -119,6 +119,18 @@ def _int_converter(value):
         except ValueError:
             raise TypeError("Argument must be coercible to type int.")
 
+    elif int(value) != value:
+        # I have to do some validation in this converter because if I were
+        # to simply
+        #
+        # ```
+        # return int(value)
+        # ```
+        # 
+        # I'd not be able to catch this case because the attribute
+        # would be assigned to the possibly truncated value.
+        raise TypeError("Argument must be coercible to type int without truncation.")
+
     return int(value)
 
 
@@ -165,7 +177,7 @@ class BEI():
     implementation errors and unit conversion errors.
     """
     order: int = attrs.field(
-            converter=_int_converter
+            converter=_int_converter,
         )
     energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
             converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
