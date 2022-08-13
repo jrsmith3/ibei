@@ -163,6 +163,22 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
         bei = ibei.models.BEI(**invalid_constructor_args)
 
 
+@pytest.mark.parametrize("val", [
+            "12.2",
+            12.2
+        ]
+    )
+def test_order_arg_not_coercible_to_int(valid_constructor_args, val):
+    """
+    BEI raises TypeError if `order` not int type or not coercible to int without truncation
+    """
+    invalid_constructor_args = valid_constructor_args.copy()
+    invalid_constructor_args["order"] = val
+
+    with pytest.raises(TypeError):
+        bei = ibei.models.BEI(**invalid_constructor_args)
+
+
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
