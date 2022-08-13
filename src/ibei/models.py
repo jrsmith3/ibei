@@ -3,6 +3,7 @@
 import astropy.constants
 import astropy.units
 import attrs
+import functools
 import mpmath
 import numpy as np
 
@@ -102,6 +103,15 @@ def uibei(order, energy_lo, temp, chem_potential):
     return prefactor * summand
 
 
+def _temperature_converter(val):
+    try:
+        temperature = astropy.units.Quantity(val, astropy.units.K)
+    except astropy.units.UnitConversionError:
+        temperature = val.to(astropy.units.K, equivalencies=astropy.units.temperature())
+
+    return temperature
+
+
 @attrs.frozen
 class BEI():
     """
@@ -145,8 +155,13 @@ class BEI():
     implementation errors and unit conversion errors.
     """
     order: int = attrs.field()
-    energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field()
-    temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field()
+    energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
+            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
+        )
+    temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
+            converter=_temperature_converter,
+        )
     chemical_potential: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
             default=0.,
+            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
         )
