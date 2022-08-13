@@ -122,7 +122,7 @@ def valid_constructor_quantity_args():
     return args
 
 
-@pytest.fixture(params=[(lambda x: x), (lambda x: x.value)])
+@pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
 def valid_constructor_args(request, valid_constructor_quantity_args):
     args = {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
 
