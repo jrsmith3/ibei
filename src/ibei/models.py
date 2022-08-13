@@ -158,6 +158,11 @@ class BEI():
         Chemical potential of photon ensemble. Corresponds to:math:`\mu`.
 
 
+    Attributes
+    ----------
+    Same as parameters.
+
+
     Raises
     ------
     These exceptions define constraints on the arguments and attributes.
