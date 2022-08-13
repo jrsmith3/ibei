@@ -103,11 +103,11 @@ def uibei(order, energy_lo, temp, chem_potential):
     return prefactor * summand
 
 
-def _temperature_converter(val):
+def _temperature_converter(value):
     try:
-        temperature = astropy.units.Quantity(val, astropy.units.K)
+        temperature = astropy.units.Quantity(value, astropy.units.K)
     except astropy.units.UnitConversionError:
-        temperature = val.to(astropy.units.K, equivalencies=astropy.units.temperature())
+        temperature = value.to(astropy.units.K, equivalencies=astropy.units.temperature())
 
     return temperature
 
