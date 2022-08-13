@@ -6,6 +6,14 @@ import pytest
 from contextlib import nullcontext as does_not_raise
 
 
+class TestBEIConstructorHappyPath():
+    def test_params_without_default_values(valid_constructor_args):
+        valid_constructor_args.pop("chemical_potential")
+
+        with does_not_raise():
+            bei = ibei.models.BEI(**valid_constructor_args)
+
+
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
@@ -90,5 +98,27 @@ def valid_quantity_args():
 @pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
 def valid_args(request, valid_quantity_args):
     args = {key: request.param(val) for key, val in valid_quantity_args.items()}
+
+    return args
+
+
+@pytest.fixture
+def valid_constructor_quantity_args():
+    """
+    Valid constructor arguments for ibei.models.BEI
+    """
+    args = {
+        "order": 2,
+        "energy_bound": astropy.units.Quantity(1.15, astropy.units.eV),
+        "temperature": astropy.units.Quantity(5762., astropy.units.K),
+        "chemical_potential": astropy.units.Quantity(0.5, astropy.units.eV),
+    }
+
+    return args
+
+
+@pytest.fixture(params=[(lambda x: x), (lambda x: x.value)])
+def valid_constructor_args(request, valid_constructor_quantity_args):
+    args = {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
 
     return args
