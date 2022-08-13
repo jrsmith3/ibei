@@ -7,7 +7,13 @@ from contextlib import nullcontext as does_not_raise
 
 
 class TestBEIConstructorHappyPath():
+    """
+    Circumstances under which BEI instance can be instantiated
+    """
     def test_params_without_default_values(self, valid_constructor_args):
+        """
+        BEI can be instantiated with valid args that don't have defaults
+        """
         valid_constructor_args.pop("chemical_potential")
 
         with does_not_raise():
@@ -15,6 +21,9 @@ class TestBEIConstructorHappyPath():
 
 
     def test_params_with_default_values(self, valid_constructor_args):
+        """
+        BEI can be instantiated with valid args incl. ones with defaults
+        """
         with does_not_raise():
             bei = ibei.models.BEI(**valid_constructor_args)
 
@@ -25,6 +34,9 @@ class TestBEIConstructorHappyPath():
             ]
         )
     def test_params_that_can_equal_zero(self, valid_constructor_args, argname):
+        """
+        BEI can be instantiated with args not constrained to be nonzero
+        """
         valid_constructor_args[argname] = 0
 
         with does_not_raise():
