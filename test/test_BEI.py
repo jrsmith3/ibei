@@ -14,6 +14,11 @@ class TestBEIConstructorHappyPath():
             bei = ibei.models.BEI(**valid_constructor_args)
 
 
+    def test_params_with_default_values(valid_constructor_args):
+        with does_not_raise():
+            bei = ibei.models.BEI(**valid_constructor_args)
+
+
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
