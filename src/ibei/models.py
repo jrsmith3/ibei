@@ -134,6 +134,11 @@ def _int_converter(value):
     return int(value)
 
 
+def _validate_is_scalar(instance, attribute, value):
+    if not value.isscalar:
+        raise TypeError("Attributes must be scalar")
+
+
 @attrs.frozen
 class BEI():
     """
@@ -181,11 +186,20 @@ class BEI():
         )
     energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
             converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
+            validator=[
+                _validate_is_scalar,
+            ]
         )
     temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
             converter=_temperature_converter,
+            validator=[
+                _validate_is_scalar,
+            ]
         )
     chemical_potential: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
             default=0.,
             converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
+            validator=[
+                _validate_is_scalar,
+            ]
         )
