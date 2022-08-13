@@ -56,7 +56,7 @@ class TestBEIConstructorHappyPath():
         valid_constructor_quantity_args[argname] = val
 
         with does_not_raise():
-            bbcavity = ibei.models.BEI(**valid_constructor_quantity_args)
+            bei = ibei.models.BEI(**valid_constructor_quantity_args)
 
 
 class TestBEIConstructorArgsOutsideConstraints():
@@ -93,6 +93,31 @@ class TestBEIConstructorArgsOutsideConstraints():
 
         with pytest.raises(ValueError):
             bei = ibei.models.BEI(**invalid_constructor_args)
+
+
+@pytest.mark.parametrize("argname,val", [
+            ("energy_bound", astropy.units.s),
+            ("temperature", astropy.units.s),
+            ("chemical_potential", astropy.units.s),
+        ]
+    )
+def test_constructor_args_incompatible_units(valid_constructor_quantity_args, argname, val):
+    """
+    BEI raises astropy.units.UnitConversionError if arg has incompatible unit
+
+
+    Notes
+    -----
+    There is only one test in this category so I am implementing it as a
+    function instead of a method on a class.
+    """
+    valid_constructor_arg_value = valid_constructor_quantity_args[argname].value
+
+    invalid_constructor_args = valid_constructor_quantity_args.copy()
+    invalid_constructor_args[argname] = astropy.units.Quantity(valid_constructor_arg_value, val)
+
+    with pytest.raises(astropy.units.UnitConversionError):
+        bei = ibei.models.BEI(**invalid_constructor_args)
 
 
 class TestIssues():
