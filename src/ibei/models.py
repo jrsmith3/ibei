@@ -124,7 +124,9 @@ class BEI():
     Raises
     ------
     TypeError
-        If `order` not int type or not coercible to int without truncation
+        If non-scalar arguments are passed to the constructor.
+    TypeError
+        If `order` not int type or not coercible to int without truncation.
     ValueError
         If `energy_bound` < 0
     ValueError
