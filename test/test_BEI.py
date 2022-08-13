@@ -44,9 +44,9 @@ class TestBEIConstructorHappyPath():
 
 
     @pytest.mark.parametrize("argname,val", [
-                ("energy_bound", units.Quantity(3.20435313e-19, units.J)),
-                ("temperature", units.Quantity(5498.85, units.deg_C)),
-                ("chemical_potential", units.Quantity(1e-19, units.J)),
+                ("energy_bound", astropy.units.Quantity(3.20435313e-19, astropy.units.J)),
+                ("temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
+                ("chemical_potential", astropy.units.Quantity(1e-19, astropy.units.J)),
             ]
         )
     def test_quantity_args_compatible_units(self, valid_constructor_quantity_args, argname, val):
@@ -56,7 +56,7 @@ class TestBEIConstructorHappyPath():
         valid_constructor_quantity_args[argname] = val
 
         with does_not_raise():
-            bbcavity = csbc.models.BBCavity(**valid_constructor_quantity_args)
+            bbcavity = ibei.models.BEI(**valid_constructor_quantity_args)
 
 
 class TestBEIConstructorArgsOutsideConstraints():
