@@ -10,7 +10,7 @@ class TestBEIConstructorHappyPath():
     """
     Circumstances under which BEI instance can be instantiated
     """
-    def test_params_without_default_values(self, valid_constructor_args):
+    def test_args_without_default_values(self, valid_constructor_args):
         """
         BEI can be instantiated with valid args that don't have defaults
         """
@@ -20,7 +20,7 @@ class TestBEIConstructorHappyPath():
             bei = ibei.models.BEI(**valid_constructor_args)
 
 
-    def test_params_with_default_values(self, valid_constructor_args):
+    def test_args_with_default_values(self, valid_constructor_args):
         """
         BEI can be instantiated with valid args incl. ones with defaults
         """
@@ -33,7 +33,7 @@ class TestBEIConstructorHappyPath():
                 "chemical_potential",
             ]
         )
-    def test_params_that_can_equal_zero(self, valid_constructor_args, argname):
+    def test_args_that_can_equal_zero(self, valid_constructor_args, argname):
         """
         BEI can be instantiated with args not constrained to be nonzero
         """
@@ -49,7 +49,7 @@ class TestBEIConstructorHappyPath():
                 ("chemical_potential", units.Quantity(1e-19, units.J)),
             ]
         )
-    def test_quantity_params_compatible_units(self, valid_constructor_quantity_args, argname, val):
+    def test_quantity_args_compatible_units(self, valid_constructor_quantity_args, argname, val):
         """
         BEI can be instantiated with args in compatible units
         """
