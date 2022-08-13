@@ -188,12 +188,14 @@ class BEI():
             converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
             validator=[
                 _validate_is_scalar,
+                attrs.validators.ge(0),
             ]
         )
     temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
             converter=_temperature_converter,
             validator=[
                 _validate_is_scalar,
+                attrs.validators.gt(0),
             ]
         )
     chemical_potential: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
@@ -201,5 +203,6 @@ class BEI():
             converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
             validator=[
                 _validate_is_scalar,
+                attrs.validators.ge(0),
             ]
         )
