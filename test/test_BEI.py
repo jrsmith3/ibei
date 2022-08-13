@@ -19,6 +19,18 @@ class TestBEIConstructorHappyPath():
             bei = ibei.models.BEI(**valid_constructor_args)
 
 
+    @pytest.mark.parametrize("argname", [
+                "energy_bound",
+                "chemical_potential",
+            ]
+        )
+    def test_params_that_can_equal_zero(self, valid_constructor_args, argname):
+        valid_constructor_args[argname] = 0
+
+        with does_not_raise():
+            bei = ibei.models.BEI(**valid_constructor_args)
+
+
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
