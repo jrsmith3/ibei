@@ -122,4 +122,6 @@ class BEI():
     order: int = attrs.field()
     energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field()
     temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field()
-    chemical_potential: float | astropy.units.Quantity[astropy.units.eV] = attrs.field()
+    chemical_potential: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
+            default=0.,
+        )
