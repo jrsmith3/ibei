@@ -59,6 +59,25 @@ class TestBEIConstructorHappyPath():
             bbcavity = csbc.models.BBCavity(**valid_constructor_quantity_args)
 
 
+class TestBEIConstructorArgsOutsideConstraints():
+    """
+    BEI should raise exceptions if args are outside their constraints
+    """
+    @pytest.mark.parametrize("argname", [
+                "temperature",
+            ]
+        )
+    def test_param_eq_0(self, valid_constructor_args, argname):
+        """
+        BEI raises ValueError if param equal to zero
+        """
+        invalid_constructor_args = valid_constructor_args.copy()
+        invalid_constructor_args[argname] *= 0
+
+        with pytest.raises(ValueError):
+            bei = ibei.models.BEI(**invalid_constructor_args)
+
+
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
