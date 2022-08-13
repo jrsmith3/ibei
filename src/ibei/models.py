@@ -123,6 +123,8 @@ class BEI():
 
     Raises
     ------
+    These exceptions define constraints on the arguments and attributes.
+
     TypeError
         If non-scalar arguments are passed to the constructor.
     TypeError
@@ -133,6 +135,14 @@ class BEI():
         If `temperature` <= 0
     ValueError
         If `chemical_potential` < 0
+
+
+    Notes
+    -----
+    Instance attributes of `BEI` objects are of type
+    `astropy.units.Quantity`. Computations involving units can be tricky,
+    and the use of `Quantity` objects throughout will expose arithmetic
+    implementation errors and unit conversion errors.
     """
     order: int = attrs.field()
     energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field()
