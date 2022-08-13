@@ -120,6 +120,31 @@ def test_constructor_args_incompatible_units(valid_constructor_quantity_args, ar
         bei = ibei.models.BEI(**invalid_constructor_args)
 
 
+@pytest.mark.parametrize("argname", [
+            "order",
+            "energy_bound",
+            "temperature",
+            "chemical_potential",
+        ]
+    )
+def test_constructor_args_non_scalar(valid_constructor_args, argname):
+    """
+    BEI raises TypeError if arg is non-scalar
+
+
+    Notes
+    -----
+    There is only one test in this category so I am implementing it as a
+    function instead of a method on a class.
+    """
+    invalid_constructor_args = valid_constructor_args.copy()
+    val = valid_constructor_args[argname]
+    invalid_constructor_args[argname] = [val, val]
+
+    with pytest.raises(TypeError):
+        bei = ibei.models.BEI(**invalid_constructor_args)
+
+
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
