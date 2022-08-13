@@ -7,14 +7,14 @@ from contextlib import nullcontext as does_not_raise
 
 
 class TestBEIConstructorHappyPath():
-    def test_params_without_default_values(valid_constructor_args):
+    def test_params_without_default_values(self, valid_constructor_args):
         valid_constructor_args.pop("chemical_potential")
 
         with does_not_raise():
             bei = ibei.models.BEI(**valid_constructor_args)
 
 
-    def test_params_with_default_values(valid_constructor_args):
+    def test_params_with_default_values(self, valid_constructor_args):
         with does_not_raise():
             bei = ibei.models.BEI(**valid_constructor_args)
 
