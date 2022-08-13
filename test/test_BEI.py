@@ -43,6 +43,22 @@ class TestBEIConstructorHappyPath():
             bei = ibei.models.BEI(**valid_constructor_args)
 
 
+    @pytest.mark.parametrize("argname,val", [
+                ("energy_bound", units.Quantity(3.20435313e-19, units.J)),
+                ("temperature", units.Quantity(5498.85, units.deg_C)),
+                ("chemical_potential", units.Quantity(1e-19, units.J)),
+            ]
+        )
+    def test_quantity_params_compatible_units(self, valid_constructor_quantity_args, argname, val):
+        """
+        BEI can be instantiated with args in compatible units
+        """
+        valid_constructor_quantity_args[argname] = val
+
+        with does_not_raise():
+            bbcavity = csbc.models.BBCavity(**valid_constructor_quantity_args)
+
+
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
