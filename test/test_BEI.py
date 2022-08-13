@@ -59,6 +59,24 @@ class TestBEIConstructorHappyPath():
             bei = ibei.models.BEI(**valid_constructor_quantity_args)
 
 
+    @pytest.mark.parametrize("val", [
+                "12",
+                12.,
+                12.0,
+            ]
+        )
+    def test_order_arg_coercible_to_int(self, valid_constructor_args, val):
+        """
+        BEI can be instantiated with `order` value coercible to int type
+        """
+        assert not isinstance(val, int)
+
+        valid_constructor_args["order"] = val
+
+        with does_not_raise():
+            bei = ibei.models.BEI(**valid_constructor_args)
+
+
 class TestBEIConstructorArgsOutsideConstraints():
     """
     BEI should raise exceptions if args are outside their constraints
