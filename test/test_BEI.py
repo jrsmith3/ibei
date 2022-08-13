@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+import astropy.units
 import ibei
 import pytest
 
-from astropy import units
 from contextlib import nullcontext as does_not_raise
 
 
@@ -33,9 +33,9 @@ class TestIssues():
 
 
 @pytest.mark.parametrize("argname,val", [
-            ("energy_lo", units.s),
-            ("temp", units.s),
-            ("chem_potential", units.s),
+            ("energy_lo", astropy.units.s),
+            ("temp", astropy.units.s),
+            ("chem_potential", astropy.units.s),
         ]
     )
 def test_arg_incompatible_unit(valid_quantity_args, argname, val):
@@ -45,9 +45,9 @@ def test_arg_incompatible_unit(valid_quantity_args, argname, val):
     valid_arg_value = valid_quantity_args[argname].value
 
     invalid_args = valid_quantity_args.copy()
-    invalid_args[argname] = units.Quantity(valid_arg_value, val)
+    invalid_args[argname] = astropy.units.Quantity(valid_arg_value, val)
 
-    with pytest.raises(units.UnitConversionError):
+    with pytest.raises(astropy.units.UnitConversionError):
         val = ibei.models.uibei(**invalid_args)
 
 
@@ -79,9 +79,9 @@ def valid_quantity_args():
     """
     args = {
         "order": 2,
-        "energy_lo": units.Quantity(1.15, units.eV),
-        "temp": units.Quantity(5762., units.K),
-        "chem_potential": units.Quantity(0.5, units.eV),
+        "energy_lo": astropy.units.Quantity(1.15, astropy.units.eV),
+        "temp": astropy.units.Quantity(5762., astropy.units.K),
+        "chem_potential": astropy.units.Quantity(0.5, astropy.units.eV),
     }
 
     return args
