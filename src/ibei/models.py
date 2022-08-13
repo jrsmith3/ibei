@@ -107,6 +107,7 @@ class BEI():
     """
     Bose-Einstein integrals
 
+
     Parameters
     ----------
     order:
@@ -118,6 +119,18 @@ class BEI():
         Temperature of photon ensemble. Corresponds to :math:`T`.
     chemical_potential:
         Chemical potential of photon ensemble. Corresponds to:math:`\mu`.
+
+
+    Raises
+    ------
+    TypeError
+        If `order` not int type or not coercible to int without truncation
+    ValueError
+        If `energy_bound` < 0
+    ValueError
+        If `temperature` <= 0
+    ValueError
+        If `chemical_potential` < 0
     """
     order: int = attrs.field()
     energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field()
