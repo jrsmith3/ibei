@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import attrs
 import numpy as np
+
 from astropy import constants, units
 from mpmath import polylog
 
@@ -98,3 +100,26 @@ def uibei(order, energy_lo, temp, chem_potential):
         summand += term
 
     return prefactor * summand
+
+
+@attrs.frozen
+class BEI():
+    """
+    Bose-Einstein integrals
+
+    Parameters
+    ----------
+    order:
+        Order of Bose-Einstein integral. Corresponds to :math:`m`.
+    energy_bound:
+        Upper or lower bound of integral depending on which integration method
+        is called. Corresponds to :math:`E_{A}`.
+    temperature:
+        Temperature of photon ensemble. Corresponds to :math:`T`.
+    chemical_potential:
+        Chemical potential of photon ensemble. Corresponds to:math:`\mu`.
+    """
+    order = attrs.field()
+    energy_bound = attrs.field()
+    temperature = attrs.field()
+    chemical_potential = attrs.field()
