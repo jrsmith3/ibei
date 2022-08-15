@@ -6,6 +6,8 @@ import pytest
 from contextlib import nullcontext as does_not_raise
 
 
+# BEI tests
+# ---------
 class TestBEIConstructorHappyPath():
     """
     Circumstances under which BEI instance can be instantiated
@@ -179,6 +181,8 @@ def test_order_arg_not_coercible_to_int(valid_constructor_args, val):
         bei = ibei.models.BEI(**invalid_constructor_args)
 
 
+# uibei tests
+# -----------
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
@@ -245,6 +249,8 @@ def test_arg_lt_0(valid_args, argname):
 
 # Pytest fixture definitions
 # ==========================
+# Fixtures for uibei
+# ------------------
 @pytest.fixture
 def valid_quantity_args():
     """
@@ -267,6 +273,8 @@ def valid_args(request, valid_quantity_args):
     return args
 
 
+# Fixtures for BEI
+# ----------------
 @pytest.fixture
 def valid_constructor_quantity_args():
     """
@@ -287,3 +295,48 @@ def valid_constructor_args(request, valid_constructor_quantity_args):
     args = {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
 
     return args
+
+
+# Comparison of BEI.upper to uibei
+# ================================
+import logging
+import numpy as np
+
+logger = logging.getLogger(__name__)
+
+@pytest.fixture
+def valid_uibei_args():
+    rng = np.random.default_rng()
+    energy_lo = 10 * rng.random()
+
+    args = dict(
+        order=rng.integers(low=1, high=11),
+        energy_lo=energy_lo,
+        temp=1e4 * rng.random(),
+        chem_potential=energy_lo * rng.random(),
+    )
+
+    return args
+
+
+@pytest.mark.parametrize("dummy", range(5))
+def test_compare_upper_to_uibei(valid_uibei_args, dummy):
+    """
+    Output of `uibei` should match `BEI.upper`
+    """
+    valid_BEI_args = {
+        "order": valid_uibei_args["order"],
+        "energy_bound": valid_uibei_args["energy_lo"],
+        "temperature": valid_uibei_args["temp"],
+        "chemical_potential": valid_uibei_args["chem_potential"],
+    }
+
+    logger.info(valid_uibei_args)
+    logger.info(valid_BEI_args)
+
+    uibei_result = ibei.models.uibei(**valid_uibei_args)
+    bei_result = ibei.models.BEI(**valid_BEI_args).upper()
+
+    assert uibei_result == bei_result
+
+
