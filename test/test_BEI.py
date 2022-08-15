@@ -232,6 +232,32 @@ def test_methods_regression(args, method_under_test, expected_output):
     assert astropy.units.allclose(expected_output, output)
 
 
+@pytest.mark.parametrize("order,expected_unit", [
+            (2, "1/(m2 s)"),
+            (3, "J/(m2 s)"),
+        ]
+    )
+@pytest.mark.parametrize("method_under_test", ("upper",))
+def test_methods_units(order, expected_unit, method_under_test, valid_constructor_quantity_args):
+    """
+    Methods' units should match known units for low orders
+
+    Notes
+    -----
+    For `order==2` the calculator methods should return particle flux, for
+    `order==3` the calculator methods should return energy flux.
+
+    I am aware that the arguments of this function are in a different
+    order than `test_methods_regression`. I have my reasons.
+    """
+    valid_constructor_quantity_args["order"] = order
+    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+
+    output = getattr(bei, method_under_test)()
+
+    assert output.unit.is_equivalent(expected_unit)
+
+
 # Pytest fixture definitions
 # ==========================
 @pytest.fixture
