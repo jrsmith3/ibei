@@ -179,8 +179,6 @@ def test_order_arg_not_coercible_to_int(valid_constructor_args, val):
         bei = ibei.models.BEI(**invalid_constructor_args)
 
 
-# uibei tests
-# -----------
 class TestIssues():
     """
     Tests corresponding to issues raised due to bugs
