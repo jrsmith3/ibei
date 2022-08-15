@@ -259,7 +259,7 @@ class BEI():
 
         if reduced_chemical_potential == 0 and reduced_energy_bound == 0:
             # Specify this condition just to skip the next condition.
-            term = float(mpmath.polylog(order + 1, real_arg))
+            term = float(mpmath.polylog(self.order + 1, real_arg))
             bei = term * prefactor
 
         elif reduced_chemical_potential >= reduced_energy_bound:
