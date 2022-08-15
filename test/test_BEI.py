@@ -192,20 +192,20 @@ class TestIssues():
         Refactor of issue 2 focusing on uibei
         """
         with does_not_raise():
-            ibei.models.uibei(2, 1.15, 5762., 1.2)
+            ibei.models.BEI(order=2, energy_bound=1.15, temperature=5762., chemical_potential=1.2).upper()
 
     def test_issue_4(self):
         """
         uibei shouldn't fail when energy_lo == chem_potential
         """
         with does_not_raise():
-            ibei.models.uibei(2, 1., 300., 1.)
+            ibei.models.BEI(order=2, energy_bound=1., temperature=300., chemical_potential=1.).upper()
 
     def test_issue_31(self):
         """
         Passing `energy_lo=0` with `chem_potential=0` should yield nonzero result
         """
-        energy_flux = ibei.models.uibei(3, 0., 300., 0.)
+        energy_flux = ibei.models.BEI(order=3, energy_bound=0., temperature=300., chemical_potential=0.).upper()
         assert energy_flux > 0
 
 
