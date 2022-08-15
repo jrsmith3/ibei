@@ -6,8 +6,6 @@ import pytest
 from contextlib import nullcontext as does_not_raise
 
 
-# BEI tests
-# ---------
 class TestBEIConstructorHappyPath():
     """
     Circumstances under which BEI instance can be instantiated
@@ -209,72 +207,8 @@ class TestIssues():
         assert energy_flux > 0
 
 
-@pytest.mark.parametrize("argname,val", [
-            ("energy_lo", astropy.units.s),
-            ("temp", astropy.units.s),
-            ("chem_potential", astropy.units.s),
-        ]
-    )
-def test_arg_incompatible_unit(valid_quantity_args, argname, val):
-    """
-    Incompatible units raise `astropy.units.UnitConversionError`
-    """
-    valid_arg_value = valid_quantity_args[argname].value
-
-    invalid_args = valid_quantity_args.copy()
-    invalid_args[argname] = astropy.units.Quantity(valid_arg_value, val)
-
-    with pytest.raises(astropy.units.UnitConversionError):
-        val = ibei.models.uibei(**invalid_args)
-
-
-@pytest.mark.parametrize("argname", [
-            "energy_lo",
-            "temp",
-            "chem_potential",
-        ]
-    )
-def test_arg_lt_0(valid_args, argname):
-    """
-    Arguments outside constraints raise `ValueError`
-    """
-    invalid_args = valid_args.copy()
-    invalid_args[argname] *= -1
-
-    assert invalid_args[argname] < 0
-
-    with pytest.raises(ValueError):
-        val = ibei.models.uibei(**invalid_args)
-
-
 # Pytest fixture definitions
 # ==========================
-# Fixtures for uibei
-# ------------------
-@pytest.fixture
-def valid_quantity_args():
-    """
-    Valid arguments for `ibei.models.uibei` function
-    """
-    args = {
-        "order": 2,
-        "energy_lo": astropy.units.Quantity(1.15, astropy.units.eV),
-        "temp": astropy.units.Quantity(5762., astropy.units.K),
-        "chem_potential": astropy.units.Quantity(0.5, astropy.units.eV),
-    }
-
-    return args
-
-
-@pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
-def valid_args(request, valid_quantity_args):
-    args = {key: request.param(val) for key, val in valid_quantity_args.items()}
-
-    return args
-
-
-# Fixtures for BEI
-# ----------------
 @pytest.fixture
 def valid_constructor_quantity_args():
     """
@@ -295,48 +229,3 @@ def valid_constructor_args(request, valid_constructor_quantity_args):
     args = {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
 
     return args
-
-
-# Comparison of BEI.upper to uibei
-# ================================
-import logging
-import numpy as np
-
-logger = logging.getLogger(__name__)
-
-@pytest.fixture
-def valid_uibei_args():
-    rng = np.random.default_rng()
-    energy_lo = 10 * rng.random()
-
-    args = dict(
-        order=rng.integers(low=1, high=11),
-        energy_lo=energy_lo,
-        temp=1e4 * rng.random(),
-        chem_potential=energy_lo * rng.random(),
-    )
-
-    return args
-
-
-@pytest.mark.parametrize("dummy", range(10000))
-def test_compare_upper_to_uibei(valid_uibei_args, dummy):
-    """
-    Output of `uibei` should match `BEI.upper`
-    """
-    valid_BEI_args = {
-        "order": valid_uibei_args["order"],
-        "energy_bound": valid_uibei_args["energy_lo"],
-        "temperature": valid_uibei_args["temp"],
-        "chemical_potential": valid_uibei_args["chem_potential"],
-    }
-
-    logger.info(valid_uibei_args)
-    logger.info(valid_BEI_args)
-
-    uibei_result = ibei.models.uibei(**valid_uibei_args)
-    bei_result = ibei.models.BEI(**valid_BEI_args).upper()
-
-    assert uibei_result == bei_result
-
-
