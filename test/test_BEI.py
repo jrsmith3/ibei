@@ -319,7 +319,7 @@ def valid_uibei_args():
     return args
 
 
-@pytest.mark.parametrize("dummy", range(5))
+@pytest.mark.parametrize("dummy", range(10000))
 def test_compare_upper_to_uibei(valid_uibei_args, dummy):
     """
     Output of `uibei` should match `BEI.upper`
