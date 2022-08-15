@@ -246,7 +246,7 @@ class BEI():
         ----------
         .. [1] :cite:`10.1016/j.sse.2006.06.017`
         """
-        kT = temperature * astropy.constants.k_B
+        kT = self.temperature * astropy.constants.k_B
 
         reduced_energy_bound = self.energy_bound / kT
         reduced_chemical_potential = self.chemical_potential / kT
@@ -262,13 +262,13 @@ class BEI():
             term = float(mpmath.polylog(order + 1, real_arg))
             bei = term * prefactor
 
-        elif reduced_chem_potential >= reduced_energy_bound:
+        elif reduced_chemical_potential >= reduced_energy_bound:
             bei = 0 * prefactor
 
         else:
             summand = 0
-            for indx in range(1, order + 2):
-                index = order - indx + 1
+            for indx in range(1, self.order + 2):
+                index = self.order - indx + 1
 
                 term = reduced_energy_bound**index * float(mpmath.polylog(indx, real_arg)) / np.math.factorial(index)
 
