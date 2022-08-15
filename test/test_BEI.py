@@ -205,6 +205,33 @@ class TestIssues():
         assert energy_flux > 0
 
 
+@pytest.mark.parametrize("args,method_under_test,expected_output", [
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "upper",
+                astropy.units.Quantity(10549122.240303338, "1/(m2 s)"),
+            ),
+        ]
+    )
+def test_methods_regression(args, method_under_test, expected_output):
+    """
+    Methods' output values should match expected results
+
+    Notes
+    -----
+    This test tests each of the methods of a `BEI` instance at least once.
+    """
+    bei = ibei.models.BEI(**args)
+    output = getattr(bei, method_under_test)()
+
+    assert astropy.units.allclose(expected_output, output)
+
+
 # Pytest fixture definitions
 # ==========================
 @pytest.fixture
