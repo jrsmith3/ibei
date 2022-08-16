@@ -199,15 +199,15 @@ class BEI():
 
     @property
     def _kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
-        return self.temperature * astropy.constants.k_B
+        return (self.temperature * astropy.constants.k_B).decompose()
 
     @property
     def _reduced_energy_bound(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
-        return self.energy_bound / self._kT
+        return (self.energy_bound / self._kT).decompose()
 
     @property
     def _reduced_chemical_potential(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
-        return self.chemical_potential / self._kT
+        return (self.chemical_potential / self._kT).decompose()
 
     @property
     def _prefactor(self) -> astropy.units.Quantity:
