@@ -151,35 +151,27 @@ class BEI():
         ----------
         .. [1] :cite:`10.1016/j.sse.2006.06.017`
         """
-        kT = self.temperature * astropy.constants.k_B
-
-        reduced_energy_bound = self.energy_bound / kT
-        reduced_chemical_potential = self.chemical_potential / kT
-
-        prefactor = (2 * np.pi * np.math.factorial(self.order) * kT**(self.order + 1)) / \
-            (astropy.constants.h**3 * astropy.constants.c**2)
-
-        expt = (reduced_chemical_potential - reduced_energy_bound).decompose()
+        expt = (self._reduced_chemical_potential - self._reduced_energy_bound).decompose()
         real_arg = np.exp(expt.value)
 
-        if reduced_chemical_potential == 0 and reduced_energy_bound == 0:
+        if self._reduced_chemical_potential == 0 and self._reduced_energy_bound == 0:
             # Specify this condition just to skip the next condition.
             term = float(mpmath.polylog(self.order + 1, real_arg))
-            bei = term * prefactor
+            bei = term * self._prefactor * np.math.factorial(self.order) 
 
-        elif reduced_chemical_potential >= reduced_energy_bound:
-            bei = 0 * prefactor
+        elif self._reduced_chemical_potential >= self._reduced_energy_bound:
+            bei = 0 * self._prefactor * np.math.factorial(self.order) 
 
         else:
             summand = 0
             for indx in range(1, self.order + 2):
                 index = self.order - indx + 1
 
-                term = reduced_energy_bound**index * float(mpmath.polylog(indx, real_arg)) / np.math.factorial(index)
+                term = self._reduced_energy_bound**index * float(mpmath.polylog(indx, real_arg)) / np.math.factorial(index)
 
                 summand += term
 
-            bei = prefactor * summand
+            bei = self._prefactor * summand * np.math.factorial(self.order) 
 
         return bei
 
@@ -194,3 +186,22 @@ class BEI():
             Value of the Bose-Einstein integral.
         """
         pass
+
+
+    @property
+    def _kT(self):
+        return self.temperature * astropy.constants.k_B
+
+    @property
+    def _reduced_energy_bound(self):
+        return self.energy_bound / self._kT
+
+    @property
+    def _reduced_chemical_potential(self):
+        return self.chemical_potential / self._kT
+
+    @property
+    def _prefactor(self):
+        return (2 * np.pi * self._kT**(self.order + 1)) / \
+            (astropy.constants.h**3 * astropy.constants.c**2)
+
