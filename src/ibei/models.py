@@ -151,7 +151,7 @@ class BEI():
         ----------
         .. [1] :cite:`10.1016/j.sse.2006.06.017`
         """
-        expt = (self._reduced_chemical_potential - self._reduced_energy_bound).decompose()
+        expt = self._reduced_chemical_potential - self._reduced_energy_bound
         real_arg = np.exp(expt.value)
 
         if self._reduced_chemical_potential == 0 and self._reduced_energy_bound == 0:
@@ -185,7 +185,7 @@ class BEI():
         astropy.units.Quantity
             Value of the Bose-Einstein integral.
         """
-        expt = self._reduced_chemical_potential.decompose()
+        expt = self._reduced_chemical_potential
         real_arg = np.exp(expt.value)
 
         if self._reduced_chemical_potential > 0:
