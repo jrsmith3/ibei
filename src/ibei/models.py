@@ -157,10 +157,10 @@ class BEI():
         if self._reduced_chemical_potential == 0 and self._reduced_energy_bound == 0:
             # Specify this condition just to skip the next condition.
             term = float(mpmath.polylog(self.order + 1, real_arg))
-            bei = term * self._prefactor * np.math.factorial(self.order) 
+            bei = term * self._prefactor * np.math.factorial(self.order)
 
         elif self._reduced_chemical_potential >= self._reduced_energy_bound:
-            bei = 0 * self._prefactor * np.math.factorial(self.order) 
+            bei = 0 * self._prefactor * np.math.factorial(self.order)
 
         else:
             summand = 0
@@ -171,7 +171,7 @@ class BEI():
 
                 summand += term
 
-            bei = self._prefactor * summand * np.math.factorial(self.order) 
+            bei = self._prefactor * summand * np.math.factorial(self.order)
 
         return bei
 
