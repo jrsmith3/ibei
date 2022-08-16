@@ -182,3 +182,15 @@ class BEI():
             bei = prefactor * summand
 
         return bei
+
+
+    def full(self) -> astropy.units.Quantity:
+        """
+        Full Bose-Einstein integral.
+
+        Returns
+        -------
+        astropy.units.Quantity
+            Value of the Bose-Einstein integral.
+        """
+        pass
