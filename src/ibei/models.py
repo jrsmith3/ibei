@@ -185,7 +185,16 @@ class BEI():
         astropy.units.Quantity
             Value of the Bose-Einstein integral.
         """
-        pass
+        expt = self._reduced_chemical_potential.decompose()
+        real_arg = np.exp(expt.value)
+
+        if self._reduced_chemical_potential > 0:
+            bei = 0 * self._prefactor
+
+        else:
+            bei = self._prefactor * mpmath.gamma(self.order + 1) * mpmath.polylog(self.order + 1, real_arg)
+
+        return bei
 
 
     @property
