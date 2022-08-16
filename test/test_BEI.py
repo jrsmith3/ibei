@@ -237,7 +237,12 @@ def test_methods_regression(args, method_under_test, expected_output):
             (3, "J/(m2 s)"),
         ]
     )
-@pytest.mark.parametrize("method_under_test", ("upper",))
+@pytest.mark.parametrize("method_under_test", 
+        (
+            "upper",
+            "full",
+        )
+    )
 def test_methods_units(order, expected_unit, method_under_test, valid_constructor_quantity_args):
     """
     Methods' units should match known units for low orders
