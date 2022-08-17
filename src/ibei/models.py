@@ -225,7 +225,8 @@ class BEI():
 
         Note
         ----
-        For `order=3`, this factor is equal to the Stefan-Boltzmann constant.
+        For `order=3`, this factor is NOT equal to the Stefan-Boltzmann
+        constant. This factor is missing the Riemann-Zeta term.
         """
         return (2 * np.pi * self.kT**(self.order + 1)) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
