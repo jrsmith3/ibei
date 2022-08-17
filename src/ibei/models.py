@@ -197,6 +197,21 @@ class BEI():
         return bei
 
 
+    def radiant_power_flux(self) -> astropy.units.Quantity["J/(m*2 s)"]:
+        """
+        Energy radiated per unit time per unit area.
+
+        Notes
+        -----
+        This convenience method implements the Stefan-Boltzmann law and is a
+        special case of the `BEI.full`. This method assumes the value of
+        `order` is 3.
+        """
+        power_flux = astropy.constant.sigma_sb * self.temperature**4
+
+        return power_flux.to("J/(m*2 s)")
+
+
     @property
     def kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
@@ -230,4 +245,3 @@ class BEI():
         """
         return (2 * np.pi * self.kT**(self.order + 1)) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
-
