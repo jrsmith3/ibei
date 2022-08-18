@@ -226,6 +226,16 @@ class TestIssues():
                 "full",
                 astropy.units.Quantity(459.30032795, "W/m2"),
             ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "radiant_power_flux",
+                astropy.units.Quantity(459.30032795, "W/m2"),
+            ),
         ]
     )
 def test_methods_regression(args, method_under_test, expected_output):
