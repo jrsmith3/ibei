@@ -297,7 +297,12 @@ def test_methods_regression(args, method_under_test, expected_output):
     This test tests each of the methods of a `BEI` instance at least once.
     """
     bei = ibei.models.BEI(**args)
-    output = getattr(bei, method_under_test)()
+    method = getattr(bei, method_under_test)
+
+    if callable(method):
+        output = method()
+    else:
+        output = method
 
     assert astropy.units.allclose(expected_output, output)
 
