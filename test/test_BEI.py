@@ -338,6 +338,17 @@ def test_methods_units(order, expected_unit, method_under_test, valid_constructo
     assert output.unit.is_equivalent(expected_unit)
 
 
+def test_consistency_upper_and_full_methods(valid_constructor_quantity_args):
+    """
+    When `energy_bound` is 0, `BEI.upper` should equal `BEI.full`.
+    """
+    valid_constructor_quantity_args["energy_bound"] = 0
+
+    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+
+    assert astropy.units.allclose(bei.upper(), bei.full())
+
+
 # Pytest fixture definitions
 # ==========================
 @pytest.fixture
