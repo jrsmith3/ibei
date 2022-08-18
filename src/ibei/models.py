@@ -204,7 +204,7 @@ class BEI():
         Notes
         -----
         This convenience method is a special case of `BEI.full`. This method
-        assumes the value of `order` is 3.
+        assumes the value of `order` is 2.
         """
         flux = (4 * np.pi * float(mpmath.zeta(3)) * self.kT**3) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
