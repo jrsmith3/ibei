@@ -233,8 +233,58 @@ class TestIssues():
                     "temperature": 300,
                     "chemical_potential": 0,
                 },
+                "photon_flux",
+                astropy.units.Quantity(4.1052443203614687e+22, "1/(m2 s)"),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
                 "radiant_power_flux",
                 astropy.units.Quantity(459.30032795, "W/m2"),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "kT",
+                astropy.units.Quantity(4.141947e-21, "J"),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "reduced_energy_bound",
+                astropy.units.Quantity(42.54989978, astropy.units.dimensionless_unscaled),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 2.1,
+                    "temperature": 300,
+                    "chemical_potential": 1.1,
+                },
+                "reduced_chemical_potential",
+                astropy.units.Quantity(42.54989978, astropy.units.dimensionless_unscaled),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "prefactor",
+                astropy.units.Quantity(1.70759151e+22, "1/(m2 s)"),
             ),
         ]
     )
