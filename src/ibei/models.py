@@ -197,7 +197,7 @@ class BEI():
         return bei
 
 
-    def photon_flux(self) -> astropy.units.Quantity["1/(m*2 s)"]:
+    def photon_flux(self) -> astropy.units.Quantity[astropy.units.Unit("1/(m2 s)")]:
         """
         Number of photons radiated per unit time per unit area.
 
@@ -209,10 +209,10 @@ class BEI():
         flux = (4 * np.pi * mpmath.zeta(3) * self.kT**3) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
 
-        return flux.to("1/(m*2 s)")
+        return flux.to("1/(m2 s)")
 
 
-    def radiant_power_flux(self) -> astropy.units.Quantity["J/(m*2 s)"]:
+    def radiant_power_flux(self) -> astropy.units.Quantity[astropy.units.Unit("J/(m2 s)")]:
         """
         Energy radiated per unit time per unit area.
 
@@ -222,9 +222,9 @@ class BEI():
         special case of the `BEI.full`. This method assumes the value of
         `order` is 3.
         """
-        power_flux = astropy.constant.sigma_sb * self.temperature**4
+        power_flux = astropy.constants.sigma_sb * self.temperature**4
 
-        return power_flux.to("J/(m*2 s)")
+        return power_flux.to("J/(m2 s)")
 
 
     @property
