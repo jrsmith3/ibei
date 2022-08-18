@@ -216,6 +216,16 @@ class TestIssues():
                 "upper",
                 astropy.units.Quantity(10549122.240303338, "1/(m2 s)"),
             ),
+            (
+                {
+                    "order": 3,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "full",
+                astropy.units.Quantity(459.30032795, "W/m2"),
+            ),
         ]
     )
 def test_methods_regression(args, method_under_test, expected_output):
