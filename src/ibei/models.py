@@ -192,7 +192,7 @@ class BEI():
             bei = 0 * self.prefactor
 
         else:
-            bei = self.prefactor * mpmath.gamma(self.order + 1) * mpmath.polylog(self.order + 1, real_arg)
+            bei = self.prefactor * float(mpmath.gamma(self.order + 1)) * float(mpmath.polylog(self.order + 1, real_arg))
 
         return bei
 
@@ -206,7 +206,7 @@ class BEI():
         This convenience method is a special case of `BEI.full`. This method
         assumes the value of `order` is 3.
         """
-        flux = (4 * np.pi * mpmath.zeta(3) * self.kT**3) / \
+        flux = (4 * np.pi * float(mpmath.zeta(3)) * self.kT**3) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
 
         return flux.to("1/(m2 s)")
