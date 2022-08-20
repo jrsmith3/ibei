@@ -118,6 +118,20 @@ class BEI():
         )
 
 
+    def lower(self) -> astropy.units.Quantity:
+        """
+        Lower incomplete Bose-Einstein integral.
+
+        Returns
+        -------
+        astropy.units.Quantity
+            Value of the Bose-Einstein integral.
+        """
+        bei = self.full() - self.upper()
+
+        return bei
+
+
     def upper(self) -> astropy.units.Quantity:
         """
         Upper incomplete Bose-Einstein integral.
@@ -160,6 +174,11 @@ class BEI():
             bei = term * self.prefactor * np.math.factorial(self.order)
 
         elif self.reduced_chemical_potential >= self.reduced_energy_bound:
+            bei = 0 * self.prefactor * np.math.factorial(self.order)
+
+        elif real_arg == 0:
+            # When the lower bound of the integral approaches
+            # infinity, the value of the integral approaches zero.
             bei = 0 * self.prefactor * np.math.factorial(self.order)
 
         else:

@@ -1,6 +1,7 @@
 # coding=utf-8
 import astropy.units
 import ibei
+import numpy as np
 import pytest
 
 from contextlib import nullcontext as does_not_raise
@@ -208,6 +209,16 @@ class TestIssues():
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 {
+                    "order": 3,
+                    "energy_bound": 1.1,
+                    "temperature": 3000,
+                    "chemical_potential": 0,
+                },
+                "lower",
+                astropy.units.Quantity(2949919.81423557, "J/(m2 s)"),
+            ),
+            (
+                {
                     "order": 2,
                     "energy_bound": 1.1,
                     "temperature": 300,
@@ -314,6 +325,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     )
 @pytest.mark.parametrize("method_under_test", 
         (
+            "lower",
             "upper",
             "full",
         )
@@ -347,6 +359,22 @@ def test_consistency_upper_and_full_methods(valid_constructor_quantity_args):
     bei = ibei.models.BEI(**valid_constructor_quantity_args)
 
     assert astropy.units.allclose(bei.upper(), bei.full())
+
+
+def test_consistency_lower_and_full_methods(valid_constructor_quantity_args):
+    """
+    When `energy_bound` is `np.inf`, `BEI.lower` should equal `BEI.full`.
+
+    Notes
+    -----
+    This condition holds as long as `chemical_potential` equals zero.
+    """
+    valid_constructor_quantity_args["energy_bound"] = np.inf
+    valid_constructor_quantity_args["chemical_potential"] = 0.
+
+    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+
+    assert astropy.units.allclose(bei.lower(), bei.full())
 
 
 @pytest.mark.parametrize("order,helper_method_name",[
