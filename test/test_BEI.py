@@ -357,12 +357,17 @@ def test_consistency_upper_and_full_methods(valid_constructor_quantity_args):
 def test_consistency_full_and_helper_methods(valid_constructor_quantity_args, order, helper_method_name):
     """
     `BEI.full` should equal `BEI.photon_flux` and `BEI.radiant_power_flux` for order 2 and 3, respectively.
+
+    Notes
+    -----
+    This condition holds as long as `chemical_potential` equals zero.
     """
     valid_constructor_quantity_args["order"] = order
+    valid_constructor_quantity_args["chemical_potential"] = 0.
     bei = ibei.models.BEI(**valid_constructor_quantity_args)
     output = getattr(bei, helper_method_name)()
 
-    assert astropy.units.allclose(bei.upper(), output)
+    assert astropy.units.allclose(bei.full(), output)
 
 
 # Pytest fixture definitions
