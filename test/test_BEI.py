@@ -208,6 +208,16 @@ class TestIssues():
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 {
+                    "order": 3,
+                    "energy_bound": 1.1,
+                    "temperature": 3000,
+                    "chemical_potential": 0,
+                },
+                "lower",
+                astropy.units.Quantity(2949919.81423557, "J/(m2 s)"),
+            ),
+            (
+                {
                     "order": 2,
                     "energy_bound": 1.1,
                     "temperature": 300,
