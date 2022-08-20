@@ -176,6 +176,11 @@ class BEI():
         elif self.reduced_chemical_potential >= self.reduced_energy_bound:
             bei = 0 * self.prefactor * np.math.factorial(self.order)
 
+        elif real_arg == 0:
+            # When the lower bound of the integral approaches
+            # infinity, the value of the integral approaches zero.
+            bei = 0 * self.prefactor * np.math.factorial(self.order)
+
         else:
             summand = 0
             for indx in range(1, self.order + 2):
