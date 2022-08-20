@@ -1,3 +1,5 @@
 .. automodule:: ibei
-    :members: models
-    
+    :members:
+
+.. automodule:: ibei.models
+    :members:
