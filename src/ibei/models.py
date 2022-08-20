@@ -1,4 +1,8 @@
 # coding=utf-8
+"""
+Bose-Einstein integral calculators (:mod:`ibei.models`)
+=======================================================
+"""
 
 import astropy.constants
 import astropy.units
