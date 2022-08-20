@@ -324,6 +324,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     )
 @pytest.mark.parametrize("method_under_test", 
         (
+            "lower",
             "upper",
             "full",
         )
