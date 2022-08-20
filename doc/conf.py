@@ -28,7 +28,7 @@ author = 'Joshua Ryan Smith'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'numpydoc',
+    'sphinx.ext.napoleon',
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinxcontrib.bibtex'
