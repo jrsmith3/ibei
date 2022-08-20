@@ -151,34 +151,112 @@ class BEI():
         ----------
         .. [1] :cite:`10.1016/j.sse.2006.06.017`
         """
-        kT = self.temperature * astropy.constants.k_B
-
-        reduced_energy_bound = self.energy_bound / kT
-        reduced_chemical_potential = self.chemical_potential / kT
-
-        prefactor = (2 * np.pi * np.math.factorial(self.order) * kT**(self.order + 1)) / \
-            (astropy.constants.h**3 * astropy.constants.c**2)
-
-        expt = (reduced_chemical_potential - reduced_energy_bound).decompose()
+        expt = self.reduced_chemical_potential - self.reduced_energy_bound
         real_arg = np.exp(expt.value)
 
-        if reduced_chemical_potential == 0 and reduced_energy_bound == 0:
+        if self.reduced_chemical_potential == 0 and self.reduced_energy_bound == 0:
             # Specify this condition just to skip the next condition.
             term = float(mpmath.polylog(self.order + 1, real_arg))
-            bei = term * prefactor
+            bei = term * self.prefactor * np.math.factorial(self.order)
 
-        elif reduced_chemical_potential >= reduced_energy_bound:
-            bei = 0 * prefactor
+        elif self.reduced_chemical_potential >= self.reduced_energy_bound:
+            bei = 0 * self.prefactor * np.math.factorial(self.order)
 
         else:
             summand = 0
             for indx in range(1, self.order + 2):
                 index = self.order - indx + 1
 
-                term = reduced_energy_bound**index * float(mpmath.polylog(indx, real_arg)) / np.math.factorial(index)
+                term = self.reduced_energy_bound**index * float(mpmath.polylog(indx, real_arg)) / np.math.factorial(index)
 
                 summand += term
 
-            bei = prefactor * summand
+            bei = self.prefactor * summand * np.math.factorial(self.order)
 
         return bei
+
+
+    def full(self) -> astropy.units.Quantity:
+        """
+        Full Bose-Einstein integral.
+
+        Returns
+        -------
+        astropy.units.Quantity
+            Value of the Bose-Einstein integral.
+        """
+        expt = self.reduced_chemical_potential
+        real_arg = np.exp(expt.value)
+
+        if self.reduced_chemical_potential > 0:
+            bei = 0 * self.prefactor
+
+        else:
+            bei = self.prefactor * float(mpmath.gamma(self.order + 1)) * float(mpmath.polylog(self.order + 1, real_arg))
+
+        return bei
+
+
+    def photon_flux(self) -> astropy.units.Quantity[astropy.units.Unit("1/(m2 s)")]:
+        """
+        Number of photons radiated per unit time per unit area.
+
+        Notes
+        -----
+        This convenience method is a special case of `BEI.full`. This method
+        assumes the value of `order` is 2.
+        """
+        flux = (4 * np.pi * float(mpmath.zeta(3)) * self.kT**3) / \
+            (astropy.constants.h**3 * astropy.constants.c**2)
+
+        return flux.to("1/(m2 s)")
+
+
+    def radiant_power_flux(self) -> astropy.units.Quantity[astropy.units.Unit("J/(m2 s)")]:
+        """
+        Energy radiated per unit time per unit area.
+
+        Notes
+        -----
+        This convenience method implements the Stefan-Boltzmann law and is a
+        special case of the `BEI.full`. This method assumes the value of
+        `order` is 3.
+        """
+        power_flux = astropy.constants.sigma_sb * self.temperature**4
+
+        return power_flux.to("J/(m2 s)")
+
+
+    @property
+    def kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
+        """
+        Product of Boltzmann's constant and temperature.
+        """
+        return (self.temperature * astropy.constants.k_B).decompose()
+
+    @property
+    def reduced_energy_bound(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
+        """
+        Dimensionless energy bound in units of kT.
+        """
+        return (self.energy_bound / self.kT).decompose()
+
+    @property
+    def reduced_chemical_potential(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
+        """
+        Dimensionless chemical potential in units of kT.
+        """
+        return (self.chemical_potential / self.kT).decompose()
+
+    @property
+    def prefactor(self) -> astropy.units.Quantity:
+        """
+        Factor preceding Bose-Einstein integral integration result.
+
+        Note
+        ----
+        For `order=3`, this factor is NOT equal to the Stefan-Boltzmann
+        constant. This factor is missing the Riemann-Zeta term.
+        """
+        return (2 * np.pi * self.kT**(self.order + 1)) / \
+            (astropy.constants.h**3 * astropy.constants.c**2)

@@ -216,6 +216,76 @@ class TestIssues():
                 "upper",
                 astropy.units.Quantity(10549122.240303338, "1/(m2 s)"),
             ),
+            (
+                {
+                    "order": 3,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "full",
+                astropy.units.Quantity(459.30032795, "W/m2"),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "photon_flux",
+                astropy.units.Quantity(4.1052443203614687e+22, "1/(m2 s)"),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "radiant_power_flux",
+                astropy.units.Quantity(459.30032795, "W/m2"),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "kT",
+                astropy.units.Quantity(4.141947e-21, "J"),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "reduced_energy_bound",
+                astropy.units.Quantity(42.54989978, astropy.units.dimensionless_unscaled),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 2.1,
+                    "temperature": 300,
+                    "chemical_potential": 1.1,
+                },
+                "reduced_chemical_potential",
+                astropy.units.Quantity(42.54989978, astropy.units.dimensionless_unscaled),
+            ),
+            (
+                {
+                    "order": 2,
+                    "energy_bound": 1.1,
+                    "temperature": 300,
+                    "chemical_potential": 0,
+                },
+                "prefactor",
+                astropy.units.Quantity(1.70759151e+22, "1/(m2 s)"),
+            ),
         ]
     )
 def test_methods_regression(args, method_under_test, expected_output):
@@ -227,7 +297,12 @@ def test_methods_regression(args, method_under_test, expected_output):
     This test tests each of the methods of a `BEI` instance at least once.
     """
     bei = ibei.models.BEI(**args)
-    output = getattr(bei, method_under_test)()
+    method = getattr(bei, method_under_test)
+
+    if callable(method):
+        output = method()
+    else:
+        output = method
 
     assert astropy.units.allclose(expected_output, output)
 
@@ -237,7 +312,12 @@ def test_methods_regression(args, method_under_test, expected_output):
             (3, "J/(m2 s)"),
         ]
     )
-@pytest.mark.parametrize("method_under_test", ("upper",))
+@pytest.mark.parametrize("method_under_test", 
+        (
+            "upper",
+            "full",
+        )
+    )
 def test_methods_units(order, expected_unit, method_under_test, valid_constructor_quantity_args):
     """
     Methods' units should match known units for low orders
@@ -256,6 +336,38 @@ def test_methods_units(order, expected_unit, method_under_test, valid_constructo
     output = getattr(bei, method_under_test)()
 
     assert output.unit.is_equivalent(expected_unit)
+
+
+def test_consistency_upper_and_full_methods(valid_constructor_quantity_args):
+    """
+    When `energy_bound` is 0, `BEI.upper` should equal `BEI.full`.
+    """
+    valid_constructor_quantity_args["energy_bound"] = 0
+
+    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+
+    assert astropy.units.allclose(bei.upper(), bei.full())
+
+
+@pytest.mark.parametrize("order,helper_method_name",[
+            (2, "photon_flux"),
+            (3, "radiant_power_flux"),
+        ]
+    )
+def test_consistency_full_and_helper_methods(order, helper_method_name, valid_constructor_quantity_args):
+    """
+    `BEI.full` should equal `BEI.photon_flux` and `BEI.radiant_power_flux` for order 2 and 3, respectively.
+
+    Notes
+    -----
+    This condition holds as long as `chemical_potential` equals zero.
+    """
+    valid_constructor_quantity_args["order"] = order
+    valid_constructor_quantity_args["chemical_potential"] = 0.
+    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+    output = getattr(bei, helper_method_name)()
+
+    assert astropy.units.allclose(bei.full(), output)
 
 
 # Pytest fixture definitions

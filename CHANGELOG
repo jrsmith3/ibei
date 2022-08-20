@@ -7,6 +7,7 @@
 * 50: Leverage `tox` to run tests.
 * 49: Refactor tests to use `pytest`.
 * 48: Replace `conda` with `hatch`.
+* 43: Add method to compute full Bose-Einstein integral.
 * 39: Update for basic compatibility with Python 3.
 
 
