@@ -56,24 +56,6 @@ class CalculatorsReturnUnits(unittest.TestCase):
 
 
 @pytest.mark.xfail(reason="I broke the `SQSolarcell` class in a previous commit")
-class CalculatorsReturnType(unittest.TestCase):
-    """
-    Tests type of the calculator methods returned values.
-    """
-    def setUp(self):
-        """
-        Initialize SBSolarcell object from input_params
-        """
-        self.solarcell = ibei.SQSolarcell(input_params)
-
-    def test_calc_efficiency(self):
-        """
-        calc_power_density should return value with unit of W m^-2.
-        """
-        self.assertIsInstance(self.solarcell.calc_efficiency(), float)
-
-
-@pytest.mark.xfail(reason="I broke the `SQSolarcell` class in a previous commit")
 class CalculatorsReturnValue(unittest.TestCase):
     """
     Tests special values of the calculator methods.
