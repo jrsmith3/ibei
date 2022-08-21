@@ -8,16 +8,6 @@ import unittest
 from astropy import units
 
 
-temp_sun = 5762.
-temp_earth = 288.
-bandgap = 1.15
-
-input_params = {"temp_sun": temp_sun,
-                "temp_planet": temp_earth,
-                "bandgap": bandgap,
-                "voltage": 0.5,}
-
-
 @pytest.mark.xfail(reason="I broke the `SQSolarcell` class in a previous commit")
 class CalculatorsReturnUnits(unittest.TestCase):
     """
@@ -72,3 +62,17 @@ class CalculatorsReturnValue(unittest.TestCase):
         """
         self.solarcell.bandgap = 0
         self.assertEqual(0, self.solarcell.calc_power_density())
+
+
+# Pytest fixture definitions
+# ==========================
+@pytest.fixture
+def valid_constructor_args():
+    args = {
+        "temp_sun": 5762,
+        "temp_planet": 288,
+        "bandgap": 1.15,
+        "voltage": 0.5,
+        }
+
+    return args
