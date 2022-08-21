@@ -297,60 +297,11 @@ class SQSolarcell(object):
     """
 
     temp_sun = 5772.
-    """
-    Solar temperature > 0 [K]
-    """
-
     bandgap = 1.1
-    """
-    Bandgap of single homojunction > 0 [eV]
-    """
 
-    def __init__(self, params):
-        for attr in find_PhysicalProperty(self):
-            setattr(self, attr, params[attr])
-
-    def __repr__(self):
-        return str(self._to_dict())
-
-    def _to_dict(self):
-        """
-        Return a dictionary representation of the current object.
-        """
-        physical_prop_names = find_PhysicalProperty(self)
-        physical_prop_vals = [getattr(self, prop) for prop in physical_prop_names]
-
-        return dict(zip(physical_prop_names, physical_prop_vals))
-
-
-    def calc_blackbody_radiant_power_density(self):
-        """
-        Stefan-Boltzmann radiant power density from sun
-
-        The Stefan-Boltzmann radiant power density is given by 
-
-        .. math::
-            W = \sigma T^{4}
-
-        where
-
-        .. math::
-            \sigma = \\frac{2 \pi^{5} k^{4}}{15 c^{2} h^{3}}
-
-        and
-
-        * :math:`T`: Solar temperature
-        * :math:`k`: Boltzmann's constant
-        * :math:`h`: Planck's constant
-        * :math:`c`: Speed of light in vacuum
-
-        This method returns values of type :class:`astropy.units.Quantity`
-        with units of [W m^-2].
-        """
-        radiant_power_density = constants.sigma_sb * self.temp_sun**4
-
-        return radiant_power_density.to("W/m2")
-
+    # Note: I removed the method
+    # `calc_blackbody_radiant_power_density`. This method was used to
+    # calculate the solar radiant power density.
 
     def calc_power_density(self):
         """
