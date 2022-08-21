@@ -6,7 +6,7 @@ Base Library (:mod:`ibei`)
 .. currentmodule:: ibei
 """
 
-from . import models
+from .models import BEI
 
 try:
     from ._version import __version__

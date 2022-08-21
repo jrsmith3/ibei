@@ -18,7 +18,7 @@ class TestBEIConstructorHappyPath():
         valid_constructor_args.pop("chemical_potential")
 
         with does_not_raise():
-            bei = ibei.models.BEI(**valid_constructor_args)
+            bei = ibei.BEI(**valid_constructor_args)
 
 
     def test_args_with_default_values(self, valid_constructor_args):
@@ -26,7 +26,7 @@ class TestBEIConstructorHappyPath():
         BEI can be instantiated with valid args incl. ones with defaults
         """
         with does_not_raise():
-            bei = ibei.models.BEI(**valid_constructor_args)
+            bei = ibei.BEI(**valid_constructor_args)
 
 
     @pytest.mark.parametrize("argname", [
@@ -41,7 +41,7 @@ class TestBEIConstructorHappyPath():
         valid_constructor_args[argname] = 0
 
         with does_not_raise():
-            bei = ibei.models.BEI(**valid_constructor_args)
+            bei = ibei.BEI(**valid_constructor_args)
 
 
     @pytest.mark.parametrize("argname,val", [
@@ -57,7 +57,7 @@ class TestBEIConstructorHappyPath():
         valid_constructor_quantity_args[argname] = val
 
         with does_not_raise():
-            bei = ibei.models.BEI(**valid_constructor_quantity_args)
+            bei = ibei.BEI(**valid_constructor_quantity_args)
 
 
     @pytest.mark.parametrize("val", [
@@ -75,7 +75,7 @@ class TestBEIConstructorHappyPath():
         valid_constructor_args["order"] = val
 
         with does_not_raise():
-            bei = ibei.models.BEI(**valid_constructor_args)
+            bei = ibei.BEI(**valid_constructor_args)
 
 
 class TestBEIConstructorArgsOutsideConstraints():
@@ -94,7 +94,7 @@ class TestBEIConstructorArgsOutsideConstraints():
         invalid_constructor_args[argname] *= 0
 
         with pytest.raises(ValueError):
-            bei = ibei.models.BEI(**invalid_constructor_args)
+            bei = ibei.BEI(**invalid_constructor_args)
 
 
     @pytest.mark.parametrize("argname", [
@@ -111,7 +111,7 @@ class TestBEIConstructorArgsOutsideConstraints():
         invalid_constructor_args[argname] *= -1
 
         with pytest.raises(ValueError):
-            bei = ibei.models.BEI(**invalid_constructor_args)
+            bei = ibei.BEI(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("argname,val", [
@@ -136,7 +136,7 @@ def test_constructor_args_incompatible_units(valid_constructor_quantity_args, ar
     invalid_constructor_args[argname] = astropy.units.Quantity(valid_constructor_arg_value, val)
 
     with pytest.raises(astropy.units.UnitConversionError):
-        bei = ibei.models.BEI(**invalid_constructor_args)
+        bei = ibei.BEI(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("argname", [
@@ -161,7 +161,7 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
     invalid_constructor_args[argname] = [val, val]
 
     with pytest.raises(TypeError):
-        bei = ibei.models.BEI(**invalid_constructor_args)
+        bei = ibei.BEI(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("val", [
@@ -177,7 +177,7 @@ def test_order_arg_not_coercible_to_int(valid_constructor_args, val):
     invalid_constructor_args["order"] = val
 
     with pytest.raises(TypeError):
-        bei = ibei.models.BEI(**invalid_constructor_args)
+        bei = ibei.BEI(**invalid_constructor_args)
 
 
 class TestIssues():
@@ -189,20 +189,20 @@ class TestIssues():
         Refactor of issue 2 focusing on uibei
         """
         with does_not_raise():
-            ibei.models.BEI(order=2, energy_bound=1.15, temperature=5762., chemical_potential=1.2).upper()
+            ibei.BEI(order=2, energy_bound=1.15, temperature=5762., chemical_potential=1.2).upper()
 
     def test_issue_4(self):
         """
         uibei shouldn't fail when energy_lo == chem_potential
         """
         with does_not_raise():
-            ibei.models.BEI(order=2, energy_bound=1., temperature=300., chemical_potential=1.).upper()
+            ibei.BEI(order=2, energy_bound=1., temperature=300., chemical_potential=1.).upper()
 
     def test_issue_31(self):
         """
         Passing `energy_lo=0` with `chem_potential=0` should yield nonzero result
         """
-        energy_flux = ibei.models.BEI(order=3, energy_bound=0., temperature=300., chemical_potential=0.).upper()
+        energy_flux = ibei.BEI(order=3, energy_bound=0., temperature=300., chemical_potential=0.).upper()
         assert energy_flux > 0
 
 
@@ -307,7 +307,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     -----
     This test tests each of the methods of a `BEI` instance at least once.
     """
-    bei = ibei.models.BEI(**args)
+    bei = ibei.BEI(**args)
     method = getattr(bei, method_under_test)
 
     if callable(method):
@@ -343,7 +343,7 @@ def test_methods_units(order, expected_unit, method_under_test, valid_constructo
     order than `test_methods_regression`. I have my reasons.
     """
     valid_constructor_quantity_args["order"] = order
-    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+    bei = ibei.BEI(**valid_constructor_quantity_args)
 
     output = getattr(bei, method_under_test)()
 
@@ -356,7 +356,7 @@ def test_consistency_upper_and_full_methods(valid_constructor_quantity_args):
     """
     valid_constructor_quantity_args["energy_bound"] = 0
 
-    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+    bei = ibei.BEI(**valid_constructor_quantity_args)
 
     assert astropy.units.allclose(bei.upper(), bei.full())
 
@@ -372,7 +372,7 @@ def test_consistency_lower_and_full_methods(valid_constructor_quantity_args):
     valid_constructor_quantity_args["energy_bound"] = np.inf
     valid_constructor_quantity_args["chemical_potential"] = 0.
 
-    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+    bei = ibei.BEI(**valid_constructor_quantity_args)
 
     assert astropy.units.allclose(bei.lower(), bei.full())
 
@@ -392,7 +392,7 @@ def test_consistency_full_and_helper_methods(order, helper_method_name, valid_co
     """
     valid_constructor_quantity_args["order"] = order
     valid_constructor_quantity_args["chemical_potential"] = 0.
-    bei = ibei.models.BEI(**valid_constructor_quantity_args)
+    bei = ibei.BEI(**valid_constructor_quantity_args)
     output = getattr(bei, helper_method_name)()
 
     assert astropy.units.allclose(bei.full(), output)
@@ -403,7 +403,7 @@ def test_consistency_full_and_helper_methods(order, helper_method_name, valid_co
 @pytest.fixture
 def valid_constructor_quantity_args():
     """
-    Valid constructor arguments for ibei.models.BEI
+    Valid constructor arguments for ibei.BEI
     """
     args = {
         "order": 2,
