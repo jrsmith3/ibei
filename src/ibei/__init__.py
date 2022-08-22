@@ -6,7 +6,7 @@ Base Library (:mod:`ibei`)
 .. currentmodule:: ibei
 """
 
-from .models import BEI
+from .models import BEI, SQSolarcell
 
 try:
     from ._version import __version__
