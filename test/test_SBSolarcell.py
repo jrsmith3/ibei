@@ -7,6 +7,7 @@ import pytest
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
+                # Special case.
                 {
                     "solar_temperature": 5762,
                     "bandgap": 0.,
@@ -28,9 +29,9 @@ def test_methods_regression(args, method_under_test, expected_output):
 
 @pytest.mark.parametrize("method_under_test,expected_unit,args_mod", [
             ("power_density", "W/m2", {}),
-            ("power_density", "W/m2", {"bandgap": 0.}),
+            ("power_density", "W/m2", {"bandgap": 0.}),  # Special case.
             ("efficiency", astropy.units.dimensionless_unscaled, {}),
-            ("efficiency", astropy.units.dimensionless_unscaled, {"bandgap": 0.}),
+            ("efficiency", astropy.units.dimensionless_unscaled, {"bandgap": 0.}),  # Special case.
         ]
     )
 def test_methods_units(method_under_test, expected_unit, valid_constructor_args, args_mod):
