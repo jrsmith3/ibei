@@ -281,7 +281,8 @@ class BEI():
             (astropy.constants.h**3 * astropy.constants.c**2)
 
 
-class SQSolarcell(object):
+@attrs.frozen
+class SQSolarcell():
     """
     Shockley-Queisser single-junction solar cell
 
@@ -295,15 +296,33 @@ class SQSolarcell(object):
     type or of type :class:`astropy.units.Quantity` so long as the units
     are compatible with what's listed.    
     """
+    bei = attrs.field(init=False)
+    bandgap: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
+            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
+            validator=[
+                _validate_is_scalar,
+                attrs.validators.ge(0),
+            ]
+        )
+    solar_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
+            default=5772.,
+            converter=_temperature_converter,
+            validator=[
+                _validate_is_scalar,
+                attrs.validators.gt(0),
+            ]
+        )
 
-    temp_sun = 5772.
-    bandgap = 1.1
+
+    def __attrs_post_init__(self):
+        bei = BEI(order=2, energy_bound=self.bandgap, temperature=self.solar_temperature, chemical_potential=0.)
+        object.__setattr__(self, "bei", bei)
 
     # Note: I removed the method
     # `calc_blackbody_radiant_power_density`. This method was used to
     # calculate the solar radiant power density.
 
-    def calc_power_density(self):
+    def power_density(self):
         """
         Solar cell power density
 
@@ -313,14 +332,16 @@ class SQSolarcell(object):
         type :class:`astropy.units.Quantity` with units of [W m^-2].
         """
         if self.bandgap == 0:
-            solar_flux = units.Quantity(0., "1/(m2*s)")
+            solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
         else:
-            solar_flux = uibei(2, self.bandgap, self.temp_sun, 0)
+            solar_flux = self.bei.upper()
+
         power_density = self.bandgap * solar_flux
 
-        return power_density.to("W/m^2")
+        return power_density.to("W/m2")
 
-    def calc_efficiency(self):
+
+    def efficiency(self):
         """
         Solar cell efficiency
 
@@ -328,9 +349,9 @@ class SQSolarcell(object):
         Queisser's :cite:`10.1063/1.1736034` Eq. 2.8. This method returns
         a :class:`float`.
         """
-        cell_power = self.calc_power_density()
-        solar_power = self.calc_blackbody_radiant_power_density()
-        efficiency = cell_power/solar_power
+        power_density = self.power_density()
+        solar_power_density = self.bei.radiant_power_flux()
+        efficiency = power_density/solar_power_density
 
         return efficiency.decompose().value
 

@@ -7,10 +7,8 @@ import pytest
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 {
-                    "temp_sun": 5762,
-                    "temp_planet": 288,
+                    "solar_temperature": 5762,
                     "bandgap": 0.,
-                    "voltage": 0.5,
                 },
                 "power_density",
                 "0.",
@@ -48,10 +46,8 @@ def test_methods_units(method_under_test, expected_unit, valid_constructor_args,
 @pytest.fixture
 def valid_constructor_args():
     args = {
-        "temp_sun": 5762,
-        "temp_planet": 288,
+        "solar_temperature": 5762,
         "bandgap": 1.15,
-        "voltage": 0.5,
         }
 
     return args
