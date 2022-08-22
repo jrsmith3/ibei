@@ -58,23 +58,27 @@ class CalculatorsReturnUnits(unittest.TestCase):
         self.assertEqual(tested_unit, target_unit)
 
 
-@pytest.mark.xfail(reason="I broke the `DeVosSolarcell` class in a previous commit")
-class CalculatorsReturnValue(unittest.TestCase):
+@pytest.mark.parametrize("args,method_under_test,expected_output", [
+            (
+                {
+                    "solar_temperature": 5762.,
+                    "planetary_temperature": 288.,
+                    "bandgap": 0.,
+                    "voltage": 0.5,
+                },
+                "power_density",
+                "0.",
+            ),
+        ]
+    )
+def test_methods_regression(args, method_under_test, expected_output):
     """
-    Tests special values of the calculator methods.
+    Methods' output values should match expected results
     """
-    def setUp(self):
-        """
-        Initialize DeVosSolarcell object from input_params
-        """
-        self.solarcell = ibei.DeVosSolarcell(input_params)
+    solarcell = ibei.DeVosSolarcell(**args)
+    output = getattr(solarcell, method_under_test)()
 
-    def test_calc_power_density(self):
-        """
-        calc_power_density should return 0 when bandgap = 0.
-        """
-        self.solarcell.bandgap = 0
-        self.assertEqual(0, self.solarcell.calc_power_density())
+    assert output == expected_output
 
 
 # Pytest fixture definitions
