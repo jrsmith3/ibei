@@ -1,10 +1,10 @@
 # coding=utf-8
 
 import astropy.units
-import ibei
 import pytest
 
 from contextlib import nullcontext as does_not_raise
+from ibei import DeVosSolarcell
 
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
@@ -25,7 +25,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     """
     Methods' output values should match expected results
     """
-    solarcell = ibei.DeVosSolarcell(**args)
+    solarcell = DeVosSolarcell(**args)
     output = getattr(solarcell, method_under_test)()
 
     assert output == expected_output
@@ -43,7 +43,7 @@ def test_methods_units(method_under_test, expected_unit, valid_constructor_args,
     Units of returned value should match what's documented.
     """
     valid_constructor_args |= args_mod
-    solarcell = ibei.DeVosSolarcell(**valid_constructor_args)
+    solarcell = DeVosSolarcell(**valid_constructor_args)
     output = getattr(solarcell, method_under_test)()
 
     assert output.unit.is_equivalent(expected_unit)
@@ -63,7 +63,7 @@ class Issues():
                 "bandgap": 0.1,
                 "voltage": 0.5,
             }
-        solarcell = ibei.DeVosSolarcell(**args)
+        solarcell = DeVosSolarcell(**args)
 
         with does_not_raise:
             solarcell.power_density()

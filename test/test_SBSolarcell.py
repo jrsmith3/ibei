@@ -1,8 +1,9 @@
 # coding=utf-8
 
 import astropy.units
-import ibei
 import pytest
+
+from ibei import SQSolarcell
 
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
@@ -21,7 +22,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     """
     Methods' output values should match expected results
     """
-    solarcell = ibei.SQSolarcell(**args)
+    solarcell = SQSolarcell(**args)
     output = getattr(solarcell, method_under_test)()
 
     assert output == expected_output
@@ -39,7 +40,7 @@ def test_methods_units(method_under_test, expected_unit, valid_constructor_args,
     Units of returned value should match what's documented.
     """
     valid_constructor_args |= args_mod
-    solarcell = ibei.SQSolarcell(**valid_constructor_args)
+    solarcell = SQSolarcell(**valid_constructor_args)
     output = getattr(solarcell, method_under_test)()
 
     assert output.unit.is_equivalent(expected_unit)
