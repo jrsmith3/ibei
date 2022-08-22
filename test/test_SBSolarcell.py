@@ -1,11 +1,7 @@
 # coding=utf-8
 
 import ibei
-import numpy as np
 import pytest
-import unittest
-
-from astropy import units
 
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
