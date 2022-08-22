@@ -8,43 +8,6 @@ import unittest
 from astropy import units
 
 
-@pytest.mark.xfail(reason="I broke the `SQSolarcell` class in a previous commit")
-class CalculatorsReturnUnits(unittest.TestCase):
-    """
-    Tests units of the calculator methods returned values.
-    """
-    def setUp(self):
-        """
-        Initialize SBSolarcell object from input_params
-        """
-        self.solarcell = ibei.SQSolarcell(input_params)
-
-    def test_calc_blackbody_radiant_power_density(self):
-        """
-        calc_blackbody_radiant_power_density should return value with unit of W m^-2.
-        """
-        tested_unit = self.solarcell.calc_blackbody_radiant_power_density().unit
-        target_unit = units.Unit("W/m2")
-        self.assertEqual(tested_unit, target_unit)
-
-    def test_calc_power_density(self):
-        """
-        calc_power_density should return value with unit of W m^-2.
-        """
-        tested_unit = self.solarcell.calc_power_density().unit
-        target_unit = units.Unit("W/m2")
-        self.assertEqual(tested_unit, target_unit)
-
-    def test_calc_power_density_zero_bandgap(self):
-        """
-        calc_power_density should return value with unit of W m^-2.
-        """
-        self.solarcell.bandgap = 0
-        tested_unit = self.solarcell.calc_power_density().unit
-        target_unit = units.Unit("W/m2")
-        self.assertEqual(tested_unit, target_unit)
-
-
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 {
@@ -66,6 +29,22 @@ def test_methods_regression(args, method_under_test, expected_output):
     output = getattr(solarcell, method_under_test)()
 
     assert output == expected_output
+
+
+@pytest.mark.parametrize("method_under_test,expected_unit,args_mod", [
+            ("power_density", "W/m2", {}),
+            ("power_density", "W/m2", {"bandgap": 0.}),
+        ]
+    )
+def test_methods_units(method_under_test, expected_unit, valid_constructor_args, args_mod):
+    """
+    Units of returned value should match what's documented.
+    """
+    valid_constructor_args |= args_mod
+    solarcell = ibei.SQSolarcell(**valid_constructor_args)
+    output = getattr(solarcell, method_under_test)()
+
+    assert output.unit.is_equivalent(expected_unit)
 
 
 # Pytest fixture definitions
