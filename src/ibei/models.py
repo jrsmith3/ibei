@@ -370,18 +370,23 @@ class DeVosSolarcell(SQSolarcell):
     type :class:`astropy.units.Quantity` so long as the units are
     compatible with what's listed.
     """
+    planetary_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
+            default=300.,
+            converter=_temperature_converter,
+            validator=[
+                _validate_is_scalar,
+                attrs.validators.gt(0),
+            ]
+        )
+    voltage: float | astropy.units.Quantity[astropy.units.V] = attrs.field(
+            default=0.,
+            validator=[
+                _validate_is_scalar,
+            ]
+        )
 
-    temp_planet = 300.
-    """
-    Planet temperature > 0 [K]
-    """
 
-    voltage = 0.
-    """
-    Bias voltage [V]
-    """
-
-    def calc_power_density(self):
+    def power_density(self):
         """
         Solar cell power density
 
@@ -393,14 +398,21 @@ class DeVosSolarcell(SQSolarcell):
         This method returns values of type :class:`astropy.units.Quantity`
         with units of [W m^-2].
         """
-        electron_energy = constants.e.si * self.voltage
+        electron_energy = astropy.constants.e.si * self.voltage
 
         if self.bandgap == 0:
-            solar_flux = units.Quantity(0., "1/(m2*s)")
-            solar_cell_flux = units.Quantity(0., "1/(m2*s)")
+            solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
+            solar_cell_flux = astropy.units.Quantity(0., "1/(m2 s)")
         else:
-            solar_flux = uibei(2, self.bandgap, self.temp_sun, 0)
-            solar_cell_flux = uibei(2, self.bandgap, self.temp_planet, electron_energy)
+            bei = BEI(
+                    order=2,
+                    energy_bound=self.bandgap,
+                    temperature=self.planetary_temperature,
+                    chemical_potential=electron_energy
+                )
+            solar_flux = self.bei.upper()
+            solar_cell_flux = bei.upper()
+
         power_density = electron_energy * (solar_flux - solar_cell_flux)
 
         return power_density.to("W/m^2")
