@@ -1,11 +1,7 @@
 # coding=utf-8
 
 import ibei
-import numpy as np
 import pytest
-import unittest
-
-from astropy import units
 
 from contextlib import nullcontext as does_not_raise
 
