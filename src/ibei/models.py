@@ -356,6 +356,7 @@ class SQSolarcell():
         return efficiency.decompose().value
 
 
+@attrs.frozen
 class DeVosSolarcell(SQSolarcell):
     """
     DeVos single-junction solar cell
@@ -380,6 +381,7 @@ class DeVosSolarcell(SQSolarcell):
         )
     voltage: float | astropy.units.Quantity[astropy.units.V] = attrs.field(
             default=0.,
+            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.V),
             validator=[
                 _validate_is_scalar,
             ]
