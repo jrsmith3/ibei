@@ -7,26 +7,7 @@ import unittest
 
 from astropy import units
 
-
-@pytest.mark.xfail(reason="I broke the `DeVosSolarcell` class in a previous commit")
-class Issues(unittest.TestCase):
-    """
-    Tests output types of the calculator methods.
-    """
-
-    def test_issue_3_DeVosSolarcell(self):
-        """
-        Inconsistent units cause exception when chem_potential > energy_lo.
-        """
-        ip = {"temp_sun": 5762,
-              "temp_planet": 288,
-              "bandgap": 0.1,
-              "voltage": 0.5,}
-        sc = ibei.DeVosSolarcell(ip)
-        try:
-            sc.calc_power_density()
-        except:
-            self.fail("Succumbing to issue #3.")
+from contextlib import nullcontext as does_not_raise
 
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
@@ -68,6 +49,26 @@ def test_methods_units(method_under_test, expected_unit, valid_constructor_args,
     assert output.unit.is_equivalent(expected_unit)
 
 
+class Issues():
+    """
+    Tests corresponding to issues raised due to bugs
+    """
+    def test_issue_3_DeVosSolarcell(self):
+        """
+        Inconsistent units cause exception when chem_potential > energy_lo.
+        """
+        args = {
+                "temp_sun": 5762,
+                "temp_planet": 288,
+                "bandgap": 0.1,
+                "voltage": 0.5,
+            }
+        solarcell = ibei.DeVosSolarcell(**args)
+
+        with does_not_raise:
+            solarcell.power_density()
+
+
 # Pytest fixture definitions
 # ==========================
 @pytest.fixture
@@ -76,7 +77,7 @@ def valid_constructor_args():
         "solar_temperature": 5762.,
         "planetary_temperature": 288.,
         "bandgap": 1.15,
-        "voltage": 0.5,        
+        "voltage": 0.5,
         }
 
     return args
