@@ -21,6 +21,14 @@ class TestSQSolarcellConstructorHappyPath():
             solarcell = SQSolarcell(**valid_constructor_args)
 
 
+    def test_args_with_default_values(self, valid_constructor_args):
+        """
+        SQSolarcell can be instantiated with valid args incl. ones with defaults
+        """
+        with does_not_raise():
+            solarcell = SQSolarcell(**valid_constructor_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
