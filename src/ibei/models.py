@@ -414,4 +414,4 @@ class DeVosSolarcell(SQSolarcell):
 
         power_density = electron_energy * (solar_flux - solar_cell_flux)
 
-        return power_density.to("W/m^2")
+        return power_density.to("W/m2")
