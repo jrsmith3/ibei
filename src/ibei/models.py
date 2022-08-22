@@ -318,9 +318,6 @@ class SQSolarcell():
         bei = BEI(order=2, energy_bound=self.bandgap, temperature=self.solar_temperature, chemical_potential=0.)
         object.__setattr__(self, "bei", bei)
 
-    # Note: I removed the method
-    # `calc_blackbody_radiant_power_density`. This method was used to
-    # calculate the solar radiant power density.
 
     def power_density(self):
         """
