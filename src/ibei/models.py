@@ -319,7 +319,7 @@ class SQSolarcell():
         object.__setattr__(self, "bei", bei)
 
 
-    def power_density(self):
+    def power_density(self) -> astropy.units.Quantity[astropy.units.Unit("W/m2")]:
         """
         Solar cell power density
 
@@ -338,7 +338,7 @@ class SQSolarcell():
         return power_density.to("W/m2")
 
 
-    def efficiency(self):
+    def efficiency(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
         Solar cell efficiency
 
@@ -385,7 +385,7 @@ class DeVosSolarcell(SQSolarcell):
         )
 
 
-    def power_density(self):
+    def power_density(self) -> astropy.units.Quantity[astropy.units.Unit("W/m2")]:
         """
         Solar cell power density
 
