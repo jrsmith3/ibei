@@ -3,7 +3,22 @@
 import astropy.units
 import pytest
 
+from contextlib import nullcontext as does_not_raise
 from ibei import SQSolarcell
+
+
+class TestSQSolarcellConstructorHappyPath():
+    """
+    Circumstances under which SQSolarcell instance can be instantiated
+    """
+    def test_args_without_default_values(self, valid_constructor_args):
+        """
+        SQSolarcell can be instantiated with valid args that don't have defaults
+        """
+        valid_constructor_args.pop("solar_temperature")
+
+        with does_not_raise():
+            solarcell = SQSolarcell(**valid_constructor_args)
 
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
