@@ -350,7 +350,7 @@ class SQSolarcell():
         solar_power_density = self.bei.radiant_power_flux()
         efficiency = power_density/solar_power_density
 
-        return efficiency.decompose().value
+        return efficiency.decompose()
 
 
 @attrs.frozen
