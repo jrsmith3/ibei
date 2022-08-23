@@ -43,6 +43,21 @@ class TestSQSolarcellConstructorHappyPath():
             solarcell = SQSolarcell(**valid_constructor_args)
 
 
+    @pytest.mark.parametrize("argname,val", [
+                ("solar_temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
+                ("bandgap", astropy.units.Quantity(1e-19, astropy.units.J)),
+            ]
+        )
+    def test_quantity_args_compatible_units(self, valid_constructor_quantity_args, argname, val):
+        """
+        SQSolarcell can be instantiated with args in compatible units
+        """
+        valid_constructor_quantity_args[argname] = val
+
+        with does_not_raise():
+            solarcell = SQSolarcell(**valid_constructor_quantity_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
@@ -86,10 +101,17 @@ def test_methods_units(method_under_test, expected_unit, valid_constructor_args,
 # Pytest fixture definitions
 # ==========================
 @pytest.fixture
-def valid_constructor_args():
+def valid_constructor_quantity_args():
     args = {
-        "solar_temperature": 5762,
-        "bandgap": 1.15,
+        "solar_temperature": astropy.units.Quantity(5762., astropy.units.K),
+        "bandgap": astropy.units.Quantity(1.15, astropy.units.eV),
         }
+
+    return args
+
+
+@pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
+def valid_constructor_args(request, valid_constructor_quantity_args):
+    args = {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
 
     return args
