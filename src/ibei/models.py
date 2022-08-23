@@ -283,3 +283,139 @@ class BEI():
         """
         return (2 * np.pi * self.kT**(self.order + 1)) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
+
+
+@attrs.frozen
+class SQSolarcell():
+    """
+    Shockley-Queisser single-junction solar cell
+
+    This class implements a solar cell as described by Shockley and
+    Queisser :cite:`10.1063/1.1736034`.
+
+    An :class:`SQSolarcell` is instantiated with a :class:`dict` having
+    keys identical to the class's public data attributes. Each key's
+    value must satisfy the constraints noted with the corresponding
+    public data attribute. Dictionary values can be some kind of numeric
+    type or of type :class:`astropy.units.Quantity` so long as the units
+    are compatible with what's listed.    
+    """
+    bei = attrs.field(init=False)
+    bandgap: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
+            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
+            validator=[
+                _validate_is_scalar,
+                attrs.validators.ge(0),
+            ]
+        )
+    solar_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
+            default=5772.,
+            converter=_temperature_converter,
+            validator=[
+                _validate_is_scalar,
+                attrs.validators.gt(0),
+            ]
+        )
+
+
+    def __attrs_post_init__(self):
+        bei = BEI(order=2, energy_bound=self.bandgap, temperature=self.solar_temperature, chemical_potential=0.)
+        object.__setattr__(self, "bei", bei)
+
+
+    def power_density(self) -> astropy.units.Quantity[astropy.units.Unit("W/m2")]:
+        """
+        Solar cell power density
+
+        The output power density is calculated according to a slight
+        modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq.
+        2.4. This method returns values of
+        type :class:`astropy.units.Quantity` with units of [W m^-2].
+        """
+        if self.bandgap == 0:
+            solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
+        else:
+            solar_flux = self.bei.upper()
+
+        power_density = self.bandgap * solar_flux
+
+        return power_density.to("W/m2")
+
+
+    def efficiency(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
+        """
+        Solar cell efficiency
+
+        The efficiency is calculated according to Shockley &
+        Queisser's :cite:`10.1063/1.1736034` Eq. 2.8. This method returns
+        a :class:`float`.
+        """
+        power_density = self.power_density()
+        solar_power_density = self.bei.radiant_power_flux()
+        efficiency = power_density/solar_power_density
+
+        return efficiency.decompose()
+
+
+@attrs.frozen
+class DeVosSolarcell(SQSolarcell):
+    """
+    DeVos single-junction solar cell
+
+    This class implements a solar cell as described by
+    DeVos :cite:`9780198513926` Ch. 6.
+
+    An DeVosSolarcell is instantiated with a :class:`dict` having keys
+    identical to the class's public data attributes. Each key's value
+    must satisfy the constraints noted with the corresponding public data
+    attribute. Dictionary values can be some kind of numeric type or of
+    type :class:`astropy.units.Quantity` so long as the units are
+    compatible with what's listed.
+    """
+    planetary_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
+            default=300.,
+            converter=_temperature_converter,
+            validator=[
+                _validate_is_scalar,
+                attrs.validators.gt(0),
+            ]
+        )
+    voltage: float | astropy.units.Quantity[astropy.units.V] = attrs.field(
+            default=0.,
+            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.V),
+            validator=[
+                _validate_is_scalar,
+            ]
+        )
+
+
+    def power_density(self) -> astropy.units.Quantity[astropy.units.Unit("W/m2")]:
+        """
+        Solar cell power density
+
+        The output power density is calculated according to
+        DeVos's :cite:`9780198513926` Eq. 6.4. Note that this expression
+        assumes fully concentrated sunlight and is therefore not completely
+        general.
+
+        This method returns values of type :class:`astropy.units.Quantity`
+        with units of [W m^-2].
+        """
+        electron_energy = astropy.constants.e.si * self.voltage
+
+        if self.bandgap == 0:
+            solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
+            solar_cell_flux = astropy.units.Quantity(0., "1/(m2 s)")
+        else:
+            bei = BEI(
+                    order=2,
+                    energy_bound=self.bandgap,
+                    temperature=self.planetary_temperature,
+                    chemical_potential=electron_energy
+                )
+            solar_flux = self.bei.upper()
+            solar_cell_flux = bei.upper()
+
+        power_density = electron_energy * (solar_flux - solar_cell_flux)
+
+        return power_density.to("W/m2")

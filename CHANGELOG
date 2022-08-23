@@ -1,5 +1,6 @@
 2.0.0
 =====
+* 77: Refactor `SQSolarcell` and `DeVosSolarcell` classes.
 * 68: Refactor `uibei` to be a method on a new `BEI` class.
 * 59: Update documentation.
 * 58: Cosmetic documentation edits.
