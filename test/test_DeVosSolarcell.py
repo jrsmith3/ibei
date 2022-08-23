@@ -157,8 +157,8 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
 
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
+            # Special case.
             (
-                # Special case.
                 {
                     "solar_temperature": 5762.,
                     "planetary_temperature": 288.,
@@ -166,7 +166,38 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
                     "voltage": 0.5,
                 },
                 "power_density",
-                "0.",
+                astropy.units.Quantity(0., "W/m2"),
+            ),
+            (
+                {
+                    "solar_temperature": 5762.,
+                    "planetary_temperature": 288.,
+                    "bandgap": 1.15,
+                    "voltage": 0.5,
+                },
+                "power_density",
+                astropy.units.Quantity(11880930.46659443, "W/m2"),
+            ),
+            # Special case
+            (
+                {
+                    "solar_temperature": 5762.,
+                    "planetary_temperature": 288.,
+                    "bandgap": 0.,
+                    "voltage": 0.5,
+                },
+                "efficiency",
+                astropy.units.Quantity(0.),
+            ),
+            (
+                {
+                    "solar_temperature": 5762.,
+                    "planetary_temperature": 288.,
+                    "bandgap": 1.15,
+                    "voltage": 0.5,
+                },
+                "efficiency",
+                astropy.units.Quantity(0.19008406),
             ),
         ]
     )
