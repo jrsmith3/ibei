@@ -100,6 +100,23 @@ class TestDeVosSolarcellConstructorArgsOutsideConstraints():
             solarcell = DeVosSolarcell(**invalid_constructor_args)
 
 
+    @pytest.mark.parametrize("argname", [
+                "bandgap",
+                "solar_temperature",
+                "planetary_temperature",
+            ]
+        )
+    def test_arg_lt_0(self, valid_constructor_args, argname):
+        """
+        DeVosSolarcell raises ValueError if arg less than zero
+        """
+        invalid_constructor_args = valid_constructor_args.copy()
+        invalid_constructor_args[argname] *= -1
+
+        with pytest.raises(ValueError):
+            solarcell = DeVosSolarcell(**invalid_constructor_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
