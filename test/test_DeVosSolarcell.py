@@ -208,7 +208,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     solarcell = DeVosSolarcell(**args)
     output = getattr(solarcell, method_under_test)()
 
-    assert output == expected_output
+    assert astropy.units.allclose(expected_output, output)
 
 
 @pytest.mark.parametrize("method_under_test,expected_unit,args_mod", [
