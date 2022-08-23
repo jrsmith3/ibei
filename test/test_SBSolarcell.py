@@ -129,14 +129,39 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
 
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
+            # Special case
             (
-                # Special case.
                 {
                     "solar_temperature": 5762,
                     "bandgap": 0.,
                 },
                 "power_density",
-                "0.",
+                astropy.units.Quantity(0., "W/m2"),
+            ),
+            (
+                {
+                    "solar_temperature": 5762,
+                    "bandgap": 1.15,
+                },
+                "power_density",
+                astropy.units.Quantity(27326140.07319352, "W/m2"),
+            ),
+            # Special case
+            (
+                {
+                    "solar_temperature": 5762,
+                    "bandgap": 0.,
+                },
+                "efficiency",
+                astropy.units.Quantity(0.),
+            ),
+            (
+                {
+                    "solar_temperature": 5762,
+                    "bandgap": 1.15,
+                },
+                "efficiency",
+                astropy.units.Quantity(0.43719334),
             ),
         ]
     )
