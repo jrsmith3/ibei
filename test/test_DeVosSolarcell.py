@@ -7,6 +7,22 @@ from contextlib import nullcontext as does_not_raise
 from ibei import DeVosSolarcell
 
 
+class TestDeVosSolarcellConstructorHappyPath():
+    """
+    Circumstances under which DeVosSolarcell instance can be instantiated
+    """
+    def test_args_without_default_values(self, valid_constructor_args):
+        """
+        DeVosSolarcell can be instantiated with valid args that don't have defaults
+        """
+        valid_constructor_args.pop("solar_temperature")
+        valid_constructor_args.pop("planetary_temperature")
+        valid_constructor_args.pop("voltage")
+
+        with does_not_raise():
+            solarcell = DeVosSolarcell(**valid_constructor_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
