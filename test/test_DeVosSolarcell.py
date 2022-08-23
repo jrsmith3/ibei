@@ -117,6 +117,26 @@ class TestDeVosSolarcellConstructorArgsOutsideConstraints():
             solarcell = DeVosSolarcell(**invalid_constructor_args)
 
 
+@pytest.mark.parametrize("argname,val", [
+            ("bandgap", astropy.units.s),
+            ("solar_temperature", astropy.units.s),
+            ("planetary_temperature", astropy.units.s),
+            ("voltage", astropy.units.s),
+        ]
+    )
+def test_constructor_args_incompatible_units(valid_constructor_quantity_args, argname, val):
+    """
+    DeVosSolarcell raises astropy.units.UnitConversionError if arg has incompatible unit
+    """
+    valid_constructor_arg_value = valid_constructor_quantity_args[argname].value
+
+    invalid_constructor_args = valid_constructor_quantity_args.copy()
+    invalid_constructor_args[argname] = astropy.units.Quantity(valid_constructor_arg_value, val)
+
+    with pytest.raises(astropy.units.UnitConversionError):
+        solarcell = DeVosSolarcell(**invalid_constructor_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
