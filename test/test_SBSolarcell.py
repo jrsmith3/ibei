@@ -111,6 +111,23 @@ def test_constructor_args_incompatible_units(valid_constructor_quantity_args, ar
         solarcell = SQSolarcell(**invalid_constructor_args)
 
 
+@pytest.mark.parametrize("argname", [
+            "bandgap",
+            "solar_temperature",
+        ]
+    )
+def test_constructor_args_non_scalar(valid_constructor_args, argname):
+    """
+    SQSolarcell raises TypeError if arg is non-scalar
+    """
+    invalid_constructor_args = valid_constructor_args.copy()
+    val = valid_constructor_args[argname]
+    invalid_constructor_args[argname] = [val, val]
+
+    with pytest.raises(TypeError):
+        solarcell = SQSolarcell(**invalid_constructor_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
