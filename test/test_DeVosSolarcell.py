@@ -46,6 +46,26 @@ class TestDeVosSolarcellConstructorHappyPath():
             solarcell = DeVosSolarcell(**valid_constructor_args)
 
 
+    @pytest.mark.parametrize("argname,val", [
+                ("solar_temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
+                ("bandgap", astropy.units.Quantity(1e-19, astropy.units.J)),
+                ("planetary_temperature", astropy.units.Quantity(27., astropy.units.deg_C)),
+            ]
+        )
+    def test_quantity_args_compatible_units(self, valid_constructor_quantity_args, argname, val):
+        """
+        DeVosSolarcell can be instantiated with args in compatible units
+
+        Note
+        ----
+        No unit is equivalent to volts.
+        """
+        valid_constructor_quantity_args[argname] = val
+
+        with does_not_raise():
+            solarcell = DeVosSolarcell(**valid_constructor_quantity_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
