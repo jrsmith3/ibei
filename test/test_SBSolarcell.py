@@ -29,6 +29,20 @@ class TestSQSolarcellConstructorHappyPath():
             solarcell = SQSolarcell(**valid_constructor_args)
 
 
+    @pytest.mark.parametrize("argname", [
+                "bandgap",
+            ]
+        )
+    def test_args_that_can_equal_zero(self, valid_constructor_args, argname):
+        """
+        SQSolarcell can be instantiated with args not constrained to be nonzero
+        """
+        valid_constructor_args[argname] = 0
+
+        with does_not_raise():
+            solarcell = SQSolarcell(**valid_constructor_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
