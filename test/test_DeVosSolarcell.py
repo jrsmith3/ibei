@@ -46,6 +46,20 @@ class TestDeVosSolarcellConstructorHappyPath():
             solarcell = DeVosSolarcell(**valid_constructor_args)
 
 
+    @pytest.mark.parametrize("argname", [
+                "voltage"
+            ]
+        )
+    def test_args_that_can_be_lt_0(self, valid_constructor_args, argname):
+        """
+        DeVosSolarcell can be instantiated with args less than zero
+        """
+        valid_constructor_args[argname] *= -1
+
+        with does_not_raise():
+            solarcell = DeVosSolarcell(**valid_constructor_args)
+
+
     @pytest.mark.parametrize("argname,val", [
                 ("solar_temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
                 ("bandgap", astropy.units.Quantity(1e-19, astropy.units.J)),
