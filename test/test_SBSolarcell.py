@@ -58,6 +58,25 @@ class TestSQSolarcellConstructorHappyPath():
             solarcell = SQSolarcell(**valid_constructor_quantity_args)
 
 
+class TestSQSolarcellConstructorArgsOutsideConstraints():
+    """
+    SQSolarcell should raise exceptions if args are outside their constraints
+    """
+    @pytest.mark.parametrize("argname", [
+                "solar_temperature",
+            ]
+        )
+    def test_arg_eq_0(self, valid_constructor_args, argname):
+        """
+        SQSolarcell raises ValueError if arg equal to zero
+        """
+        invalid_constructor_args = valid_constructor_args.copy()
+        invalid_constructor_args[argname] *= 0
+
+        with pytest.raises(ValueError):
+            solarcell = SQSolarcell(**invalid_constructor_args)
+
+
 @pytest.mark.parametrize("args,method_under_test,expected_output", [
             (
                 # Special case.
