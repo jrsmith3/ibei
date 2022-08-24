@@ -104,40 +104,53 @@ light, :math:`\mu` is the chemical potential of photons, :math:`E` is
 the energy of photons, :math:`T` is the temperature of the radiator,
 and :math:`k` is Boltzmann's constant. 
 
-Now consider the two integrals G() and g(), called the
-upper-incomplete Bose-Einstein integral and the lower-incomplete
-Bose-Einstein integral, respectively, and given by Eq. (REF).
+Now consider the two integrals :math:`G_{m} (E_{g}, T, \mu)`
+and :math:`g_{m} (E_{g}, T, \mu)`, called the upper-incomplete
+Bose-Einstein integral and the lower-incomplete Bose-Einstein
+integral, respectively, and given by Eqs. (REF) and
+(REF), respectively.
 
-(EQUATION)
-
-Note that the two integrals given above can be summed to yield a
-relationship between them and the full integral.
-
-(EQUATION)
-
-(SHOW THE SOLUTION TO THE FULL AND UPPER-INCOMPLETE INTEGRALS).
-
-
-
-The upper incomplete Bose-Einstein integral is given by
+.. math::
+    
+    G_{m} (E_{g}, T, \mu) = \frac{2 \pi}{h^{3} c^{2}} \int_{E_{g}}^{\infty} E^{m} \frac{1}{\exp(\frac{E-\mu}{kT}) - 1} dE
 
 .. math::
 
-    F_{m}(E_{A},T,\mu) = \frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \frac{1}{\exp \left( \frac{E - \mu}{kT} \right) - 1} dE
-
-where :math:`E` is the photon energy, :math:`\mu` is the photon
-chemical potential, :math:`E_{A}` is the lower limit of
-integration, :math:`T` is the absolute temperature of the blackbody
-radiator, :math:`h` is Planck's constant, :math:`c` is the speed of
-light, :math:`k` is Boltzmann's constant, and :math:`m` is the
-integer order of the integration. For a value of :math:`m = 2` , this
-integral returns the photon particle flux, whereas for :math:`m =
-3` , the integral yields the photon power flux.
+    g_{m} (E_{g}, T, \mu) = \frac{2 \pi}{h^{3} c^{2}} \int_{0}^{E_{g}} E^{m} \frac{1}{\exp(\frac{E-\mu}{kT}) - 1} dE
 
 
+The two integrals given above can be summed to form a relationship
+between the full, upper-incomplete, and lower-incomplete
+Bose-Einstein integrals.
+
+.. math::
+
+    G_{m} (T, \mu) = G_{m} (E_{g}, T, \mu) + g_{m} (E_{g}, T, \mu)
 
 
+The integration of the full Bose-Einstein integral can be performed to
+yield the expression given in Eq. (REF).
 
+.. math::
+
+    G_{m}(T, \mu) = \frac{2 \pi (kT)^{m+1}}{h^{3} c^{2}} \Gamma(m+1) Li_{m+1}\left(\exp\left(\frac{\mu}{kT}\right)\right)
+
+
+where :math:`\Gamma(z)` is the gamma function and
+:math:`Li_{s}(z)` is the polylogarithm of index :math:`s`. The
+upper-incomplete Bose-Einstein integral can be expressed as a finite
+sum of polylogarithm functions as shown by Smith (reference
+forthcoming) and given in Eq. (REF).
+
+.. math::
+
+    G_{m}(E_{A},T,\mu) = \frac{2\pi m! (kT)^{m+1}}{h^{3} c^{2}} \sum_{s = 1}^{m+1} \frac{1}{(m-s+1)!} \left( \frac{E_{A}}{kT} \right)^{m-s+1} Li_{s} \left( \exp \left( \frac{\mu - E_{A}}{kT} \right) \right)
+
+
+An expression for the lower-incomplete Bose-Einstein integral can be
+obtained by solving Eq. (REF) for :math:`g_{m} (E_{g}, T, \mu)` and
+substituting Eqs. (REF) and (REF) for the full and upper-incomplete
+integrals, respectively.
 
 
 License
