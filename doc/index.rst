@@ -2,46 +2,28 @@
 ibei - Calculator for incomplete Bose-Einstein integral
 =======================================================
 
-Scope
-=====
 The Bose-Einstein integral appears when calculating quantities
-pertaining to photons. Perhaps best known, it appears when
-calculating the detailed balance limit of a solar cell as described
-by Shockley and Queisser :cite:`10.1063/1.1736034` , but also when
-calculating the photo-enhanced thermoelectron emission from a
-material first described by Schwede
-et.al. :cite:`10.1038/nmat2814` .
+pertaining to photons. It is used to derive the Stefan-Boltzmann law,
+and it also appears when calculating the detailed balance limit of a
+solar cell as described by Shockley and
+Queisser :cite:`10.1063/1.1736034` , but also when calculating the
+photo-enhanced thermoelectron emission from a material first
+described by Schwede et.al. :cite:`10.1038/nmat2814` .
 
-The upper incomplete Bose-Einstein integral is given by
-
-.. math::
-
-    F_{m}(E_{A},T,\mu) = \frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \frac{1}{\exp \left( \frac{E - \mu}{kT} \right) - 1} dE 
-
-where :math:`E` is the photon energy, :math:`\mu` is the photon
-chemical potential, :math:`E_{A}` is the lower limit of
-integration, :math:`T` is the absolute temperature of the blackbody
-radiator, :math:`h` is Planck's constant, :math:`c` is the speed of
-light, :math:`k` is Boltzmann's constant, and :math:`m` is the
-integer order of the integration. For a value of :math:`m = 2` , this
-integral returns the photon particle flux, whereas for :math:`m =
-3` , the integral yields the photon power flux.
-
-The :mod:`ibei` python module implements a calculation of the
-upper-incomplete Bose-Einstein integral which is given in terms of
-the `polylogarithm <https://en.wikipedia.org/wiki/Polylogarithm>`_
-function and described by 
-`Smith <https://github.com/jrsmith3/paper-2014-08_incomplete_bose_einstein_integral>`_
-(citation forthcoming). The :mod:`ibei` module provides a function,
-`uibei`, which returns the value of the upper incomplete
-Bose-Einstein integral as well as two convenience classes for
+The :mod:`ibei` module provides functionality to calculate various
+forms of the Bose-Einstein integral, along with well-known models of
+photovoltaic devices. See the "Mathematical Description and
+Applications" section for the mathematical details. The :mod:`ibei`
+module provides a :class:`BEI` class which includes methods to
+compute the full, upper-incomplete, and lower-incomplete
+Bose-Einstein integrals. It also includes two convenience classes for
 calculating the power density and efficiency of a single-junction
 solar cell according to Shockley and
 Queisser :cite:`10.1063/1.1736034` and deVos :cite:`9780198513926`.
 
 
-Installation
-============
+Installation (UPDATE THIS SECTION)
+==================================
 This section is subject to change.
 
 Download the source, install `hatch <https://hatch.pypa.io/latest>`_
@@ -92,6 +74,52 @@ Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
     >>> plt.show()
 
 .. image:: _static/eta_vs_eg.png
+
+
+
+Mathematical Description and Applications
+=========================================
+The Bose-Einstein integral, subsequently referred to as the "full
+Bose-Einstein integral" or "full integral", is given by Eq. (REF).
+
+(EQUATION)
+
+(DESCRIPTION OF TERMS)
+
+Consider the two integrals G() and g(), called the upper-incomplete
+Bose-Einstein integral and the lower-incomplete Bose-Einstein
+integral, respectively, and given by Eq. (REF).
+
+(EQUATION)
+
+Note that the two integrals given above can be summed to yield a
+relationship between them and the full integral.
+
+(EQUATION)
+
+(SHOW THE SOLUTION TO THE FULL AND UPPER-INCOMPLETE INTEGRALS).
+
+
+
+The upper incomplete Bose-Einstein integral is given by
+
+.. math::
+
+    F_{m}(E_{A},T,\mu) = \frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \frac{1}{\exp \left( \frac{E - \mu}{kT} \right) - 1} dE 
+
+where :math:`E` is the photon energy, :math:`\mu` is the photon
+chemical potential, :math:`E_{A}` is the lower limit of
+integration, :math:`T` is the absolute temperature of the blackbody
+radiator, :math:`h` is Planck's constant, :math:`c` is the speed of
+light, :math:`k` is Boltzmann's constant, and :math:`m` is the
+integer order of the integration. For a value of :math:`m = 2` , this
+integral returns the photon particle flux, whereas for :math:`m =
+3` , the integral yields the photon power flux.
+
+
+
+
+
 
 
 License
