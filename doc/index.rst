@@ -76,6 +76,13 @@ Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
 .. image:: _static/eta_vs_eg.png
 
 
+API Reference
+=============
+.. toctree::
+    :maxdepth: 1
+
+    api
+
 
 Mathematical Description and Applications
 =========================================
@@ -152,14 +159,6 @@ be understood within the `semver <http://semver.org/>`_ rubric.
 Citing
 ======
 TBD
-
-
-API Reference
-=============
-.. toctree::
-    :maxdepth: 1
-
-    api
 
 
 Bibliography
