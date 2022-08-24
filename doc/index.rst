@@ -91,15 +91,22 @@ API Reference
 Mathematical Description and Applications
 =========================================
 The Bose-Einstein integral, subsequently referred to as the "full
-Bose-Einstein integral" or "full integral", is given by Eq. (REF).
+Bose-Einstein integral" or "full integral", is denoted
+:math:`G_{m} (T, \mu)` and is given by Eq. (REF).
 
-(EQUATION)
+.. math::
 
-(DESCRIPTION OF TERMS)
+    G_{m}(T, \mu) = \frac{2 \pi}{h^{3} c^{2}} \int_{0}^{\infty} E^{m} \frac{1}{\exp(\frac{E-\mu}{kT}) - 1} dE
 
-Consider the two integrals G() and g(), called the upper-incomplete
-Bose-Einstein integral and the lower-incomplete Bose-Einstein
-integral, respectively, and given by Eq. (REF).
+
+The quantity :math:`h` is Planck's constant, :math:`c` is the speed of
+light, :math:`\mu` is the chemical potential of photons, :math:`E` is
+the energy of photons, :math:`T` is the temperature of the radiator,
+and :math:`k` is Boltzmann's constant. 
+
+Now consider the two integrals G() and g(), called the
+upper-incomplete Bose-Einstein integral and the lower-incomplete
+Bose-Einstein integral, respectively, and given by Eq. (REF).
 
 (EQUATION)
 
