@@ -112,7 +112,7 @@ The upper incomplete Bose-Einstein integral is given by
 
 .. math::
 
-    F_{m}(E_{A},T,\mu) = \frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \frac{1}{\exp \left( \frac{E - \mu}{kT} \right) - 1} dE 
+    F_{m}(E_{A},T,\mu) = \frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \frac{1}{\exp \left( \frac{E - \mu}{kT} \right) - 1} dE
 
 where :math:`E` is the photon energy, :math:`\mu` is the photon
 chemical potential, :math:`E_{A}` is the lower limit of
