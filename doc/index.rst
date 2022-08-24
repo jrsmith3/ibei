@@ -74,8 +74,10 @@ Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
     >>> plt.show()
 
 
-.. image:: _static/eta_vs_eg.png
+.. figure:: _static/eta_vs_eg.png
   :alt: Efficiency vs. bandgap of a photovoltaic using Shockley and Queisser's model.
+
+  Efficiency vs. bandgap of a photovoltaic using Shockley and Queisser's model :cite:`10.1063/1.1736034`.
 
 
 API Reference
