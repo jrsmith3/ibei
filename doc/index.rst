@@ -92,11 +92,11 @@ Mathematical Description and Applications
 =========================================
 The Bose-Einstein integral, subsequently referred to as the "full
 Bose-Einstein integral" or "full integral", is denoted
-:math:`G_{m} (T, \mu)` and is given by Eq. (REF).
+:math:`G_{m} (T, \mu)` and is given by Eq. :eq:`eq:01`.
 
-.. math::
-
+.. math:: 
     G_{m}(T, \mu) = \frac{2 \pi}{h^{3} c^{2}} \int_{0}^{\infty} E^{m} \frac{1}{\exp(\frac{E-\mu}{kT}) - 1} dE
+    :label: eq:01
 
 
 The quantity :math:`h` is Planck's constant, :math:`c` is the speed of
@@ -107,16 +107,16 @@ and :math:`k` is Boltzmann's constant.
 Now consider the two integrals :math:`G_{m} (E_{g}, T, \mu)`
 and :math:`g_{m} (E_{g}, T, \mu)`, called the upper-incomplete
 Bose-Einstein integral and the lower-incomplete Bose-Einstein
-integral, respectively, and given by Eqs. (REF) and
-(REF), respectively.
+integral, respectively, and given by Eqs. :eq:`eq:02` and
+:eq:`eq:03`, respectively.
 
 .. math::
-    
     G_{m} (E_{g}, T, \mu) = \frac{2 \pi}{h^{3} c^{2}} \int_{E_{g}}^{\infty} E^{m} \frac{1}{\exp(\frac{E-\mu}{kT}) - 1} dE
+    :label: eq:02
 
 .. math::
-
     g_{m} (E_{g}, T, \mu) = \frac{2 \pi}{h^{3} c^{2}} \int_{0}^{E_{g}} E^{m} \frac{1}{\exp(\frac{E-\mu}{kT}) - 1} dE
+    :label: eq:03
 
 
 The two integrals given above can be summed to form a relationship
@@ -124,33 +124,33 @@ between the full, upper-incomplete, and lower-incomplete
 Bose-Einstein integrals.
 
 .. math::
-
     G_{m} (T, \mu) = G_{m} (E_{g}, T, \mu) + g_{m} (E_{g}, T, \mu)
+    :label: eq:04
 
 
 The integration of the full Bose-Einstein integral can be performed to
-yield the expression given in Eq. (REF).
+yield the expression given in Eq. :eq:`eq:05`.
 
 .. math::
-
     G_{m}(T, \mu) = \frac{2 \pi (kT)^{m+1}}{h^{3} c^{2}} \Gamma(m+1) Li_{m+1}\left(\exp\left(\frac{\mu}{kT}\right)\right)
+    :label: eq:05
 
 
 where :math:`\Gamma(z)` is the gamma function and
 :math:`Li_{s}(z)` is the polylogarithm of index :math:`s`. The
 upper-incomplete Bose-Einstein integral can be expressed as a finite
 sum of polylogarithm functions as shown by Smith (reference
-forthcoming) and given in Eq. (REF).
+forthcoming) and given in Eq. :eq:`eq:06`.
 
 .. math::
-
     G_{m}(E_{A},T,\mu) = \frac{2\pi m! (kT)^{m+1}}{h^{3} c^{2}} \sum_{s = 1}^{m+1} \frac{1}{(m-s+1)!} \left( \frac{E_{A}}{kT} \right)^{m-s+1} Li_{s} \left( \exp \left( \frac{\mu - E_{A}}{kT} \right) \right)
+    :label: eq:06
 
 
 An expression for the lower-incomplete Bose-Einstein integral can be
-obtained by solving Eq. (REF) for :math:`g_{m} (E_{g}, T, \mu)` and
-substituting Eqs. (REF) and (REF) for the full and upper-incomplete
-integrals, respectively.
+obtained by solving Eq. :eq:`eq:04` for :math:`g_{m} (E_{g}, T, \mu)`
+and substituting Eqs. :eq:`eq:05` and :eq:`eq:06` for the full and
+upper-incomplete integrals, respectively.
 
 
 License
