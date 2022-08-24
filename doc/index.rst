@@ -69,6 +69,8 @@ Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
     ...:     efficiencies.append(efficiency)
 
     >>> plt.plot(bandgaps, efficiencies)
+    >>> plt.xlabel("Bandgap (eV)")
+    >>> plt.ylabel("Efficiency")
     >>> plt.show()
 
 
