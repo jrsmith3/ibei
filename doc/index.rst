@@ -42,19 +42,17 @@ Examples
 Calculate the number of above-bandgap photons from Si at 300K::
 
     >>> import ibei
-    >>> temp = 300
     >>> bandgap = 1.1
-    >>> ibei.uibei(2, bandgap, temp, 0.)
-    <Quantity 10549122.240303338 1 / (m2 s)>
+    >>> bei = ibei.BEI(order=2, energy_bound=bandgap, temperature=300., chemical_potential=0.)
+    <Quantity 10549124.09538381 1 / (m2 s)>
 
 Verify Shockley and Queisser's result :cite:`10.1063/1.1736034` that
 the efficiency of a silicon solar cell is 44%::
 
     >>> import ibei
-    >>> input_params = {"temp_sun": 6000, "bandgap": 1.1}
-    >>> sc = ibei.SQSolarcell(input_params)
-    >>> sc.calc_efficiency()
-    0.43866804270206095
+    >>> solarcell = ibei.SQSolarcell(solar_temperature=6000., bandgap=1.1)
+    >>> solarcell.efficiency()
+    <Quantity 0.43866807>
 
 Plot efficiency vs. bandgap of a single-junction solar cell as in
 Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
@@ -66,12 +64,13 @@ Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
     >>> bandgaps = np.linspace(0, 3.25, 100)
     >>> efficiencies = []
     >>> for bandgap in bandgaps:
-    ...     input_params = {"temp_sun": 6000, "bandgap": bandgap}
-    ...     sc = ibei.SQSolarcell(input_params)
-    ...     efficiency = sc.calc_efficiency()
-    ...     efficiencies.append(efficiency)
+    ...:     solarcell = ibei.SQSolarcell(solar_temperature=6000, bandgap=bandgap)
+    ...:     efficiency = solarcell.efficiency()
+    ...:     efficiencies.append(efficiency)
+
     >>> plt.plot(bandgaps, efficiencies)
     >>> plt.show()
+
 
 .. image:: _static/eta_vs_eg.png
 
