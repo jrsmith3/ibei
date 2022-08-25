@@ -289,6 +289,15 @@ class SQSolarcell():
     solar_temperature:
         Temperature of the sun.
 
+
+    Attributes
+    ----------
+    bandgap: astropy.units.Quantity[astropy.units.eV]
+        Same as constructor parameter.
+    solar_temperature: astropy.units.Quantity[astropy.units.K]
+        Same as constructor parameter.
+
+
     Raises
     ------
     TypeError
@@ -375,10 +384,26 @@ class DeVosSolarcell(SQSolarcell):
 
     Parameters
     ----------
+    bandgap:
+        Bandgap of solar cell material.
+    solar_temperature:
+        Temperature of the sun.
     planetary_temperature:
         Temperature of planet.
     voltage:
         Voltage across electrodes of device.
+
+
+    Attributes
+    ----------
+    bandgap: astropy.units.Quantity[astropy.units.eV]
+        Same as constructor parameter.
+    solar_temperature: astropy.units.Quantity[astropy.units.K]
+        Same as constructor parameter.
+    planetary_temperature: astropy.units.Quantity[astropy.units.K]
+        Same as constructor parameter.
+    voltage: astropy.units.Quantity[astropy.units.V]
+        Same as constructor parameter.
 
 
     Raises
