@@ -1,3 +1,7 @@
+# coding=utf-8
+import ibei
+
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -20,6 +24,7 @@
 project = 'ibei'
 copyright = '2022, Joshua Ryan Smith'
 author = 'Joshua Ryan Smith'
+version = ibei.__version__
 
 
 # -- General configuration ---------------------------------------------------
