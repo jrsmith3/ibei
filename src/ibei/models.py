@@ -84,13 +84,14 @@ class BEI():
     TypeError
         If non-scalar arguments are passed to the constructor.
     TypeError
-        If `order` not int type or not coercible to int without truncation.
+        If ``order`` param not ``int`` type or not coercible to ``int``
+        without truncation.
     ValueError
-        If `energy_bound` < 0
+        If ``energy_bound`` param < 0
     ValueError
-        If `temperature` <= 0
+        If ``temperature`` param <= 0
     ValueError
-        If `chemical_potential` < 0
+        If ``chemical_potential`` param < 0
 
 
     Notes
@@ -199,8 +200,8 @@ class BEI():
 
         Notes
         -----
-        This convenience method is a special case of `BEI.full`. This method
-        assumes the value of `order` is 2.
+        This convenience method is a special case of :meth:`BEI.full`. This
+        method assumes the value of :attr:`order` is 2.
         """
         flux = (4 * np.pi * float(mpmath.zeta(3)) * self.kT**3) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
@@ -215,8 +216,8 @@ class BEI():
         Notes
         -----
         This convenience method implements the Stefan-Boltzmann law and is a
-        special case of the `BEI.full`. This method assumes the value of
-        `order` is 3.
+        special case of the :meth:`BEI.full`. This method assumes the value of
+        :attr:`order` is 3.
         """
         power_flux = astropy.constants.sigma_sb * self.temperature**4
 
@@ -226,21 +227,21 @@ class BEI():
     @property
     def kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
-        Product of Boltzmann's constant and temperature.
+        Product of Boltzmann's constant and :attr:`temperature`.
         """
         return (self.temperature * astropy.constants.k_B).decompose()
 
     @property
     def reduced_energy_bound(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
-        Energy bound divided by kT.
+        :attr:`energy_bound` divided by :attr:`kT`.
         """
         return (self.energy_bound / self.kT).decompose()
 
     @property
     def reduced_chemical_potential(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
-        Chemical potential divided by kT.
+        :attr:`chemical_potential` divided by :attr:`kT`.
         """
         return (self.chemical_potential / self.kT).decompose()
 
@@ -251,8 +252,8 @@ class BEI():
 
         Note
         ----
-        For `order=3`, this factor is NOT equal to the Stefan-Boltzmann
-        constant because is missing the Riemann-Zeta term.
+        For :attr:`order` equal to `3`, this factor is NOT equal to the
+        Stefan-Boltzmann constant because is missing the Riemann-Zeta term.
         """
         return (2 * np.pi * self.kT**(self.order + 1)) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
@@ -288,9 +289,9 @@ class SQSolarcell():
     TypeError
         If non-scalar arguments are passed to the constructor.
     ValueError
-        If `bandgap` <= 0
+        If ``bandgap`` <= 0
     ValueError
-        If `solar_temperature` <= 0
+        If ``solar_temperature`` <= 0
     """
     bei = attrs.field(init=False)
     bandgap: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
@@ -384,7 +385,7 @@ class DeVosSolarcell(SQSolarcell):
     TypeError
         If non-scalar arguments are passed to the constructor.
     ValueError
-        If `planetary_temperature` <= 0
+        If ``planetary_temperature`` <= 0
     """
     planetary_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
             default=300.,
