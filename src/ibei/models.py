@@ -281,12 +281,22 @@ class SQSolarcell():
     This class implements a solar cell as described by Shockley and
     Queisser :cite:`10.1063/1.1736034`.
 
-    An :class:`SQSolarcell` is instantiated with a :class:`dict` having
-    keys identical to the class's public data attributes. Each key's
-    value must satisfy the constraints noted with the corresponding
-    public data attribute. Dictionary values can be some kind of numeric
-    type or of type :class:`astropy.units.Quantity` so long as the units
-    are compatible with what's listed.    
+
+    Parameters
+    ----------
+    bandgap:
+        Bandgap of solar cell material.
+    solar_temperature:
+        Temperature of the sun.
+
+    Raises
+    ------
+    TypeError
+        If non-scalar arguments are passed to the constructor.
+    ValueError
+        If `bandgap` <= 0
+    ValueError
+        If `solar_temperature` <= 0
     """
     bei = attrs.field(init=False)
     bandgap: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
@@ -317,8 +327,13 @@ class SQSolarcell():
 
         The output power density is calculated according to a slight
         modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq.
-        2.4. This method returns values of
-        type :class:`astropy.units.Quantity` with units of [W m^-2].
+        2.4.
+
+
+        Returns
+        -------
+        astropy.units.Quantity
+            Power density output by solar cell.
         """
         if self.bandgap == 0:
             solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
@@ -335,8 +350,13 @@ class SQSolarcell():
         Solar cell efficiency
 
         The efficiency is calculated according to Shockley &
-        Queisser's :cite:`10.1063/1.1736034` Eq. 2.8. This method returns
-        a :class:`float`.
+        Queisser's :cite:`10.1063/1.1736034` Eq. 2.8.
+
+
+        Returns
+        -------
+        astropy.units.Quantity
+            Conversion efficiency of solar cell.
         """
         power_density = self.power_density()
         solar_power_density = self.bei.radiant_power_flux()
@@ -348,17 +368,25 @@ class SQSolarcell():
 @attrs.frozen
 class DeVosSolarcell(SQSolarcell):
     """
-    DeVos single-junction solar cell
+    DeVos model of single-junction solar cell
 
     This class implements a solar cell as described by
     DeVos :cite:`9780198513926` Ch. 6.
 
-    An DeVosSolarcell is instantiated with a :class:`dict` having keys
-    identical to the class's public data attributes. Each key's value
-    must satisfy the constraints noted with the corresponding public data
-    attribute. Dictionary values can be some kind of numeric type or of
-    type :class:`astropy.units.Quantity` so long as the units are
-    compatible with what's listed.
+    Parameters
+    ----------
+    planetary_temperature:
+        Temperature of planet.
+    voltage:
+        Voltage across electrodes of device.
+
+
+    Raises
+    ------
+    TypeError
+        If non-scalar arguments are passed to the constructor.
+    ValueError
+        If `planetary_temperature` <= 0
     """
     planetary_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
             default=300.,
@@ -386,8 +414,11 @@ class DeVosSolarcell(SQSolarcell):
         assumes fully concentrated sunlight and is therefore not completely
         general.
 
-        This method returns values of type :class:`astropy.units.Quantity`
-        with units of [W m^-2].
+
+        Returns
+        -------
+        astropy.units.Quantity
+            Power density output by solar cell.
         """
         electron_energy = astropy.constants.e.si * self.voltage
 
