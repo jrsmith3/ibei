@@ -52,12 +52,14 @@ above via the :class:`BEI` class.
 
 Symbols used in the above equations are given as follows.
 
-* :math:`h`: Planck's constant
-* :math:`c`: Speed of light
-* :math:`\mu`: Chemical potential of photons
-* :math:`E`: Energy of photons
-* :math:`T`: Absolute temperature of the radiator
-* :math:`k`: Boltzmann's constant
+.. glossary::
+
+    :math:`h`: Planck's constant
+    :math:`c`: Speed of light
+    :math:`\mu`: Chemical potential of photons
+    :math:`E`: Energy of photons
+    :math:`T`: Absolute temperature of the radiator
+    :math:`k`: Boltzmann's constant
 """
 
 from .models import BEI, SQSolarcell, DeVosSolarcell
