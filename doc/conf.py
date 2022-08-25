@@ -28,11 +28,15 @@ author = 'Joshua Ryan Smith'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.napoleon',
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
+    'sphinx.ext.napoleon',
     'sphinxcontrib.bibtex'
 ]
+
+# Configuration for `autodoc`.
+autodoc_member_order = "bysource"
+
 
 # Configuration for `sphinxcontrib-bibtex`.
 bibtex_bibfiles = ['bib.bib']
