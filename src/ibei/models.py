@@ -101,12 +101,17 @@ class BEI():
     upper-incomplete, and lower-incomplete Bose-Einstein integral. A
     brief overview of the equations can be found in the :mod:`ibei`
     docstring, and a longer explanation can be found in the online
-    documentation of this module.
+    documentation of this module [1]_.
 
     Instance attributes of `BEI` objects are of type
-    `astropy.units.Quantity`. Computations involving units can be tricky,
-    and the use of `Quantity` objects throughout will expose arithmetic
-    implementation errors and unit conversion errors.
+    ``astropy.units.Quantity``. Computations involving units can be
+    tricky, and the use of ``Quantity`` objects throughout will expose
+    arithmetic implementation errors and unit conversion errors.
+
+
+    References
+    ----------
+    .. [1] https://ibei.readthedocs.io/
     """
     order: int = attrs.field(
             converter=_int_converter,
