@@ -137,11 +137,6 @@ class BEI():
     def lower(self) -> astropy.units.Quantity:
         """
         Lower-incomplete Bose-Einstein integral.
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Value of the lower-incomplete Bose-Einstein integral.
         """
         bei = self.full() - self.upper()
 
@@ -151,11 +146,6 @@ class BEI():
     def upper(self) -> astropy.units.Quantity:
         """
         Upper-incomplete Bose-Einstein integral.
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Value of upper-incomplete Bose-Einstein integral.
         """
         expt = self.reduced_chemical_potential - self.reduced_energy_bound
         real_arg = np.exp(expt.value)
@@ -190,11 +180,6 @@ class BEI():
     def full(self) -> astropy.units.Quantity:
         """
         Full Bose-Einstein integral.
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Value of the Bose-Einstein integral.
         """
         expt = self.reduced_chemical_potential
         real_arg = np.exp(expt.value)
@@ -337,12 +322,6 @@ class SQSolarcell():
         The output power density is calculated according to a slight
         modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq.
         2.4.
-
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Power density output by solar cell.
         """
         if self.bandgap == 0:
             solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
@@ -360,12 +339,6 @@ class SQSolarcell():
 
         The efficiency is calculated according to Shockley &
         Queisser's :cite:`10.1063/1.1736034` Eq. 2.8.
-
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Conversion efficiency of solar cell.
         """
         power_density = self.power_density()
         solar_power_density = self.bei.radiant_power_flux()
@@ -438,12 +411,6 @@ class DeVosSolarcell(SQSolarcell):
         DeVos's :cite:`9780198513926` Eq. 6.4. Note that this expression
         assumes fully concentrated sunlight and is therefore not completely
         general.
-
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Power density output by solar cell.
         """
         electron_energy = astropy.constants.e.si * self.voltage
 
