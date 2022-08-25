@@ -24,7 +24,7 @@ deVos :cite:`9780198513926`.
 
 
 Installation (UPDATE THIS SECTION)
-==================================
+----------------------------------
 This section is subject to change.
 
 Download the source, install `hatch <https://hatch.pypa.io/latest>`_
@@ -39,8 +39,8 @@ and build.
 
 
 Examples
-========
-Calculate the number of above-bandgap photons from Si at 300K::
+--------
+Calculate the number of above-bandgap photons from Si at 300K:
 
     >>> import ibei
     >>> bandgap = 1.1
@@ -82,15 +82,14 @@ Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
 
 
 API Reference
-=============
+-------------
 .. toctree::
-    :maxdepth: 1
 
     api
 
 
 Mathematical Description and Applications
-=========================================
+-----------------------------------------
 The Bose-Einstein integral, subsequently referred to as the "full
 Bose-Einstein integral" or "full integral", is denoted
 :math:`G_{m} (T, \mu)` and is given by Eq. :eq:`eq:01`.
@@ -155,7 +154,7 @@ upper-incomplete integrals, respectively.
 
 
 License
-=======
+-------
 The code is licensed under the
 `MIT license <http://opensource.org/licenses/MIT>`_. You can use this
 code in your project without telling me, but it would be great to hear
@@ -164,8 +163,7 @@ joshua.r.smith@gmail.com.
 
 
 Contributing
-============
-
+------------
 The repository is hosted on
 `github <https://github.com/jrsmith3/ibei>`_ . Feel free to fork this
 project and/or submit a pull request. Please notify me of any issues
@@ -182,10 +180,10 @@ be understood within the `semver <http://semver.org/>`_ rubric.
 
 
 Citing
-======
+------
 TBD
 
 
 Bibliography
-============
+------------
 .. bibliography:: bib.bib
