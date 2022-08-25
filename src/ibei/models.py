@@ -60,22 +60,27 @@ class BEI():
         Order of Bose-Einstein integral. Corresponds to :math:`m`.
     energy_bound:
         Upper or lower bound of integral depending on which integration method
-        is called. Corresponds to :math:`E_{A}`.
+        is called. Corresponds to :math:`E_{g}`.
     temperature:
-        Temperature of photon ensemble. Corresponds to :math:`T`.
+        Absolute temperature of photon ensemble. Corresponds to :math:`T`.
     chemical_potential:
-        Chemical potential of photon ensemble. Corresponds to:math:`\mu`.
+        Chemical potential of photon ensemble. Corresponds to :math:`\mu`.
 
 
     Attributes
     ----------
-    Same as parameters.
+    order: 
+        Same as constructor parameter.
+    energy_bound: astropy.units.Quantity[astropy.units.eV]
+        Same as constructor parameter.
+    temperature: astropy.units.Quantity[astropy.units.K]
+        Same as constructor parameter.
+    chemical_potential: astropy.units.Quantity[astropy.units.eV]
+        Same as constructor parameter.
 
 
     Raises
     ------
-    These exceptions define constraints on the arguments and attributes.
-
     TypeError
         If non-scalar arguments are passed to the constructor.
     TypeError
@@ -90,6 +95,13 @@ class BEI():
 
     Notes
     -----
+    The constructor parameters given in the "Parameters" section
+    correspond to symbols in equations that give the full,
+    upper-incomplete, and lower-incomplete Bose-Einstein integral. A
+    brief overview of the equations can be found in the :mod:`ibei`
+    docstring, and a longer explanation can be found in the online
+    documentation of this module.
+
     Instance attributes of `BEI` objects are of type
     `astropy.units.Quantity`. Computations involving units can be tricky,
     and the use of `Quantity` objects throughout will expose arithmetic
@@ -129,7 +141,7 @@ class BEI():
         Returns
         -------
         astropy.units.Quantity
-            Value of the Bose-Einstein integral.
+            Value of the lower-incomplete Bose-Einstein integral.
         """
         bei = self.full() - self.upper()
 
@@ -140,34 +152,10 @@ class BEI():
         """
         Upper incomplete Bose-Einstein integral.
 
-        The upper incomplete Bose-Einstein integral is given by the following
-        expression [1]_ for condition :math:`\mu < E_{A}`, and is equal to
-        zero when this condition is not met.
-
-        .. math::
-
-            F_{m}(E_{A},T,\mu) = \\frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \\frac{1}{\exp \left( \\frac{E - \mu}{kT} \\right) - 1} dE
-
-        The quantities are as follows: :math:`E` is the photon
-        energy, :math:`\mu` is the photon chemical potential, :math:`E_{A}` is
-        the lower limit of integration, :math:`T` is the absolute temperature
-        of the blackbody radiator, :math:`h` is Planck's constant, :math:`c`
-        is the speed of light, :math:`k` is Boltzmann's constant,
-        and :math:`m` is the integer order of the integration. For a value
-        of :math:`m = 2` , this integral returns the photon particle flux,
-        whereas for :math:`m = 3` , the integral yields the photon power
-        flux.
-
-
         Returns
         -------
         astropy.units.Quantity
             Value of upper-incomplete Bose-Einstein integral.
-
-
-        References
-        ----------
-        .. [1] :cite:`10.1016/j.sse.2006.06.017`
         """
         expt = self.reduced_chemical_potential - self.reduced_energy_bound
         real_arg = np.exp(expt.value)
@@ -260,14 +248,14 @@ class BEI():
     @property
     def reduced_energy_bound(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
-        Dimensionless energy bound in units of kT.
+        Energy bound divided by kT.
         """
         return (self.energy_bound / self.kT).decompose()
 
     @property
     def reduced_chemical_potential(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
-        Dimensionless chemical potential in units of kT.
+        Chemical potential divided by kT.
         """
         return (self.chemical_potential / self.kT).decompose()
 
@@ -279,7 +267,7 @@ class BEI():
         Note
         ----
         For `order=3`, this factor is NOT equal to the Stefan-Boltzmann
-        constant. This factor is missing the Riemann-Zeta term.
+        constant because is missing the Riemann-Zeta term.
         """
         return (2 * np.pi * self.kT**(self.order + 1)) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
