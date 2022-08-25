@@ -10,14 +10,14 @@ solar cell and other devices.
 
 The :mod:`ibei` module provides functionality to calculate various
 forms of the Bose-Einstein integral, along with well-known models of
-photovoltaic devices. The :class:`ibei.BEI` class implements the
+photovoltaic devices. The :class:`BEI` class implements the
 full, upper-incomplete, and lower-incomplete Bose-Einstein integrals
 and is the main feature of this module.
 
 
 Notes
 -----
-Arguments passed to the constructor of the :class:`ibei.BEI` class
+Arguments passed to the constructor of the :class:`BEI` class
 correspond to symbols in the expressions given below. The
 correspondence is noted in the "Parameters" section of the class
 docstring.
@@ -48,7 +48,7 @@ and
     g_{m} (E_{g}, T, \mu) = \\frac{2 \pi}{h^{3} c^{2}} \int_{0}^{E_{g}} E^{m} \\frac{1}{\exp(\\frac{E-\mu}{kT}) - 1} dE
 
 This module provides functionality to compute each integral given
-above via the :class:`ibei.BEI` class.
+above via the :class:`BEI` class.
 
 Symbols used in the above equations are given as follows.
 
