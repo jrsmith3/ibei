@@ -14,12 +14,13 @@ The :mod:`ibei` module provides functionality to calculate various
 forms of the Bose-Einstein integral, along with well-known models of
 photovoltaic devices. See the
 `Mathematical Description and Applications`_ section for the
-mathematical details. The :mod:`ibei` module provides a :class:`BEI`
-class which includes methods to compute the full, upper-incomplete,
-and lower-incomplete Bose-Einstein integrals. It also includes two
-convenience classes for calculating the power density and efficiency
-of a single-junction solar cell according to Shockley and
-Queisser :cite:`10.1063/1.1736034` and deVos :cite:`9780198513926`.
+mathematical details. The :mod:`ibei` module provides a 
+:class:`ibei.BEI` class which includes methods to compute the full,
+upper-incomplete, and lower-incomplete Bose-Einstein integrals. It
+also includes two convenience classes for calculating the power
+density and efficiency of a single-junction solar cell according to
+Shockley and Queisser :cite:`10.1063/1.1736034` and
+deVos :cite:`9780198513926`.
 
 
 Installation (UPDATE THIS SECTION)
