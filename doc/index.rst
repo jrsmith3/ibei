@@ -65,9 +65,9 @@ Shockley and Queisser's Fig. 3 :cite:`10.1063/1.1736034`::
     >>> bandgaps = np.linspace(0, 3.25, 100)
     >>> efficiencies = []
     >>> for bandgap in bandgaps:
-    ...:     solarcell = ibei.SQSolarcell(solar_temperature=6000, bandgap=bandgap)
-    ...:     efficiency = solarcell.efficiency()
-    ...:     efficiencies.append(efficiency)
+    ...     solarcell = ibei.SQSolarcell(solar_temperature=6000, bandgap=bandgap)
+    ...     efficiency = solarcell.efficiency()
+    ...     efficiencies.append(efficiency)
 
     >>> plt.plot(bandgaps, efficiencies)
     >>> plt.xlabel("Bandgap (eV)")
