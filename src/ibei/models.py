@@ -390,6 +390,10 @@ class DeVosSolarcell(SQSolarcell):
     TypeError
         If non-scalar arguments are passed to the constructor.
     ValueError
+        If ``bandgap`` <= 0
+    ValueError
+        If ``solar_temperature`` <= 0
+    ValueError
         If ``planetary_temperature`` <= 0
     """
     planetary_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
