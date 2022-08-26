@@ -1,3 +1,5 @@
 .. automodule:: ibei
-    :members: uibei
-    
+    :members:
+    :imported-members:
+    :inherited-members:
+    :show-inheritance:

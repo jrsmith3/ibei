@@ -2,6 +2,7 @@
 =====
 * 77: Refactor `SQSolarcell` and `DeVosSolarcell` classes.
 * 68: Refactor `uibei` to be a method on a new `BEI` class.
+* 59: Update documentation.
 * 58: Cosmetic documentation edits.
 * 56: Update Python dependency to 3.10.
 * 51: Write GitHub action to automatically run tests.

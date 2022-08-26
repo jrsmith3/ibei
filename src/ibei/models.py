@@ -1,4 +1,8 @@
 # coding=utf-8
+"""
+Bose-Einstein integral calculators (:mod:`ibei.models`)
+=======================================================
+"""
 
 import astropy.constants
 import astropy.units
@@ -56,40 +60,58 @@ class BEI():
         Order of Bose-Einstein integral. Corresponds to :math:`m`.
     energy_bound:
         Upper or lower bound of integral depending on which integration method
-        is called. Corresponds to :math:`E_{A}`.
+        is called. Corresponds to :math:`E_{g}`.
     temperature:
-        Temperature of photon ensemble. Corresponds to :math:`T`.
+        Absolute temperature of photon ensemble. Corresponds to :math:`T`.
     chemical_potential:
-        Chemical potential of photon ensemble. Corresponds to:math:`\mu`.
+        Chemical potential of photon ensemble. Corresponds to :math:`\mu`.
 
 
     Attributes
     ----------
-    Same as parameters.
+    order: 
+        Same as constructor parameter.
+    energy_bound: astropy.units.Quantity[astropy.units.eV]
+        Same as constructor parameter.
+    temperature: astropy.units.Quantity[astropy.units.K]
+        Same as constructor parameter.
+    chemical_potential: astropy.units.Quantity[astropy.units.eV]
+        Same as constructor parameter.
 
 
     Raises
     ------
-    These exceptions define constraints on the arguments and attributes.
-
     TypeError
         If non-scalar arguments are passed to the constructor.
     TypeError
-        If `order` not int type or not coercible to int without truncation.
+        If ``order`` param not ``int`` type or not coercible to ``int``
+        without truncation.
     ValueError
-        If `energy_bound` < 0
+        If ``energy_bound`` param < 0
     ValueError
-        If `temperature` <= 0
+        If ``temperature`` param <= 0
     ValueError
-        If `chemical_potential` < 0
+        If ``chemical_potential`` param < 0
 
 
     Notes
     -----
+    The constructor parameters given in the "Parameters" section
+    correspond to symbols in equations that give the full,
+    upper-incomplete, and lower-incomplete Bose-Einstein integral. A
+    brief overview of the equations can be found in the :mod:`ibei`
+    docstring, and a longer explanation can be found in the online
+    documentation of this module [1]_.
+
     Instance attributes of `BEI` objects are of type
-    `astropy.units.Quantity`. Computations involving units can be tricky,
-    and the use of `Quantity` objects throughout will expose arithmetic
-    implementation errors and unit conversion errors.
+    ``astropy.units.Quantity``. Computations involving units can be
+    tricky, and the use of ``Quantity`` objects throughout will expose
+    arithmetic implementation errors and unit conversion errors.
+
+
+    References
+    ----------
+    .. [1] https://ibei.readthedocs.io/
     """
     order: int = attrs.field(
             converter=_int_converter,
@@ -120,12 +142,7 @@ class BEI():
 
     def lower(self) -> astropy.units.Quantity:
         """
-        Lower incomplete Bose-Einstein integral.
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Value of the Bose-Einstein integral.
+        Lower-incomplete Bose-Einstein integral.
         """
         bei = self.full() - self.upper()
 
@@ -134,36 +151,7 @@ class BEI():
 
     def upper(self) -> astropy.units.Quantity:
         """
-        Upper incomplete Bose-Einstein integral.
-
-        The upper incomplete Bose-Einstein integral is given by the following
-        expression [1]_ for condition :math:`\mu < E_{A}`, and is equal to
-        zero when this condition is not met.
-
-        .. math::
-
-            F_{m}(E_{A},T,\mu) = \\frac{2 \pi}{h^{3}c^{2}} \int_{E_{A}}^{\infty} E^{m} \\frac{1}{\exp \left( \\frac{E - \mu}{kT} \\right) - 1} dE
-
-        The quantities are as follows: :math:`E` is the photon
-        energy, :math:`\mu` is the photon chemical potential, :math:`E_{A}` is
-        the lower limit of integration, :math:`T` is the absolute temperature
-        of the blackbody radiator, :math:`h` is Planck's constant, :math:`c`
-        is the speed of light, :math:`k` is Boltzmann's constant,
-        and :math:`m` is the integer order of the integration. For a value
-        of :math:`m = 2` , this integral returns the photon particle flux,
-        whereas for :math:`m = 3` , the integral yields the photon power
-        flux.
-
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Value of upper-incomplete Bose-Einstein integral.
-
-
-        References
-        ----------
-        .. [1] :cite:`10.1016/j.sse.2006.06.017`
+        Upper-incomplete Bose-Einstein integral.
         """
         expt = self.reduced_chemical_potential - self.reduced_energy_bound
         real_arg = np.exp(expt.value)
@@ -198,11 +186,6 @@ class BEI():
     def full(self) -> astropy.units.Quantity:
         """
         Full Bose-Einstein integral.
-
-        Returns
-        -------
-        astropy.units.Quantity
-            Value of the Bose-Einstein integral.
         """
         expt = self.reduced_chemical_potential
         real_arg = np.exp(expt.value)
@@ -222,8 +205,8 @@ class BEI():
 
         Notes
         -----
-        This convenience method is a special case of `BEI.full`. This method
-        assumes the value of `order` is 2.
+        This convenience method is a special case of :meth:`BEI.full`. This
+        method assumes the value of :attr:`order` is 2.
         """
         flux = (4 * np.pi * float(mpmath.zeta(3)) * self.kT**3) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
@@ -238,8 +221,8 @@ class BEI():
         Notes
         -----
         This convenience method implements the Stefan-Boltzmann law and is a
-        special case of the `BEI.full`. This method assumes the value of
-        `order` is 3.
+        special case of the :meth:`BEI.full`. This method assumes the value of
+        :attr:`order` is 3.
         """
         power_flux = astropy.constants.sigma_sb * self.temperature**4
 
@@ -249,21 +232,21 @@ class BEI():
     @property
     def kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
-        Product of Boltzmann's constant and temperature.
+        Product of Boltzmann's constant and :attr:`temperature`.
         """
         return (self.temperature * astropy.constants.k_B).decompose()
 
     @property
     def reduced_energy_bound(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
-        Dimensionless energy bound in units of kT.
+        :attr:`energy_bound` divided by :attr:`kT`.
         """
         return (self.energy_bound / self.kT).decompose()
 
     @property
     def reduced_chemical_potential(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
-        Dimensionless chemical potential in units of kT.
+        :attr:`chemical_potential` divided by :attr:`kT`.
         """
         return (self.chemical_potential / self.kT).decompose()
 
@@ -274,8 +257,8 @@ class BEI():
 
         Note
         ----
-        For `order=3`, this factor is NOT equal to the Stefan-Boltzmann
-        constant. This factor is missing the Riemann-Zeta term.
+        For :attr:`order` equal to `3`, this factor is NOT equal to the
+        Stefan-Boltzmann constant because is missing the Riemann-Zeta term.
         """
         return (2 * np.pi * self.kT**(self.order + 1)) / \
             (astropy.constants.h**3 * astropy.constants.c**2)
@@ -289,12 +272,31 @@ class SQSolarcell():
     This class implements a solar cell as described by Shockley and
     Queisser :cite:`10.1063/1.1736034`.
 
-    An :class:`SQSolarcell` is instantiated with a :class:`dict` having
-    keys identical to the class's public data attributes. Each key's
-    value must satisfy the constraints noted with the corresponding
-    public data attribute. Dictionary values can be some kind of numeric
-    type or of type :class:`astropy.units.Quantity` so long as the units
-    are compatible with what's listed.    
+
+    Parameters
+    ----------
+    bandgap:
+        Bandgap of solar cell material.
+    solar_temperature:
+        Temperature of the sun.
+
+
+    Attributes
+    ----------
+    bandgap: astropy.units.Quantity[astropy.units.eV]
+        Same as constructor parameter.
+    solar_temperature: astropy.units.Quantity[astropy.units.K]
+        Same as constructor parameter.
+
+
+    Raises
+    ------
+    TypeError
+        If non-scalar arguments are passed to the constructor.
+    ValueError
+        If ``bandgap`` <= 0
+    ValueError
+        If ``solar_temperature`` <= 0
     """
     bei = attrs.field(init=False)
     bandgap: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
@@ -325,8 +327,7 @@ class SQSolarcell():
 
         The output power density is calculated according to a slight
         modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq.
-        2.4. This method returns values of
-        type :class:`astropy.units.Quantity` with units of [W m^-2].
+        2.4.
         """
         if self.bandgap == 0:
             solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
@@ -343,8 +344,7 @@ class SQSolarcell():
         Solar cell efficiency
 
         The efficiency is calculated according to Shockley &
-        Queisser's :cite:`10.1063/1.1736034` Eq. 2.8. This method returns
-        a :class:`float`.
+        Queisser's :cite:`10.1063/1.1736034` Eq. 2.8.
         """
         power_density = self.power_density()
         solar_power_density = self.bei.radiant_power_flux()
@@ -356,17 +356,45 @@ class SQSolarcell():
 @attrs.frozen
 class DeVosSolarcell(SQSolarcell):
     """
-    DeVos single-junction solar cell
+    DeVos model of single-junction solar cell
 
     This class implements a solar cell as described by
     DeVos :cite:`9780198513926` Ch. 6.
 
-    An DeVosSolarcell is instantiated with a :class:`dict` having keys
-    identical to the class's public data attributes. Each key's value
-    must satisfy the constraints noted with the corresponding public data
-    attribute. Dictionary values can be some kind of numeric type or of
-    type :class:`astropy.units.Quantity` so long as the units are
-    compatible with what's listed.
+    Parameters
+    ----------
+    bandgap:
+        Bandgap of solar cell material.
+    solar_temperature:
+        Temperature of the sun.
+    planetary_temperature:
+        Temperature of planet.
+    voltage:
+        Voltage across electrodes of device.
+
+
+    Attributes
+    ----------
+    bandgap: astropy.units.Quantity[astropy.units.eV]
+        Same as constructor parameter.
+    solar_temperature: astropy.units.Quantity[astropy.units.K]
+        Same as constructor parameter.
+    planetary_temperature: astropy.units.Quantity[astropy.units.K]
+        Same as constructor parameter.
+    voltage: astropy.units.Quantity[astropy.units.V]
+        Same as constructor parameter.
+
+
+    Raises
+    ------
+    TypeError
+        If non-scalar arguments are passed to the constructor.
+    ValueError
+        If ``bandgap`` <= 0
+    ValueError
+        If ``solar_temperature`` <= 0
+    ValueError
+        If ``planetary_temperature`` <= 0
     """
     planetary_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
             default=300.,
@@ -393,9 +421,6 @@ class DeVosSolarcell(SQSolarcell):
         DeVos's :cite:`9780198513926` Eq. 6.4. Note that this expression
         assumes fully concentrated sunlight and is therefore not completely
         general.
-
-        This method returns values of type :class:`astropy.units.Quantity`
-        with units of [W m^-2].
         """
         electron_energy = astropy.constants.e.si * self.voltage
 
