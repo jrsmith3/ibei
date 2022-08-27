@@ -8,6 +8,12 @@ build:
   tools:
     python: "3.10"
 
+python:
+  install:
+    - method: pip
+      path: .
+
 sphinx:
   configuration: doc/conf.py
   fail_on_warning: true
+
