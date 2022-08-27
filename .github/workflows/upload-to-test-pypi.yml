@@ -1,4 +1,4 @@
-name: Upload package artifact to test.pypi.org
+name: Build, test, and publish package artifact to test.pypi.org
 
 on:
   push:
