@@ -26,7 +26,7 @@ Alternatively, download the source, install
 git clone git@github.com:jrsmith3/ibei.git
 pip install hatch
 hatch build
-pip install dist/ibei-1.0.6.tar.gz
+pip install dist/ibei-1.0.6.tar.gz  # Or whatever is the latest version in that directory.
 ```
 
 
