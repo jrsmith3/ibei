@@ -10,7 +10,7 @@ build:
   commands:
     - git fetch --unshallow
     - pip install tox
-    - tox -e doc
+    - tox -e rtd
 
 python:
   install:
