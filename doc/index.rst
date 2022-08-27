@@ -23,12 +23,17 @@ Shockley and Queisser :cite:`10.1063/1.1736034` and
 deVos :cite:`9780198513926`.
 
 
-Installation (UPDATE THIS SECTION)
-----------------------------------
-This section is subject to change.
+Installation
+------------
+This package is installable via ``pip``.
 
-Download the source, install `hatch <https://hatch.pypa.io/latest>`_
-and build.
+.. code-block:: bash
+
+    pip install ibei
+
+
+Alternatively, download the source, install
+`hatch <https://hatch.pypa.io/latest>`_ and build.
 
 .. code-block:: bash
 
