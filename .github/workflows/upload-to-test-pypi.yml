@@ -1,0 +1,29 @@
+name: Build, test, and publish package artifact to test.pypi.org
+
+on:
+  push:
+
+jobs:
+  build-test:
+    name: Build and test package
+    uses: ./.github/workflows/build-test.yml
+
+  upload-package:
+    name: Upload package artifacts to test.pypi.org
+    runs-on: ubuntu-latest
+    needs:
+      - build-test
+    steps:
+      - name: Fetch package artifact
+        id: download
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+
+      - name: Publish package to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+          packages_dir: ${{steps.download.outputs.download-path}}
+          skip_existing: true

@@ -6,6 +6,7 @@
 * 59: Update documentation.
 * 58: Cosmetic documentation edits.
 * 56: Update Python dependency to 3.10.
+* 53: Automatically post artifacts to testing PyPI.
 * 51: Write GitHub action to automatically run tests.
 * 50: Leverage `tox` to run tests.
 * 49: Refactor tests to use `pytest`.

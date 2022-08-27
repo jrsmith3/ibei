@@ -2,7 +2,6 @@ name: Build and test package
 
 on:
   workflow_call:
-  push:
 
 jobs:
   build_test:
