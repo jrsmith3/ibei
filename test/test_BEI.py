@@ -399,6 +399,13 @@ def test_consistency_full_and_helper_methods(order, helper_method_name, valid_co
     assert astropy.units.allclose(bei.full(), output)
 
 
+def test_fail():
+    """
+    Autofail to see if workflow runs
+    """
+    assert False
+
+
 # Pytest fixture definitions
 # ==========================
 @pytest.fixture
