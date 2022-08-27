@@ -12,16 +12,21 @@ function and described by
 
 
 ## Installation
-This section is subject to change.
+This package is installable via `pip`.
 
-Download the source, install [`hatch`](https://hatch.pypa.io/latest/),
-and build.
+```bash
+pip install ibei
+```
+
+
+Alternatively, download the source, install
+[`hatch`](https://hatch.pypa.io/latest/), and build.
 
 ```bash
 git clone git@github.com:jrsmith3/ibei.git
 pip install hatch
 hatch build
-pip install dist/ibei-1.0.6.tar.gz
+pip install dist/ibei-1.0.6.tar.gz  # Or whatever is the latest version in that directory.
 ```
 
 

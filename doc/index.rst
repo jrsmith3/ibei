@@ -23,19 +23,24 @@ Shockley and Queisser :cite:`10.1063/1.1736034` and
 deVos :cite:`9780198513926`.
 
 
-Installation (UPDATE THIS SECTION)
-----------------------------------
-This section is subject to change.
+Installation
+------------
+This package is installable via ``pip``.
 
-Download the source, install `hatch <https://hatch.pypa.io/latest>`_
-and build.
+.. code-block:: bash
+
+    pip install ibei
+
+
+Alternatively, download the source, install
+`hatch <https://hatch.pypa.io/latest>`_ and build.
 
 .. code-block:: bash
 
     git clone git@github.com:jrsmith3/ibei.git
     pip install hatch
     hatch build
-    pip install dist/ibei-1.0.6.tar.gz
+    pip install dist/ibei-1.0.6.tar.gz  # Or whatever is the latest version in that directory.
 
 
 Examples
