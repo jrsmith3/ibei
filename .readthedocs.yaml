@@ -11,7 +11,7 @@ build:
     post_checkout:
       - git fetch --unshallow
   commands:
-    tox -e doc
+    - tox -e doc
 
 python:
   install:
