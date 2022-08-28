@@ -6,21 +6,21 @@ The Bose-Einstein integral appears when calculating quantities
 pertaining to photons. It is used to derive the Stefan-Boltzmann law,
 and it also appears when calculating the detailed balance limit of a
 solar cell as described by Shockley and
-Queisser :cite:`10.1063/1.1736034` , but also when calculating the
-photo-enhanced thermoelectron emission from a material first
+Queisser :cite:`10.1063/1.1736034` , and when calculating the
+photo-enhanced thermoelectron emission from a material as
 described by Schwede et.al. :cite:`10.1038/nmat2814` .
 
 The :mod:`ibei` module provides functionality to calculate various
 forms of the Bose-Einstein integral, along with well-known models of
-photovoltaic devices. See the
-`Mathematical Description and Applications`_ section for the
-mathematical details. The :mod:`ibei` module provides a 
+photovoltaic devices. The :mod:`ibei` module provides a 
 :class:`ibei.BEI` class which includes methods to compute the full,
 upper-incomplete, and lower-incomplete Bose-Einstein integrals. It
 also includes two convenience classes for calculating the power
 density and efficiency of a single-junction solar cell according to
 Shockley and Queisser :cite:`10.1063/1.1736034` and
-deVos :cite:`9780198513926`.
+deVos :cite:`9780198513926`. See the
+`Mathematical Description and Applications`_ section for the
+mathematical details.
 
 
 Installation
@@ -33,7 +33,7 @@ This package is installable via ``pip``.
 
 
 Alternatively, download the source, install
-`hatch <https://hatch.pypa.io/latest>`_ and build.
+`hatch <https://hatch.pypa.io/latest>`_, and build.
 
 .. code-block:: bash
 
@@ -149,7 +149,7 @@ sum of polylogarithm functions as shown by Smith (reference
 forthcoming) and given in Eq. :eq:`eq:06`.
 
 .. math::
-    G_{m}(E_{A},T,\mu) = \frac{2\pi m! (kT)^{m+1}}{h^{3} c^{2}} \sum_{s = 1}^{m+1} \frac{1}{(m-s+1)!} \left( \frac{E_{A}}{kT} \right)^{m-s+1} Li_{s} \left( \exp \left( \frac{\mu - E_{A}}{kT} \right) \right)
+    G_{m}(E_{g},T,\mu) = \frac{2\pi m! (kT)^{m+1}}{h^{3} c^{2}} \sum_{s = 1}^{m+1} \frac{1}{(m-s+1)!} \left( \frac{E_{g}}{kT} \right)^{m-s+1} Li_{s} \left( \exp \left( \frac{\mu - E_{g}}{kT} \right) \right)
     :label: eq:06
 
 
@@ -179,10 +179,100 @@ In the unlikely event that a community forms around this project,
 please adhere to the
 `Python Community code of conduct <https://www.python.org/psf/codeofconduct/>`_.
 
-Version numbers follow the
-`PEP440 <https://www.python.org/dev/peps/pep-0440/>`_ rubric. Versions
-will have three components: major.minor.patch. These components can
-be understood within the `semver <http://semver.org/>`_ rubric.
+
+Developer Notes
+---------------
+This section contains information about some common tasks that are
+needed during the course of development. I restarted work on this
+repo years after I last worked on it, so I'm mainly writing these
+notes to my future self if that situation happens again.
+
+This repository uses ``tox``
+(`link <https://tox.wiki/en/latest/>`_) for most of its automation,
+so install it before hacking on the source.
+
+.. code-block:: bash
+
+    # Install dependencies for development.
+    pip install tox
+
+
+To run the tests, just call ``tox``. ``tox`` will install the 
+necessary dependencies (e.g. ``pytest``) in a virtual environment,
+build the package, install the package that was built (which is
+`a good practice <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_)
+into that virtual environment, then call ``pytest`` to run the tests.
+
+.. code-block:: bash
+
+    # Run the tests in your local environment.
+    tox
+
+
+This repo uses `sphinx <https://www.sphinx-doc.org/en/master/>`_ to
+create this documentation. There is a ``tox`` environment definition
+to build the documentation; the documentation can be built locally as
+follows.
+
+.. code-block:: bash
+
+    # Build the documentation in your local environment.
+    tox -e doc
+
+
+This approach provides all the same advantages as using ``tox`` for
+testing, namely, the only dependency that must be installed on the
+local system is ``tox``, and ``tox`` itself manages all of the other
+dependencies in a virtual environment.
+
+Invocations of ``tox`` will add some files to the local filesystem,
+and there is a small risk that these files accidentally get committed
+to the repo. Use the following command at the root of the repo to
+clean up.
+
+.. code-block:: bash
+
+    # Clean up build artifacts.
+    git clean -fx .
+
+
+This repo also features GitHub workflows for continuous integration
+automations. Some of these automations leverage ``tox`` as well, and
+there are corresponding ``tox`` environments defined in the 
+``tox.ini`` file. These ``tox`` environments are not intended to be
+run on a developer's machine -- see the ``tox`` config and the
+automation definitions in the ``.github`` subdirectory for information
+on how they work.
+
+Version numbers are :pep:`440` compliant. Versions are indicated by a
+tagged commit in the repo (i.e. a "version tag"). Version tags are
+formatted as a "version string"; version strings include a
+literal "v" prefix followed by a string that can be parsed according
+to :pep:`440`. For example: ``v2.0.0`` and not simply ``2.0.0``. Such
+version strings will have three components, MAJOR.MINOR.PATCH, which
+follow clauses 1-8 of the 
+`semver 2.0.0 specification <https://semver.org/>`_. Any documentation
+change by itself will result in an increment of the PATCH component of
+the version string.
+
+All commits to the ``main`` branch will be tagged releases. There is
+no ``dev`` branch in this repo. This repo will likely not include
+prerelease versions. This repo may include post-release versions.
+Such post-release versions correspond to changes to the development
+infrastructure and not functional changes to the codebase. Such
+post-release versions may result in a new build posted to PyPI, but
+it would be good if they didn't.
+
+This repo includes a GitHub workflow to automatically build the
+package, test the package, create a GitHub release, and upload the
+package to PyPI when a version tag is pushed. Version tags are
+manually created by me (Joshua Ryan Smith) in my local clone of the
+repo. Therefore, releasing is semi-automated but is initiated by a
+manual tagging process. I.e. when I want to create a new release, I
+create a version tag in the repo and push that tag -- the GitHub
+workflows take care of the rest. Such version tags should be
+annotated. The tag message should include the list of issues that are
+included in the release.
 
 
 Citing
