@@ -17,6 +17,8 @@ authors = [
   { name = "Joshua Ryan Smith", email = "joshua.r.smith@gmail.com" },
 ]
 keywords = [
+  "Bose-Einstein integral",
+  "Bose-Einstein statistics",
   "thermal radiation",
 ]
 classifiers = [
