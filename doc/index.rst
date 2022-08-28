@@ -187,7 +187,7 @@ needed during the course of development. I restarted work on this
 repo years after I last worked on it, so I'm mainly writing these
 notes to my future self if that situation happens again.
 
-This repository uses `tox`
+This repository uses ``tox``
 (`link <https://tox.wiki/en/latest/>`_) for most of its automation,
 so install it before hacking on the source.
 
@@ -196,11 +196,11 @@ so install it before hacking on the source.
     pip install tox
 
 
-To run the tests, just call `tox`. `tox` will install the necessary
-dependencies (e.g. `pytest`) in a virtual environment, build the
-package, install the package that was built (which is
+To run the tests, just call ``tox``. ``tox`` will install the 
+necessary dependencies (e.g. ``pytest``) in a virtual environment,
+build the package, install the package that was built (which is
 `a good practice <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_)
-into that virtual environment, then call `pytest` to run the tests.
+into that virtual environment, then call ``pytest`` to run the tests.
 
 .. code-block:: bash
 
@@ -208,8 +208,8 @@ into that virtual environment, then call `pytest` to run the tests.
 
 
 This repo uses `sphinx <https://www.sphinx-doc.org/en/master/>`_ to
-create this documentation. There is a `tox` environment definition to
-build the documentation; the documentation can be built locally as
+create this documentation. There is a ``tox`` environment definition
+to build the documentation; the documentation can be built locally as
 follows.
 
 .. code-block:: bash
