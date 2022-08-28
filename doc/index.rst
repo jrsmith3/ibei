@@ -6,8 +6,8 @@ The Bose-Einstein integral appears when calculating quantities
 pertaining to photons. It is used to derive the Stefan-Boltzmann law,
 and it also appears when calculating the detailed balance limit of a
 solar cell as described by Shockley and
-Queisser :cite:`10.1063/1.1736034` , but also when calculating the
-photo-enhanced thermoelectron emission from a material first
+Queisser :cite:`10.1063/1.1736034` , and when calculating the
+photo-enhanced thermoelectron emission from a material as
 described by Schwede et.al. :cite:`10.1038/nmat2814` .
 
 The :mod:`ibei` module provides functionality to calculate various
