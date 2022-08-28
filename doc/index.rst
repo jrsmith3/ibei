@@ -50,6 +50,7 @@ Calculate the number of above-bandgap photons from Si at 300K:
     >>> import ibei
     >>> bandgap = 1.1
     >>> bei = ibei.BEI(order=2, energy_bound=bandgap, temperature=300., chemical_potential=0.)
+    >>> bei.upper()
     <Quantity 10549124.09538381 1 / (m2 s)>
 
 Verify Shockley and Queisser's result :cite:`10.1063/1.1736034` that
