@@ -1,0 +1,34 @@
+name: Build and test package
+
+on:
+  workflow_call:
+
+jobs:
+  build_test:
+    env:
+      IBEI_TOX_DISTDIR_PATH_PATH: ${{ github.workspace }}/tox_distdir_path.txt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install tox
+
+      - name: Run tests and extract location of package artifact parent directory
+        run: |
+          tox -e github
+          echo "IBEI_TOX_DISTDIR_PATH=$(cat $IBEI_TOX_DISTDIR_PATH_PATH)" >> $GITHUB_ENV
+
+      - name: Upload package
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ${{ env.IBEI_TOX_DISTDIR_PATH }}

@@ -1,6 +1,24 @@
 2.0.0
 =====
+* 88: Add developer notes.
+* 85: Fix error in documentation.
+* 82: Update documentation.
+* 79: Integrate repo with ReadTheDocs.
+* 77: Refactor `SQSolarcell` and `DeVosSolarcell` classes.
+* 68: Refactor `uibei` to be a method on a new `BEI` class.
+* 59: Update documentation.
+* 58: Cosmetic documentation edits.
+* 56: Update Python dependency to 3.10.
+* 53: Automatically post artifacts to testing PyPI.
+* 52: Automatically create releases from version tags.
+* 51: Write GitHub action to automatically run tests.
+* 50: Leverage `tox` to run tests.
+* 49: Refactor tests to use `pytest`.
+* 48: Replace `conda` with `hatch`.
+* 44: Add method to compute lower Bose-Einstein integral.
+* 43: Add method to compute full Bose-Einstein integral.
 * 39: Update for basic compatibility with Python 3.
+* 28: Specify how to cite `ibei`.
 
 
 1.0.6

@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "ibei"
+abstract: "Calculators for Bose-Einstein integrals."
+repository-code: "https://github.com/jrsmith3/ibei"
+url: "https://ibei.readthedocs.org"
+type: software
+license:
+  - MIT
+authors:
+  - family-names: Smith
+    given-names: Joshua Ryan
+    orcid: "https://orcid.org/0000-0002-3137-7180"
+contact:
+  - family-names: Smith
+    given-names: Joshua Ryan
+    email: joshua.r.smith@gmail.com
+keywords:
+  - Bose-Einstein integral
+  - Bose-Einstein statistics
+  - python
+  - thermal radiation
+message: "Use information in this file when citing this software."
