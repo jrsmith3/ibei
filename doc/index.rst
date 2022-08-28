@@ -149,7 +149,7 @@ sum of polylogarithm functions as shown by Smith (reference
 forthcoming) and given in Eq. :eq:`eq:06`.
 
 .. math::
-    G_{m}(E_{A},T,\mu) = \frac{2\pi m! (kT)^{m+1}}{h^{3} c^{2}} \sum_{s = 1}^{m+1} \frac{1}{(m-s+1)!} \left( \frac{E_{A}}{kT} \right)^{m-s+1} Li_{s} \left( \exp \left( \frac{\mu - E_{A}}{kT} \right) \right)
+    G_{m}(E_{g},T,\mu) = \frac{2\pi m! (kT)^{m+1}}{h^{3} c^{2}} \sum_{s = 1}^{m+1} \frac{1}{(m-s+1)!} \left( \frac{E_{g}}{kT} \right)^{m-s+1} Li_{s} \left( \exp \left( \frac{\mu - E_{g}}{kT} \right) \right)
     :label: eq:06
 
 
