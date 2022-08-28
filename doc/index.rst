@@ -222,6 +222,16 @@ testing, namely, the only dependency that must be installed on the
 local system is `tox`, and `tox` itself manages all of the other
 dependencies in a virtual environment.
 
+Invocations of `tox` will add some files to the local filesystem, and
+there is a small risk that these files accidentally get committed to
+the repo. Use the following command at the root of the repoto clean
+up.
+
+.. code-block:: bash
+
+    git clean -fx .
+
+
 Version numbers follow the
 `PEP440 <https://www.python.org/dev/peps/pep-0440/>`_ rubric. Versions
 will have three components: major.minor.patch. These components can
