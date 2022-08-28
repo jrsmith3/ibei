@@ -1,5 +1,6 @@
 2.0.0
 =====
+* 85: Fix error in documentation.
 * 82: Update documentation.
 * 79: Integrate repo with ReadTheDocs.
 * 77: Refactor `SQSolarcell` and `DeVosSolarcell` classes.
