@@ -224,7 +224,7 @@ dependencies in a virtual environment.
 
 Invocations of ``tox`` will add some files to the local filesystem,
 and there is a small risk that these files accidentally get committed
-to the repo. Use the following command at the root of the repoto
+to the repo. Use the following command at the root of the repo to
 clean up.
 
 .. code-block:: bash
@@ -234,16 +234,41 @@ clean up.
 
 This repo also features GitHub workflows for continuous integration
 automations. Some of these automations leverage ``tox`` as well, and
-there are corresponding tox environments defined in the `tox.ini`
+there are corresponding tox environments defined in the ``tox.ini``
 file. These ``tox`` environments are not intended to be run on a
 developer's machine -- see the ``tox`` config and the automation
 definitions in the `.github` subdirectory for information on how they
 work.
 
-Version numbers follow the
-`PEP440 <https://www.python.org/dev/peps/pep-0440/>`_ rubric. Versions
-will have three components: major.minor.patch. These components can
-be understood within the `semver <http://semver.org/>`_ rubric.
+Version numbers are :pep:`440` compliant. Versions are indicated by a
+tagged commit in the repo (i.e. a version tag). Version tags are
+formatted as a "version string"; version strings include a
+literal "v" prefix followed by a string that can be parsed according
+to :pep:`440`. For example: "v2.0.0" and not simply "2.0.0". Such
+version strings will have three components, `MAJOR`.`MINOR`.`PATCH`,
+which follow clauses 1-8 of the `semver 2.0.0 specification
+<https://semver.org/>`_. Any documentation change by itself will
+result in an increment of the "PATCH" component of the version
+string.
+
+All commits to the ``main`` branch will be tagged releases. There is
+no ``dev`` branch in this repo. This repo will likely not include
+prerelease versions. This repo may include post-release versions.
+Such post-release versions correspond to changes to the development
+infrastructure and not functional changes to the codebase. Such
+post-release versions may result in a new build posted to PyPI, but
+it would be good if they didn't.
+
+This repo includes a GitHub workflow to automatically build the
+package, test the package, create a GitHub release, and upload the
+package to PyPI when a version tag is pushed. Version tags are
+manually created by me (Joshua Ryan Smith) in my local clone of the
+repo. Therefore, releasing is semi-automated but is initiated by a
+manual tagging process. I.e. when I want to create a new release, I
+create a version tag in the repo and push that tag -- the GitHub
+workflows take care of the rest. Such version tags should be
+annotated. The tag message should include the list of issues that are
+included in the release.
 
 
 Citing
