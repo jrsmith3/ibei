@@ -179,6 +179,34 @@ In the unlikely event that a community forms around this project,
 please adhere to the
 `Python Community code of conduct <https://www.python.org/psf/codeofconduct/>`_.
 
+
+Developer Notes
+---------------
+This section contains information about some common tasks that are
+needed during the course of development. I restarted work on this
+repo years after I last worked on it, so I'm mainly writing these
+notes to my future self if that situation happens again.
+
+This repository uses `tox`
+(`link <https://tox.wiki/en/latest/>`_) for most of its automation,
+so install it before hacking on the source.
+
+.. code-block:: bash
+
+    pip install tox
+
+
+To run the tests, just call `tox`. `tox` will install the necessary
+dependencies (e.g. `pytest`) in a virtual environment, build the
+package, install the package that was built (which is
+`a good practice <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_)
+into that virtual environment, then call `pytest` to run the tests.
+
+.. code-block:: bash
+
+    tox
+
+
 Version numbers follow the
 `PEP440 <https://www.python.org/dev/peps/pep-0440/>`_ rubric. Versions
 will have three components: major.minor.patch. These components can
