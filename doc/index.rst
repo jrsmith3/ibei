@@ -245,7 +245,7 @@ automation definitions in the ``.github`` subdirectory for information
 on how they work.
 
 Version numbers are :pep:`440` compliant. Versions are indicated by a
-tagged commit in the repo (i.e. a version tag). Version tags are
+tagged commit in the repo (i.e. a "version tag"). Version tags are
 formatted as a "version string"; version strings include a
 literal "v" prefix followed by a string that can be parsed according
 to :pep:`440`. For example: "v2.0.0" and not simply "2.0.0". Such
