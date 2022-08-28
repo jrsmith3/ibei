@@ -217,15 +217,15 @@ follows.
     tox -e doc
 
 
-This approach provides all the same advantages as using `tox` for
+This approach provides all the same advantages as using ``tox`` for
 testing, namely, the only dependency that must be installed on the
-local system is `tox`, and `tox` itself manages all of the other
+local system is ``tox``, and ``tox`` itself manages all of the other
 dependencies in a virtual environment.
 
-Invocations of `tox` will add some files to the local filesystem, and
-there is a small risk that these files accidentally get committed to
-the repo. Use the following command at the root of the repoto clean
-up.
+Invocations of ``tox`` will add some files to the local filesystem,
+and there is a small risk that these files accidentally get committed
+to the repo. Use the following command at the root of the repoto
+clean up.
 
 .. code-block:: bash
 
@@ -233,10 +233,10 @@ up.
 
 
 This repo also features GitHub workflows for continuous integration
-automations. Some of these automations leverage `tox` as well, and
+automations. Some of these automations leverage ``tox`` as well, and
 there are corresponding tox environments defined in the `tox.ini`
-file. These `tox` environments are not intended to be run on a
-developer's machine -- see the `tox` config and the automation
+file. These ``tox`` environments are not intended to be run on a
+developer's machine -- see the ``tox`` config and the automation
 definitions in the `.github` subdirectory for information on how they
 work.
 
