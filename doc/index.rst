@@ -33,7 +33,7 @@ This package is installable via ``pip``.
 
 
 Alternatively, download the source, install
-`hatch <https://hatch.pypa.io/latest>`_ and build.
+`hatch <https://hatch.pypa.io/latest>`_, and build.
 
 .. code-block:: bash
 
