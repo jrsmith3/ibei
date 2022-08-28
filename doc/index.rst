@@ -232,6 +232,7 @@ clean up.
 
 .. code-block:: bash
 
+    # Clean up build artifacts.
     git clean -fx .
 
 
