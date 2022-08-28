@@ -207,6 +207,21 @@ into that virtual environment, then call `pytest` to run the tests.
     tox
 
 
+This repo uses `sphinx <https://www.sphinx-doc.org/en/master/>`_ to
+create this documentation. There is a `tox` environment definition to
+build the documentation; the documentation can be built locally as
+follows.
+
+.. code-block:: bash
+
+    tox -e doc
+
+
+This approach provides all the same advantages as using `tox` for
+testing, namely, the only dependency that must be installed on the
+local system is `tox`, and `tox` itself manages all of the other
+dependencies in a virtual environment.
+
 Version numbers follow the
 `PEP440 <https://www.python.org/dev/peps/pep-0440/>`_ rubric. Versions
 will have three components: major.minor.patch. These components can
