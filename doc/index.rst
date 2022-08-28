@@ -232,6 +232,14 @@ up.
     git clean -fx .
 
 
+This repo also features GitHub workflows for continuous integration
+automations. Some of these automations leverage `tox` as well, and
+there are corresponding tox environments defined in the `tox.ini`
+file. These `tox` environments are not intended to be run on a
+developer's machine -- see the `tox` config and the automation
+definitions in the `.github` subdirectory for information on how they
+work.
+
 Version numbers follow the
 `PEP440 <https://www.python.org/dev/peps/pep-0440/>`_ rubric. Versions
 will have three components: major.minor.patch. These components can
