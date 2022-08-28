@@ -187,7 +187,18 @@ be understood within the `semver <http://semver.org/>`_ rubric.
 
 Citing
 ------
-TBD
+You can cite this software as follows.
+
+    Smith J.R. ibei (version x.y.z). URL: https://ibei.readthedocs.org
+
+The repo contains a ``CITATION.cff`` file (content given below)
+`formatted as cff <https://citation-file-format.github.io/>`_. 
+`Tools <https://github.com/citation-file-format/cff-converter-python>`_
+like `cffconvert` exist to convert the cff data to other formats, like
+BibTeX.
+
+.. literalinclude:: ../CITATION.cff
+    :language: yaml
 
 
 Bibliography
