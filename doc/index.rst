@@ -193,6 +193,7 @@ so install it before hacking on the source.
 
 .. code-block:: bash
 
+    # Install dependencies for development.
     pip install tox
 
 
@@ -204,6 +205,7 @@ into that virtual environment, then call ``pytest`` to run the tests.
 
 .. code-block:: bash
 
+    # Run the tests in your local environment.
     tox
 
 
@@ -214,6 +216,7 @@ follows.
 
 .. code-block:: bash
 
+    # Build the documentation in your local environment.
     tox -e doc
 
 
