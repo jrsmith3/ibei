@@ -18,7 +18,7 @@ jobs:
       - name: Test package
         run: hatch test
 
-      - name: Build package  # I think I will eventually remove this step.
+      - name: Build package
         run: hatch build
 
       - name: Upload package
