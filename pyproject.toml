@@ -47,6 +47,17 @@ build-backend = "hatchling.build"
 [tool.hatch.envs.hatch-test]
 default-args = ["test"]
 
+# Invoke sphinx-build to build the HTML docs
+[tool.hatch.envs.doc]
+dependencies = [
+    "sphinx",
+    "sphinxcontrib-bibtex",
+    "sphinx_rtd_theme",
+]
+
+[tool.hatch.envs.doc.scripts]
+build = "sphinx-build doc doc_build --color -W -bhtml"
+
 [tool.hatch.build.hooks.vcs]
 version-file = "src/ibei/_version.py"
 
