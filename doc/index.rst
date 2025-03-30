@@ -197,11 +197,13 @@ so install it before hacking on the source.
     pip install hatch
 
 
-To run the tests, call ``hatch test``. ``hatch`` will install the 
-necessary dependencies (e.g. ``pytest``) in a virtual environment,
-build the package, install the package that was built (which is
-`a good practice <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_)
-into that virtual environment, then call ``pytest`` to run the tests.
+To run the tests, call ``hatch test``. ``hatch`` will install the
+necessary dependencies (e.g. ``pytest``) in a virtual environment and
+run the tests. At the time of this writing, I do not believe that
+``hatch`` builds and installs the package in the test environment
+(which is
+`a good practice <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_
+). I think it just runs what is found in the source directory.
 
 .. code-block:: bash
 
