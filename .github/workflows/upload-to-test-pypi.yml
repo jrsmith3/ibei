@@ -1,7 +1,7 @@
 name: Build, test, and publish package artifact to test.pypi.org
 
 on:
-  push:
+  # push:
 
 jobs:
   build-test:
