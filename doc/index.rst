@@ -226,12 +226,9 @@ local system is ``hatch``, and ``hatch`` itself manages all of the
 other dependencies in a virtual environment.
 
 This repo also features GitHub workflows for continuous integration
-automations. Some of these automations leverage ``tox`` as well, and
-there are corresponding ``tox`` environments defined in the 
-``tox.ini`` file. These ``tox`` environments are not intended to be
-run on a developer's machine -- see the ``tox`` config and the
-automation definitions in the ``.github`` subdirectory for information
-on how they work.
+automations. Some of these automations leverage ``hatch`` as well.
+See the config in ``pyproject.toml`` and the automation definitions
+in the ``.github`` subdirectory for information on how they work.
 
 Version numbers are :pep:`440` compliant. Versions are indicated by a
 tagged commit in the repo (i.e. a "version tag"). Version tags are
