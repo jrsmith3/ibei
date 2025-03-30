@@ -17,6 +17,9 @@ jobs:
       - name: Install hatch
         uses: pypa/hatch@install
 
+      - name: Build package  # I think I will eventually remove this step.
+        run: hatch build
+
       # - name: Set up Python
       #   uses: actions/setup-python@v4
       #   with:
