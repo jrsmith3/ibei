@@ -17,21 +17,11 @@ jobs:
       - name: Install hatch
         uses: pypa/hatch@install
 
+      - name: Test package
+        run: hatch test
+
       - name: Build package  # I think I will eventually remove this step.
         run: hatch build
-
-      # - name: Set up Python
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: '3.10'
-
-      # - name: Install dependencies
-      #   run: pip install tox
-
-      # - name: Run tests and extract location of package artifact parent directory
-      #   run: |
-      #     tox -e github
-      #     echo "IBEI_TOX_DISTDIR_PATH=$(cat $IBEI_TOX_DISTDIR_PATH_PATH)" >> $GITHUB_ENV
 
       # - name: Upload package
       #   uses: actions/upload-artifact@v2
