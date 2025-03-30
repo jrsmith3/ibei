@@ -8,10 +8,6 @@ from contextlib import nullcontext as does_not_raise
 from ibei import BEI
 
 
-def test_fail():
-    assert False
-
-
 class TestBEIConstructorHappyPath():
     """
     Circumstances under which BEI instance can be instantiated
