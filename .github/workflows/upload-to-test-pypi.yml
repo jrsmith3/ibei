@@ -18,9 +18,6 @@ jobs:
         id: download
         uses: actions/download-artifact@v4
 
-      - name: List downloaded contents
-        run: ls -R
-
       - name: Publish package to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
