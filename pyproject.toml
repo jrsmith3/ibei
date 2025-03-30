@@ -44,6 +44,9 @@ Documentation = "https://ibei.readthedocs.io/en/latest/"
 Issues = "https://github.com/jrsmith3/ibei/issues"
 Source = "https://github.com/jrsmith3/ibei"
 
+[tool.hatch.envs.hatch-test]
+default-args = ["test"]
+
 [tool.hatch.version]
 source = "vcs"
 
