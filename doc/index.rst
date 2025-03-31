@@ -227,6 +227,13 @@ testing, namely, the only dependency that must be installed on the
 local system is ``hatch``, and ``hatch`` itself manages all of the
 other dependencies in a virtual environment.
 
+The official documentation is hosted at
+`readthedocs <https://ibei.readthedocs.org>`_. The documentation is
+built using their automated build as defined in the ``ibei`` repo's
+`.readthedocs.yaml <https://github.com/jrsmith3/ibei/blob/main/.readthedocs.yaml>`_
+file. Like the other build automations, this automation also uses
+``hatch``.
+
 This repo also features GitHub workflows for continuous integration
 automations. Some of these automations leverage ``hatch`` as well.
 See the config in ``pyproject.toml`` and the automation definitions
