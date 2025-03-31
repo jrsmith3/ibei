@@ -59,6 +59,14 @@ dependencies = [
 html = "sphinx-build --color -W -bhtml doc doc_html"
 rtd = "sphinx-build --color -W -bhtml doc _readthedocs/html"
 
+[tool.hatch.envs.release]
+dependencies = [
+    "dunamai"
+]
+
+[tool.hatch.envs.release.scripts]
+validate-tag = "dunamai check --style pep440 $(echo $GITHUB_REF_NAME | sed 's/^v//')"
+
 [tool.hatch.build.hooks.vcs]
 version-file = "src/ibei/_version.py"
 
