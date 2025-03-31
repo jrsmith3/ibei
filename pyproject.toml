@@ -65,7 +65,9 @@ dependencies = [
 ]
 
 [tool.hatch.envs.release.scripts]
-validate-tag = "dunamai check --style pep440 $(echo $GITHUB_REF_NAME | sed 's/^v//')"
+# validate-tag = "dunamai check --style pep440 $(echo $GITHUB_REF_NAME | sed 's/^v//')"
+list-github-ref-name = "echo $GITHUB_REF_NAME"
+validate-tag = "dunamai check --style pep440 $(git describe --tags | sed 's/^v//')"
 
 [tool.hatch.build.hooks.vcs]
 version-file = "src/ibei/_version.py"
