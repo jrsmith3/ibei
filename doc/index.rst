@@ -213,13 +213,13 @@ run the tests. At the time of this writing, I do not believe that
 
 This repo uses `sphinx <https://www.sphinx-doc.org/en/master/>`_ to
 create this documentation. There is a ``hatch`` environment definition
-to build the documentation; the documentation can be built locally as
-follows.
+to build the documentation. HTML is the only automation supported at
+this time. The documentation can be built locally as follows.
 
 .. code-block:: bash
 
     # Build the documentation in your local environment.
-    hatch run doc:build
+    hatch run doc:html
 
 
 This approach provides all the same advantages as using ``hatch`` for
