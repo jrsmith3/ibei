@@ -16,6 +16,9 @@ jobs:
     needs:
       - build-test
     steps:
+      - name: Install hatch
+        uses: pypa/hatch@install
+
       - name: Validate tag name
         id: validate_tag_name
         continue-on-error: true
