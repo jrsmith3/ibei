@@ -16,6 +16,11 @@ jobs:
     needs:
       - build-test
     steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Install hatch
         uses: pypa/hatch@install
 
