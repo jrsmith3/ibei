@@ -9,5 +9,5 @@ build:
     python: "3.10"
   commands:
     - git fetch --unshallow
-    - pip install tox
-    - tox -e rtd
+    - pip install hatch
+    - hatch run doc:rtd
