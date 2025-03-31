@@ -57,6 +57,7 @@ dependencies = [
 
 [tool.hatch.envs.doc.scripts]
 html = "sphinx-build --color -W -bhtml doc doc_html"
+rtd = "sphinx-build --color -W -bhtml doc _readthedocs/html"
 
 [tool.hatch.build.hooks.vcs]
 version-file = "src/ibei/_version.py"
