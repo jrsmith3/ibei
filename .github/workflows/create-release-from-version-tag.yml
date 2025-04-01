@@ -37,7 +37,7 @@ jobs:
         uses: actions/download-artifact@v4
 
       - name: List pwd
-        run ls -R
+        run: ls -R
 
       # - name: Create release
       #   if: ${{ steps.validate_tag_name.outcome == 'success' }}
