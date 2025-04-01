@@ -37,7 +37,7 @@ jobs:
         uses: actions/download-artifact@v4
 
       - name: List files
-        run ls -R ${{steps.download.outputs.download-path}}/*
+        run: ls -R ${{steps.download.outputs.download-path}}/*
 
       - name: Create release
         if: ${{ steps.validate_tag_name.outcome == 'success' }}
