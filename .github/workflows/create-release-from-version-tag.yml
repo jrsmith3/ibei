@@ -45,8 +45,8 @@ jobs:
           # TODO: The above value was determined by guess and check; I
           # should be more precise and I need to fix it.
 
-      # - name: Publish package to PyPI
-      #   if: ${{ steps.validate_tag_name.outcome == 'success' }}
-      #   uses: pypa/gh-action-pypi-publish@release/v1
-      #   with:
-      #     packages_dir: ${{steps.download.outputs.download-path}}
+      - name: Publish package to PyPI
+        if: ${{ steps.validate_tag_name.outcome == 'success' }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages_dir: ${{steps.download.outputs.download-path}}
