@@ -36,15 +36,12 @@ jobs:
         id: download
         uses: actions/download-artifact@v4
 
-      - name: List pwd
-        run: ls -R
-
-      # - name: Create release
-      #   if: ${{ steps.validate_tag_name.outcome == 'success' }}
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     validate_tag_name: ${{ env.GITHUB_REF_NAME }}
-      #     files: ${{steps.download.outputs.download-path}}/*
+      - name: Create release
+        if: ${{ steps.validate_tag_name.outcome == 'success' }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.GITHUB_REF_NAME }}
+          files: ${{steps.download.outputs.download-path}}/*
 
       # - name: Publish package to PyPI
       #   if: ${{ steps.validate_tag_name.outcome == 'success' }}
