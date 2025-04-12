@@ -8,6 +8,7 @@ import astropy.constants
 import astropy.units
 import attrs
 import functools
+import math
 import mpmath
 import numpy as np
 
@@ -159,26 +160,26 @@ class BEI():
         if self.reduced_chemical_potential == 0 and self.reduced_energy_bound == 0:
             # Specify this condition just to skip the next condition.
             term = float(mpmath.polylog(self.order + 1, real_arg))
-            bei = term * self.prefactor * np.math.factorial(self.order)
+            bei = term * self.prefactor * math.factorial(self.order)
 
         elif self.reduced_chemical_potential >= self.reduced_energy_bound:
-            bei = 0 * self.prefactor * np.math.factorial(self.order)
+            bei = 0 * self.prefactor * math.factorial(self.order)
 
         elif real_arg == 0:
             # When the lower bound of the integral approaches
             # infinity, the value of the integral approaches zero.
-            bei = 0 * self.prefactor * np.math.factorial(self.order)
+            bei = 0 * self.prefactor * math.factorial(self.order)
 
         else:
             summand = 0
             for indx in range(1, self.order + 2):
                 index = self.order - indx + 1
 
-                term = self.reduced_energy_bound**index * float(mpmath.polylog(indx, real_arg)) / np.math.factorial(index)
+                term = self.reduced_energy_bound**index * float(mpmath.polylog(indx, real_arg)) / math.factorial(index)
 
                 summand += term
 
-            bei = self.prefactor * summand * np.math.factorial(self.order)
+            bei = self.prefactor * summand * math.factorial(self.order)
 
         return bei
 
