@@ -1,12 +1,4 @@
 # coding=utf-8
-[build-system]
-requires = [
-    "hatchling>=1.4.1",
-    "hatch-vcs",
-    "setuptools>=45",
-]
-build-backend = "hatchling.build"
-
 [project]
 name = "ibei"
 description = 'Calculator for incomplete Bose-Einstein integral'
@@ -14,28 +6,28 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 authors = [
-  { name = "Joshua Ryan Smith", email = "joshua.r.smith@gmail.com" },
+    { name = "Joshua Ryan Smith", email = "joshua.r.smith@gmail.com" },
 ]
 keywords = [
-  "Bose-Einstein integral",
-  "Bose-Einstein statistics",
-  "thermal radiation",
+    "Bose-Einstein integral",
+    "Bose-Einstein statistics",
+    "thermal radiation",
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Intended Audience :: Science/Research",
-  "License :: OSI Approved :: MIT License",
-  "Natural Language :: English",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.10",
-  "Topic :: Scientific/Engineering :: Physics",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Physics",
 ]
 dependencies = [
-  "astropy",
-  "attrs",
-  "mpmath",
-  "numpy",
+    "astropy",
+    "attrs",
+    "mpmath",
+    "numpy~=1.26.4",
 ]
 dynamic = ["version"]
 
@@ -44,11 +36,44 @@ Documentation = "https://ibei.readthedocs.io/en/latest/"
 Issues = "https://github.com/jrsmith3/ibei/issues"
 Source = "https://github.com/jrsmith3/ibei"
 
+[build-system]
+requires = [
+    "hatchling>=1.4.1",
+    "hatch-vcs",
+    "setuptools>=45",
+]
+build-backend = "hatchling.build"
+
+[tool.hatch.envs.hatch-test]
+default-args = ["test"]
+
+# Invoke sphinx-build to build the HTML docs
+[tool.hatch.envs.doc]
+dependencies = [
+    "sphinx",
+    "sphinxcontrib-bibtex",
+    "sphinx_rtd_theme",
+]
+
+[tool.hatch.envs.doc.scripts]
+html = "sphinx-build --color -W -bhtml doc doc_html"
+rtd = "sphinx-build --color -W -bhtml doc _readthedocs/html"
+
+[tool.hatch.envs.release]
+dependencies = [
+    "dunamai"
+]
+
+[tool.hatch.envs.release.scripts]
+# validate-tag = "dunamai check --style pep440 $(echo $GITHUB_REF_NAME | sed 's/^v//')"
+list-github-ref-name = "echo $GITHUB_REF_NAME"
+validate-tag = "dunamai check --style pep440 $(git describe --tags | sed 's/^v//')"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/ibei/_version.py"
+
 [tool.hatch.version]
 source = "vcs"
 
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
-
-[tool.hatch.build.hooks.vcs]
-version-file = "src/ibei/_version.py"

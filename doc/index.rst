@@ -187,62 +187,57 @@ needed during the course of development. I restarted work on this
 repo years after I last worked on it, so I'm mainly writing these
 notes to my future self if that situation happens again.
 
-This repository uses ``tox``
-(`link <https://tox.wiki/en/latest/>`_) for most of its automation,
+This repository uses ``hatch``
+(`link <https://hatch.pypa.io/1.12/>`_) for all of its automation,
 so install it before hacking on the source.
 
 .. code-block:: bash
 
     # Install dependencies for development.
-    pip install tox
+    pip install hatch
 
 
-To run the tests, just call ``tox``. ``tox`` will install the 
-necessary dependencies (e.g. ``pytest``) in a virtual environment,
-build the package, install the package that was built (which is
-`a good practice <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_)
-into that virtual environment, then call ``pytest`` to run the tests.
+To run the tests, call ``hatch test``. ``hatch`` will install the
+necessary dependencies (e.g. ``pytest``) in a virtual environment and
+run the tests. At the time of this writing, I do not believe that
+``hatch`` builds and installs the package in the test environment
+(which is
+`a good practice <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_
+). I think it just runs what is found in the source directory.
 
 .. code-block:: bash
 
     # Run the tests in your local environment.
-    tox
+    hatch test
 
 
 This repo uses `sphinx <https://www.sphinx-doc.org/en/master/>`_ to
-create this documentation. There is a ``tox`` environment definition
-to build the documentation; the documentation can be built locally as
-follows.
+create this documentation. There is a ``hatch`` environment definition
+to build the documentation. HTML is the only automation supported at
+this time. The documentation can be built locally as follows.
 
 .. code-block:: bash
 
     # Build the documentation in your local environment.
-    tox -e doc
+    hatch run doc:html
 
 
-This approach provides all the same advantages as using ``tox`` for
+This approach provides all the same advantages as using ``hatch`` for
 testing, namely, the only dependency that must be installed on the
-local system is ``tox``, and ``tox`` itself manages all of the other
-dependencies in a virtual environment.
+local system is ``hatch``, and ``hatch`` itself manages all of the
+other dependencies in a virtual environment.
 
-Invocations of ``tox`` will add some files to the local filesystem,
-and there is a small risk that these files accidentally get committed
-to the repo. Use the following command at the root of the repo to
-clean up.
-
-.. code-block:: bash
-
-    # Clean up build artifacts.
-    git clean -fx .
-
+The official documentation is hosted at
+`readthedocs <https://ibei.readthedocs.org>`_. The documentation is
+built using their automated build as defined in the ``ibei`` repo's
+`.readthedocs.yaml <https://github.com/jrsmith3/ibei/blob/main/.readthedocs.yaml>`_
+file. Like the other build automations, this automation also uses
+``hatch``.
 
 This repo also features GitHub workflows for continuous integration
-automations. Some of these automations leverage ``tox`` as well, and
-there are corresponding ``tox`` environments defined in the 
-``tox.ini`` file. These ``tox`` environments are not intended to be
-run on a developer's machine -- see the ``tox`` config and the
-automation definitions in the ``.github`` subdirectory for information
-on how they work.
+automations. Some of these automations leverage ``hatch`` as well.
+See the config in ``pyproject.toml`` and the automation definitions
+in the ``.github`` subdirectory for information on how they work.
 
 Version numbers are :pep:`440` compliant. Versions are indicated by a
 tagged commit in the repo (i.e. a "version tag"). Version tags are
