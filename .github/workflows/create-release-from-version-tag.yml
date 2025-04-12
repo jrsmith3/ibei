@@ -17,6 +17,7 @@ jobs:
       - build-test
     permissions:
       id-token: write
+      contents: write
     steps:
       - name: Check out repo
         uses: actions/checkout@v2
@@ -40,7 +41,7 @@ jobs:
 
       - name: Create release
         if: ${{ steps.validate_tag_name.outcome == 'success' }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.GITHUB_REF_NAME }}
           files: ${{steps.download.outputs.download-path}}/dist/*
