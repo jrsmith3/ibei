@@ -51,4 +51,4 @@ jobs:
         if: ${{ steps.validate_tag_name.outcome == 'success' }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: ${{steps.download.outputs.download-path}}/dist/*
+          packages-dir: ${{steps.download.outputs.download-path}}/dist
