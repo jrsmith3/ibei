@@ -27,7 +27,7 @@ dependencies = [
     "astropy",
     "attrs",
     "mpmath",
-    "numpy~=1.26.4",
+    "numpy>=1.26.4",
 ]
 dynamic = ["version"]
 
