@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build-test
+    permissions:
+      id-token: write
     steps:
       - name: Check out repo
         uses: actions/checkout@v2
@@ -36,18 +38,17 @@ jobs:
         id: download
         uses: actions/download-artifact@v4
 
-      - name: Create release
-        if: ${{ steps.validate_tag_name.outcome == 'success' }}
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ env.GITHUB_REF_NAME }}
-          files: ${{steps.download.outputs.download-path}}/dist/*
-          # TODO: The above value was determined by guess and check; I
-          # should be more precise and I need to fix it.
+      # - name: Create release
+      #   if: ${{ steps.validate_tag_name.outcome == 'success' }}
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     tag_name: ${{ env.GITHUB_REF_NAME }}
+      #     files: ${{steps.download.outputs.download-path}}/dist/*
+      #     # TODO: The above value was determined by guess and check; I
+      #     # should be more precise and I need to fix it.
 
       - name: Publish package to PyPI
         if: ${{ steps.validate_tag_name.outcome == 'success' }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: ${{steps.download.outputs.download-path}}
-          id-token: write
