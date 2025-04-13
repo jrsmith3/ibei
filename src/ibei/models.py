@@ -145,9 +145,7 @@ class BEI:
         """
         Lower-incomplete Bose-Einstein integral.
         """
-        bei = self.full() - self.upper()
-
-        return bei
+        return self.full() - self.upper()
 
 
     def upper(self) -> astropy.units.Quantity:
