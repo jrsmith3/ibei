@@ -27,7 +27,7 @@ def _int_converter(value):
         try:
             int(value)
         except ValueError as ex:
-            raise TypeError("Argument must be coercible to type int.") from ex
+            raise TypeError("Argument must be coercible to type int.") from ex  #noqa: TRY003, EM101
 
     elif int(value) != value:
         # I have to do some validation in this converter because if I were
@@ -39,7 +39,7 @@ def _int_converter(value):
         #
         # I'd not be able to catch this case because the attribute
         # would be assigned to the possibly truncated value.
-        raise TypeError("Argument must be coercible to type int without truncation.")
+        raise TypeError("Argument must be coercible to type int without truncation.")  #noqa: TRY003, EM101
 
     return int(value)
 
