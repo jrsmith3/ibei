@@ -328,10 +328,7 @@ class SQSolarcell:
         modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq.
         2.4.
         """
-        if self.bandgap == 0:
-            solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
-        else:
-            solar_flux = self.bei.upper()
+        solar_flux = astropy.units.Quantity(0., "1/(m2 s)") if self.bandgap == 0 else self.bei.upper()
 
         power_density = self.bandgap * solar_flux
 
