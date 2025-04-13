@@ -43,7 +43,7 @@ class TestSQSolarcellConstructorHappyPath:
             SQSolarcell(**valid_constructor_args)
 
 
-    @pytest.mark.parametrize("argname,val", [
+    @pytest.mark.parametrize(("argname","val"), [
                 ("solar_temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
                 ("bandgap", astropy.units.Quantity(1e-19, astropy.units.J)),
             ]
@@ -93,7 +93,7 @@ class TestSQSolarcellConstructorArgsOutsideConstraints:
             SQSolarcell(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize("argname,val", [
+@pytest.mark.parametrize(("argname","val"), [
             ("bandgap", astropy.units.s),
             ("solar_temperature", astropy.units.s),
         ]
@@ -128,7 +128,7 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
         SQSolarcell(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize("args,method_under_test,expected_output", [
+@pytest.mark.parametrize(("args","method_under_test","expected_output"), [
             # Special case
             (
                 {
@@ -175,7 +175,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     assert astropy.units.allclose(expected_output, output)
 
 
-@pytest.mark.parametrize("method_under_test,expected_unit,args_mod", [
+@pytest.mark.parametrize(("method_under_test","expected_unit","args_mod"), [
             ("power_density", "W/m2", {}),
             ("power_density", "W/m2", {"bandgap": 0.}),  # Special case.
             ("efficiency", astropy.units.dimensionless_unscaled, {}),

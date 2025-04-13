@@ -45,7 +45,7 @@ class TestBEIConstructorHappyPath:
             BEI(**valid_constructor_args)
 
 
-    @pytest.mark.parametrize("argname,val", [
+    @pytest.mark.parametrize(("argname","val"), [
                 ("energy_bound", astropy.units.Quantity(3.20435313e-19, astropy.units.J)),
                 ("temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
                 ("chemical_potential", astropy.units.Quantity(1e-19, astropy.units.J)),
@@ -115,7 +115,7 @@ class TestBEIConstructorArgsOutsideConstraints:
             BEI(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize("argname,val", [
+@pytest.mark.parametrize(("argname","val"), [
             ("energy_bound", astropy.units.s),
             ("temperature", astropy.units.s),
             ("chemical_potential", astropy.units.s),
@@ -207,7 +207,7 @@ class TestIssues:
         assert energy_flux > 0
 
 
-@pytest.mark.parametrize("args,method_under_test,expected_output", [
+@pytest.mark.parametrize(("args","method_under_test","expected_output"), [
             (
                 {
                     "order": 3,
@@ -319,7 +319,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     assert astropy.units.allclose(expected_output, output)
 
 
-@pytest.mark.parametrize("order,expected_unit", [
+@pytest.mark.parametrize(("order","expected_unit"), [
             (2, "1/(m2 s)"),
             (3, "J/(m2 s)"),
         ]
@@ -378,7 +378,7 @@ def test_consistency_lower_and_full_methods(valid_constructor_quantity_args):
     assert astropy.units.allclose(bei.lower(), bei.full())
 
 
-@pytest.mark.parametrize("order,helper_method_name",[
+@pytest.mark.parametrize(("order","helper_method_name"),[
             (2, "photon_flux"),
             (3, "radiant_power_flux"),
         ]
