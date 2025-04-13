@@ -70,7 +70,7 @@ class BEI:
 
     Attributes
     ----------
-    order: 
+    order:
         Same as constructor parameter.
     energy_bound: astropy.units.Quantity[astropy.units.eV]
         Same as constructor parameter.
