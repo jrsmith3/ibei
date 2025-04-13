@@ -26,8 +26,8 @@ def _int_converter(value):
     if isinstance(value, str):
         try:
             int(value)
-        except ValueError:
-            raise TypeError("Argument must be coercible to type int.")
+        except ValueError as ex:
+            raise TypeError("Argument must be coercible to type int.") from ex
 
     elif int(value) != value:
         # I have to do some validation in this converter because if I were
