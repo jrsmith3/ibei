@@ -1,5 +1,9 @@
+2.0.2
+=====
+* 101: Bump `numpy` version.
+
 2.0.1
-===========
+=====
 * 99: Replace `tox` functionality with `hatch`.
 
 2.0.0
