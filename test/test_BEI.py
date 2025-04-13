@@ -1,4 +1,3 @@
-
 from contextlib import nullcontext as does_not_raise
 
 import astropy.units
@@ -12,6 +11,7 @@ class TestBEIConstructorHappyPath:
     """
     Circumstances under which BEI instance can be instantiated
     """
+
     def test_args_without_default_values(self, valid_constructor_args):
         """
         BEI can be instantiated with valid args that don't have defaults
@@ -21,7 +21,6 @@ class TestBEIConstructorHappyPath:
         with does_not_raise():
             BEI(**valid_constructor_args)
 
-
     def test_args_with_default_values(self, valid_constructor_args):
         """
         BEI can be instantiated with valid args incl. ones with defaults
@@ -29,12 +28,13 @@ class TestBEIConstructorHappyPath:
         with does_not_raise():
             BEI(**valid_constructor_args)
 
-
-    @pytest.mark.parametrize("argname", [
-                "energy_bound",
-                "chemical_potential",
-            ]
-        )
+    @pytest.mark.parametrize(
+        "argname",
+        [
+            "energy_bound",
+            "chemical_potential",
+        ],
+    )
     def test_args_that_can_equal_zero(self, valid_constructor_args, argname):
         """
         BEI can be instantiated with args not constrained to be nonzero
@@ -44,13 +44,14 @@ class TestBEIConstructorHappyPath:
         with does_not_raise():
             BEI(**valid_constructor_args)
 
-
-    @pytest.mark.parametrize(("argname","val"), [
-                ("energy_bound", astropy.units.Quantity(3.20435313e-19, astropy.units.J)),
-                ("temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
-                ("chemical_potential", astropy.units.Quantity(1e-19, astropy.units.J)),
-            ]
-        )
+    @pytest.mark.parametrize(
+        ("argname", "val"),
+        [
+            ("energy_bound", astropy.units.Quantity(3.20435313e-19, astropy.units.J)),
+            ("temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
+            ("chemical_potential", astropy.units.Quantity(1e-19, astropy.units.J)),
+        ],
+    )
     def test_quantity_args_compatible_units(self, valid_constructor_quantity_args, argname, val):
         """
         BEI can be instantiated with args in compatible units
@@ -60,13 +61,14 @@ class TestBEIConstructorHappyPath:
         with does_not_raise():
             BEI(**valid_constructor_quantity_args)
 
-
-    @pytest.mark.parametrize("val", [
-                "12",
-                12.,
-                12.0,  #noqa: PT014
-            ]
-        )
+    @pytest.mark.parametrize(
+        "val",
+        [
+            "12",
+            12.,
+            12.0,  # noqa: PT014
+        ],
+    )
     def test_order_arg_coercible_to_int(self, valid_constructor_args, val):
         """
         BEI can be instantiated with `order` value coercible to int type
@@ -83,10 +85,13 @@ class TestBEIConstructorArgsOutsideConstraints:
     """
     BEI should raise exceptions if args are outside their constraints
     """
-    @pytest.mark.parametrize("argname", [
-                "temperature",
-            ]
-        )
+
+    @pytest.mark.parametrize(
+        "argname",
+        [
+            "temperature",
+        ],
+    )
     def test_arg_eq_0(self, valid_constructor_args, argname):
         """
         BEI raises ValueError if arg equal to zero
@@ -97,13 +102,14 @@ class TestBEIConstructorArgsOutsideConstraints:
         with pytest.raises(ValueError):
             BEI(**invalid_constructor_args)
 
-
-    @pytest.mark.parametrize("argname", [
-                "energy_bound",
-                "temperature",
-                "chemical_potential",
-            ]
-        )
+    @pytest.mark.parametrize(
+        "argname",
+        [
+            "energy_bound",
+            "temperature",
+            "chemical_potential",
+        ],
+    )
     def test_arg_lt_0(self, valid_constructor_args, argname):
         """
         BEI raises ValueError if arg less than zero
@@ -115,12 +121,14 @@ class TestBEIConstructorArgsOutsideConstraints:
             BEI(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize(("argname","val"), [
-            ("energy_bound", astropy.units.s),
-            ("temperature", astropy.units.s),
-            ("chemical_potential", astropy.units.s),
-        ]
-    )
+@pytest.mark.parametrize(
+    ("argname", "val"),
+    [
+        ("energy_bound", astropy.units.s),
+        ("temperature", astropy.units.s),
+        ("chemical_potential", astropy.units.s),
+    ],
+)
 def test_constructor_args_incompatible_units(valid_constructor_quantity_args, argname, val):
     """
     BEI raises astropy.units.UnitConversionError if arg has incompatible unit
@@ -140,13 +148,15 @@ def test_constructor_args_incompatible_units(valid_constructor_quantity_args, ar
         BEI(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize("argname", [
-            "order",
-            "energy_bound",
-            "temperature",
-            "chemical_potential",
-        ]
-    )
+@pytest.mark.parametrize(
+    "argname",
+    [
+        "order",
+        "energy_bound",
+        "temperature",
+        "chemical_potential",
+    ],
+)
 def test_constructor_args_non_scalar(valid_constructor_args, argname):
     """
     BEI raises TypeError if arg is non-scalar
@@ -165,11 +175,7 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
         BEI(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize("val", [
-            "12.2",
-            12.2
-        ]
-    )
+@pytest.mark.parametrize("val", ["12.2", 12.2])
 def test_order_arg_not_coercible_to_int(valid_constructor_args, val):
     """
     BEI raises TypeError if `order` not int type or not coercible to int without truncation
@@ -185,121 +191,124 @@ class TestIssues:
     """
     Tests corresponding to issues raised due to bugs
     """
+
     def test_issue_2_uibei(self):
         """
         Refactor of issue 2 focusing on uibei
         """
         with does_not_raise():
-            BEI(order=2, energy_bound=1.15, temperature=5762., chemical_potential=1.2).upper()
+            BEI(order=2, energy_bound=1.15, temperature=5762.0, chemical_potential=1.2).upper()
 
     def test_issue_4(self):
         """
         uibei shouldn't fail when energy_lo == chem_potential
         """
         with does_not_raise():
-            BEI(order=2, energy_bound=1., temperature=300., chemical_potential=1.).upper()
+            BEI(order=2, energy_bound=1.0, temperature=300.0, chemical_potential=1.0).upper()
 
     def test_issue_31(self):
         """
         Passing `energy_lo=0` with `chem_potential=0` should yield nonzero result
         """
-        energy_flux = BEI(order=3, energy_bound=0., temperature=300., chemical_potential=0.).upper()
+        energy_flux = BEI(order=3, energy_bound=0.0, temperature=300.0, chemical_potential=0.0).upper()
         assert energy_flux > 0
 
 
-@pytest.mark.parametrize(("args","method_under_test","expected_output"), [
-            (
-                {
-                    "order": 3,
-                    "energy_bound": 1.1,
-                    "temperature": 3000,
-                    "chemical_potential": 0,
-                },
-                "lower",
-                astropy.units.Quantity(2949919.81423557, "J/(m2 s)"),
-            ),
-            (
-                {
-                    "order": 2,
-                    "energy_bound": 1.1,
-                    "temperature": 300,
-                    "chemical_potential": 0,
-                },
-                "upper",
-                astropy.units.Quantity(10549122.240303338, "1/(m2 s)"),
-            ),
-            (
-                {
-                    "order": 3,
-                    "energy_bound": 1.1,
-                    "temperature": 300,
-                    "chemical_potential": 0,
-                },
-                "full",
-                astropy.units.Quantity(459.30032795, "W/m2"),
-            ),
-            (
-                {
-                    "order": 2,
-                    "energy_bound": 1.1,
-                    "temperature": 300,
-                    "chemical_potential": 0,
-                },
-                "photon_flux",
-                astropy.units.Quantity(4.1052443203614687e+22, "1/(m2 s)"),
-            ),
-            (
-                {
-                    "order": 2,
-                    "energy_bound": 1.1,
-                    "temperature": 300,
-                    "chemical_potential": 0,
-                },
-                "radiant_power_flux",
-                astropy.units.Quantity(459.30032795, "W/m2"),
-            ),
-            (
-                {
-                    "order": 2,
-                    "energy_bound": 1.1,
-                    "temperature": 300,
-                    "chemical_potential": 0,
-                },
-                "kT",
-                astropy.units.Quantity(4.141947e-21, "J"),
-            ),
-            (
-                {
-                    "order": 2,
-                    "energy_bound": 1.1,
-                    "temperature": 300,
-                    "chemical_potential": 0,
-                },
-                "reduced_energy_bound",
-                astropy.units.Quantity(42.54989978, astropy.units.dimensionless_unscaled),
-            ),
-            (
-                {
-                    "order": 2,
-                    "energy_bound": 2.1,
-                    "temperature": 300,
-                    "chemical_potential": 1.1,
-                },
-                "reduced_chemical_potential",
-                astropy.units.Quantity(42.54989978, astropy.units.dimensionless_unscaled),
-            ),
-            (
-                {
-                    "order": 2,
-                    "energy_bound": 1.1,
-                    "temperature": 300,
-                    "chemical_potential": 0,
-                },
-                "prefactor",
-                astropy.units.Quantity(1.70759151e+22, "1/(m2 s)"),
-            ),
-        ]
-    )
+@pytest.mark.parametrize(
+    ("args", "method_under_test", "expected_output"),
+    [
+        (
+            {
+                "order": 3,
+                "energy_bound": 1.1,
+                "temperature": 3000,
+                "chemical_potential": 0,
+            },
+            "lower",
+            astropy.units.Quantity(2949919.81423557, "J/(m2 s)"),
+        ),
+        (
+            {
+                "order": 2,
+                "energy_bound": 1.1,
+                "temperature": 300,
+                "chemical_potential": 0,
+            },
+            "upper",
+            astropy.units.Quantity(10549122.240303338, "1/(m2 s)"),
+        ),
+        (
+            {
+                "order": 3,
+                "energy_bound": 1.1,
+                "temperature": 300,
+                "chemical_potential": 0,
+            },
+            "full",
+            astropy.units.Quantity(459.30032795, "W/m2"),
+        ),
+        (
+            {
+                "order": 2,
+                "energy_bound": 1.1,
+                "temperature": 300,
+                "chemical_potential": 0,
+            },
+            "photon_flux",
+            astropy.units.Quantity(4.1052443203614687e22, "1/(m2 s)"),
+        ),
+        (
+            {
+                "order": 2,
+                "energy_bound": 1.1,
+                "temperature": 300,
+                "chemical_potential": 0,
+            },
+            "radiant_power_flux",
+            astropy.units.Quantity(459.30032795, "W/m2"),
+        ),
+        (
+            {
+                "order": 2,
+                "energy_bound": 1.1,
+                "temperature": 300,
+                "chemical_potential": 0,
+            },
+            "kT",
+            astropy.units.Quantity(4.141947e-21, "J"),
+        ),
+        (
+            {
+                "order": 2,
+                "energy_bound": 1.1,
+                "temperature": 300,
+                "chemical_potential": 0,
+            },
+            "reduced_energy_bound",
+            astropy.units.Quantity(42.54989978, astropy.units.dimensionless_unscaled),
+        ),
+        (
+            {
+                "order": 2,
+                "energy_bound": 2.1,
+                "temperature": 300,
+                "chemical_potential": 1.1,
+            },
+            "reduced_chemical_potential",
+            astropy.units.Quantity(42.54989978, astropy.units.dimensionless_unscaled),
+        ),
+        (
+            {
+                "order": 2,
+                "energy_bound": 1.1,
+                "temperature": 300,
+                "chemical_potential": 0,
+            },
+            "prefactor",
+            astropy.units.Quantity(1.70759151e22, "1/(m2 s)"),
+        ),
+    ],
+)
 def test_methods_regression(args, method_under_test, expected_output):
     """
     Methods' output values should match expected results
@@ -316,18 +325,21 @@ def test_methods_regression(args, method_under_test, expected_output):
     assert astropy.units.allclose(expected_output, output)
 
 
-@pytest.mark.parametrize(("order","expected_unit"), [
-            (2, "1/(m2 s)"),
-            (3, "J/(m2 s)"),
-        ]
-    )
-@pytest.mark.parametrize("method_under_test",
-        [
-            "lower",
-            "upper",
-            "full",
-        ]
-    )
+@pytest.mark.parametrize(
+    ("order", "expected_unit"),
+    [
+        (2, "1/(m2 s)"),
+        (3, "J/(m2 s)"),
+    ],
+)
+@pytest.mark.parametrize(
+    "method_under_test",
+    [
+        "lower",
+        "upper",
+        "full",
+    ],
+)
 def test_methods_units(order, expected_unit, method_under_test, valid_constructor_quantity_args):
     """
     Methods' units should match known units for low orders
@@ -368,18 +380,20 @@ def test_consistency_lower_and_full_methods(valid_constructor_quantity_args):
     This condition holds as long as `chemical_potential` equals zero.
     """
     valid_constructor_quantity_args["energy_bound"] = np.inf
-    valid_constructor_quantity_args["chemical_potential"] = 0.
+    valid_constructor_quantity_args["chemical_potential"] = 0.0
 
     bei = BEI(**valid_constructor_quantity_args)
 
     assert astropy.units.allclose(bei.lower(), bei.full())
 
 
-@pytest.mark.parametrize(("order","helper_method_name"),[
-            (2, "photon_flux"),
-            (3, "radiant_power_flux"),
-        ]
-    )
+@pytest.mark.parametrize(
+    ("order", "helper_method_name"),
+    [
+        (2, "photon_flux"),
+        (3, "radiant_power_flux"),
+    ],
+)
 def test_consistency_full_and_helper_methods(order, helper_method_name, valid_constructor_quantity_args):
     """
     `BEI.full` should equal `BEI.photon_flux` and `BEI.radiant_power_flux` for order 2 and 3, respectively.
@@ -389,7 +403,7 @@ def test_consistency_full_and_helper_methods(order, helper_method_name, valid_co
     This condition holds as long as `chemical_potential` equals zero.
     """
     valid_constructor_quantity_args["order"] = order
-    valid_constructor_quantity_args["chemical_potential"] = 0.
+    valid_constructor_quantity_args["chemical_potential"] = 0.0
     bei = BEI(**valid_constructor_quantity_args)
     output = getattr(bei, helper_method_name)()
 
@@ -406,7 +420,7 @@ def valid_constructor_quantity_args():
     return {
         "order": 2,
         "energy_bound": astropy.units.Quantity(1.15, astropy.units.eV),
-        "temperature": astropy.units.Quantity(5762., astropy.units.K),
+        "temperature": astropy.units.Quantity(5762.0, astropy.units.K),
         "chemical_potential": astropy.units.Quantity(0.5, astropy.units.eV),
     }
 

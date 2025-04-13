@@ -1,4 +1,3 @@
-
 from contextlib import nullcontext as does_not_raise
 
 import astropy.units
@@ -11,6 +10,7 @@ class TestDeVosSolarcellConstructorHappyPath:
     """
     Circumstances under which DeVosSolarcell instance can be instantiated
     """
+
     def test_args_without_default_values(self, valid_constructor_args):
         """
         DeVosSolarcell can be instantiated with valid args that don't have defaults
@@ -22,7 +22,6 @@ class TestDeVosSolarcellConstructorHappyPath:
         with does_not_raise():
             DeVosSolarcell(**valid_constructor_args)
 
-
     def test_args_with_default_values(self, valid_constructor_args):
         """
         DeVosSolarcell can be instantiated with valid args incl. ones with defaults
@@ -30,12 +29,7 @@ class TestDeVosSolarcellConstructorHappyPath:
         with does_not_raise():
             DeVosSolarcell(**valid_constructor_args)
 
-
-    @pytest.mark.parametrize("argname", [
-                "bandgap",
-                "voltage"
-            ]
-        )
+    @pytest.mark.parametrize("argname", ["bandgap", "voltage"])
     def test_args_that_can_equal_zero(self, valid_constructor_args, argname):
         """
         DeVosSolarcell can be instantiated with args not constrained to be nonzero
@@ -45,11 +39,7 @@ class TestDeVosSolarcellConstructorHappyPath:
         with does_not_raise():
             DeVosSolarcell(**valid_constructor_args)
 
-
-    @pytest.mark.parametrize("argname", [
-                "voltage"
-            ]
-        )
+    @pytest.mark.parametrize("argname", ["voltage"])
     def test_args_that_can_be_lt_0(self, valid_constructor_args, argname):
         """
         DeVosSolarcell can be instantiated with args less than zero
@@ -59,13 +49,14 @@ class TestDeVosSolarcellConstructorHappyPath:
         with does_not_raise():
             DeVosSolarcell(**valid_constructor_args)
 
-
-    @pytest.mark.parametrize(("argname","val"), [
-                ("solar_temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
-                ("bandgap", astropy.units.Quantity(1e-19, astropy.units.J)),
-                ("planetary_temperature", astropy.units.Quantity(27., astropy.units.deg_C)),
-            ]
-        )
+    @pytest.mark.parametrize(
+        ("argname", "val"),
+        [
+            ("solar_temperature", astropy.units.Quantity(5498.85, astropy.units.deg_C)),
+            ("bandgap", astropy.units.Quantity(1e-19, astropy.units.J)),
+            ("planetary_temperature", astropy.units.Quantity(27.0, astropy.units.deg_C)),
+        ],
+    )
     def test_quantity_args_compatible_units(self, valid_constructor_quantity_args, argname, val):
         """
         DeVosSolarcell can be instantiated with args in compatible units
@@ -84,11 +75,14 @@ class TestDeVosSolarcellConstructorArgsOutsideConstraints:
     """
     DeVosSolarcell should raise exceptions if args are outside their constraints
     """
-    @pytest.mark.parametrize("argname", [
-                "solar_temperature",
-                "planetary_temperature",
-            ]
-        )
+
+    @pytest.mark.parametrize(
+        "argname",
+        [
+            "solar_temperature",
+            "planetary_temperature",
+        ],
+    )
     def test_arg_eq_0(self, valid_constructor_args, argname):
         """
         DeVosSolarcell raises ValueError if arg equal to zero
@@ -99,13 +93,14 @@ class TestDeVosSolarcellConstructorArgsOutsideConstraints:
         with pytest.raises(ValueError):
             DeVosSolarcell(**invalid_constructor_args)
 
-
-    @pytest.mark.parametrize("argname", [
-                "bandgap",
-                "solar_temperature",
-                "planetary_temperature",
-            ]
-        )
+    @pytest.mark.parametrize(
+        "argname",
+        [
+            "bandgap",
+            "solar_temperature",
+            "planetary_temperature",
+        ],
+    )
     def test_arg_lt_0(self, valid_constructor_args, argname):
         """
         DeVosSolarcell raises ValueError if arg less than zero
@@ -117,13 +112,15 @@ class TestDeVosSolarcellConstructorArgsOutsideConstraints:
             DeVosSolarcell(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize(("argname","val"), [
-            ("bandgap", astropy.units.s),
-            ("solar_temperature", astropy.units.s),
-            ("planetary_temperature", astropy.units.s),
-            ("voltage", astropy.units.s),
-        ]
-    )
+@pytest.mark.parametrize(
+    ("argname", "val"),
+    [
+        ("bandgap", astropy.units.s),
+        ("solar_temperature", astropy.units.s),
+        ("planetary_temperature", astropy.units.s),
+        ("voltage", astropy.units.s),
+    ],
+)
 def test_constructor_args_incompatible_units(valid_constructor_quantity_args, argname, val):
     """
     DeVosSolarcell raises astropy.units.UnitConversionError if arg has incompatible unit
@@ -137,13 +134,15 @@ def test_constructor_args_incompatible_units(valid_constructor_quantity_args, ar
         DeVosSolarcell(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize("argname", [
-            "bandgap",
-            "solar_temperature",
-            "planetary_temperature",
-            "voltage",
-        ]
-    )
+@pytest.mark.parametrize(
+    "argname",
+    [
+        "bandgap",
+        "solar_temperature",
+        "planetary_temperature",
+        "voltage",
+    ],
+)
 def test_constructor_args_non_scalar(valid_constructor_args, argname):
     """
     DeVosSolarcell raises TypeError if arg is non-scalar
@@ -156,51 +155,53 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
         DeVosSolarcell(**invalid_constructor_args)
 
 
-@pytest.mark.parametrize(("args","method_under_test","expected_output"), [
-            # Special case.
-            (
-                {
-                    "solar_temperature": 5762.,
-                    "planetary_temperature": 288.,
-                    "bandgap": 0.,
-                    "voltage": 0.5,
-                },
-                "power_density",
-                astropy.units.Quantity(0., "W/m2"),
-            ),
-            (
-                {
-                    "solar_temperature": 5762.,
-                    "planetary_temperature": 288.,
-                    "bandgap": 1.15,
-                    "voltage": 0.5,
-                },
-                "power_density",
-                astropy.units.Quantity(11880930.46659443, "W/m2"),
-            ),
-            # Special case
-            (
-                {
-                    "solar_temperature": 5762.,
-                    "planetary_temperature": 288.,
-                    "bandgap": 0.,
-                    "voltage": 0.5,
-                },
-                "efficiency",
-                astropy.units.Quantity(0.),
-            ),
-            (
-                {
-                    "solar_temperature": 5762.,
-                    "planetary_temperature": 288.,
-                    "bandgap": 1.15,
-                    "voltage": 0.5,
-                },
-                "efficiency",
-                astropy.units.Quantity(0.19008406),
-            ),
-        ]
-    )
+@pytest.mark.parametrize(
+    ("args", "method_under_test", "expected_output"),
+    [
+        # Special case.
+        (
+            {
+                "solar_temperature": 5762.0,
+                "planetary_temperature": 288.0,
+                "bandgap": 0.0,
+                "voltage": 0.5,
+            },
+            "power_density",
+            astropy.units.Quantity(0.0, "W/m2"),
+        ),
+        (
+            {
+                "solar_temperature": 5762.0,
+                "planetary_temperature": 288.0,
+                "bandgap": 1.15,
+                "voltage": 0.5,
+            },
+            "power_density",
+            astropy.units.Quantity(11880930.46659443, "W/m2"),
+        ),
+        # Special case
+        (
+            {
+                "solar_temperature": 5762.0,
+                "planetary_temperature": 288.0,
+                "bandgap": 0.0,
+                "voltage": 0.5,
+            },
+            "efficiency",
+            astropy.units.Quantity(0.0),
+        ),
+        (
+            {
+                "solar_temperature": 5762.0,
+                "planetary_temperature": 288.0,
+                "bandgap": 1.15,
+                "voltage": 0.5,
+            },
+            "efficiency",
+            astropy.units.Quantity(0.19008406),
+        ),
+    ],
+)
 def test_methods_regression(args, method_under_test, expected_output):
     """
     Methods' output values should match expected results
@@ -211,13 +212,15 @@ def test_methods_regression(args, method_under_test, expected_output):
     assert astropy.units.allclose(expected_output, output)
 
 
-@pytest.mark.parametrize(("method_under_test","expected_unit","args_mod"), [
-            ("power_density", "W/m2", {}),
-            ("power_density", "W/m2", {"bandgap": 0.}),  # Special case.
-            ("efficiency", astropy.units.dimensionless_unscaled, {}),
-            ("efficiency", astropy.units.dimensionless_unscaled, {"bandgap": 0.}),  # Special case.
-        ]
-    )
+@pytest.mark.parametrize(
+    ("method_under_test", "expected_unit", "args_mod"),
+    [
+        ("power_density", "W/m2", {}),
+        ("power_density", "W/m2", {"bandgap": 0.0}),  # Special case.
+        ("efficiency", astropy.units.dimensionless_unscaled, {}),
+        ("efficiency", astropy.units.dimensionless_unscaled, {"bandgap": 0.0}),  # Special case.
+    ],
+)
 def test_methods_units(method_under_test, expected_unit, valid_constructor_args, args_mod):
     """
     Units of returned value should match what's documented.
@@ -233,16 +236,17 @@ class Issues:
     """
     Tests corresponding to issues raised due to bugs
     """
-    def test_issue_3_DeVosSolarcell(self):  #noqa: N802
+
+    def test_issue_3_DeVosSolarcell(self):  # noqa: N802
         """
         Inconsistent units cause exception when chem_potential > energy_lo.
         """
         args = {
-                "temp_sun": 5762,
-                "temp_planet": 288,
-                "bandgap": 0.1,
-                "voltage": 0.5,
-            }
+            "temp_sun": 5762,
+            "temp_planet": 288,
+            "bandgap": 0.1,
+            "voltage": 0.5,
+        }
         solarcell = DeVosSolarcell(**args)
 
         with does_not_raise:
@@ -254,11 +258,11 @@ class Issues:
 @pytest.fixture
 def valid_constructor_quantity_args():
     return {
-        "solar_temperature": astropy.units.Quantity(5762., astropy.units.K),
-        "planetary_temperature": astropy.units.Quantity(288., astropy.units.K),
+        "solar_temperature": astropy.units.Quantity(5762.0, astropy.units.K),
+        "planetary_temperature": astropy.units.Quantity(288.0, astropy.units.K),
         "bandgap": astropy.units.Quantity(1.15, astropy.units.eV),
         "voltage": astropy.units.Quantity(0.1, astropy.units.V),
-        }
+    }
 
 
 @pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
