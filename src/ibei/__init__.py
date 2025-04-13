@@ -61,9 +61,11 @@ Symbols used in the above equations are given as follows.
     :math:`k`: Boltzmann's constant
 """
 
-from .models import BEI, DeVosSolarcell, SQSolarcell
+from ibei.models import BEI as BEI
+from ibei.models import DeVosSolarcell as DeVosSolarcell
+from ibei.models import SQSolarcell as SQSolarcell
 
 try:
-    from ._version import __version__
+    from ibei._version import __version__
 except ModuleNotFoundError:
     __version__ = ""
