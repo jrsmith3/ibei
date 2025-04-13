@@ -77,3 +77,6 @@ source = "vcs"
 
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["PLC0414"]
