@@ -253,18 +253,14 @@ class Issues:
 # ==========================
 @pytest.fixture
 def valid_constructor_quantity_args():
-    args = {
+    return {
         "solar_temperature": astropy.units.Quantity(5762., astropy.units.K),
         "planetary_temperature": astropy.units.Quantity(288., astropy.units.K),
         "bandgap": astropy.units.Quantity(1.15, astropy.units.eV),
         "voltage": astropy.units.Quantity(0.1, astropy.units.V),
         }
 
-    return args
-
 
 @pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
 def valid_constructor_args(request, valid_constructor_quantity_args):
-    args = {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
-
-    return args
+    return {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}

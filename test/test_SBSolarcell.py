@@ -197,16 +197,12 @@ def test_methods_units(method_under_test, expected_unit, valid_constructor_args,
 # ==========================
 @pytest.fixture
 def valid_constructor_quantity_args():
-    args = {
+    return {
         "solar_temperature": astropy.units.Quantity(5762., astropy.units.K),
         "bandgap": astropy.units.Quantity(1.15, astropy.units.eV),
         }
 
-    return args
-
 
 @pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
 def valid_constructor_args(request, valid_constructor_quantity_args):
-    args = {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
-
-    return args
+    return {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}

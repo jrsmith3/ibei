@@ -403,18 +403,14 @@ def valid_constructor_quantity_args():
     """
     Valid constructor arguments for BEI
     """
-    args = {
+    return {
         "order": 2,
         "energy_bound": astropy.units.Quantity(1.15, astropy.units.eV),
         "temperature": astropy.units.Quantity(5762., astropy.units.K),
         "chemical_potential": astropy.units.Quantity(0.5, astropy.units.eV),
     }
 
-    return args
-
 
 @pytest.fixture(params=[(lambda x: x), (lambda x: getattr(x, "value", x))])
 def valid_constructor_args(request, valid_constructor_quantity_args):
-    args = {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
-
-    return args
+    return {key: request.param(val) for key, val in valid_constructor_quantity_args.items()}
