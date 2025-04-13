@@ -233,7 +233,7 @@ class Issues:
     """
     Tests corresponding to issues raised due to bugs
     """
-    def test_issue_3_DeVosSolarcell(self):
+    def test_issue_3_DeVosSolarcell(self):  #noqa: N802
         """
         Inconsistent units cause exception when chem_potential > energy_lo.
         """
