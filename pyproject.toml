@@ -81,3 +81,4 @@ local_scheme = "no-local-version"
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["PLC0414"]
 "doc/conf.py" = ["INP001", "A001"]
+"test/test*" = ["S101"]
