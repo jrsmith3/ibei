@@ -1,13 +1,13 @@
-# coding=utf-8
+
+from contextlib import nullcontext as does_not_raise
 
 import astropy.units
 import pytest
 
-from contextlib import nullcontext as does_not_raise
 from ibei import DeVosSolarcell
 
 
-class TestDeVosSolarcellConstructorHappyPath():
+class TestDeVosSolarcellConstructorHappyPath:
     """
     Circumstances under which DeVosSolarcell instance can be instantiated
     """
@@ -80,7 +80,7 @@ class TestDeVosSolarcellConstructorHappyPath():
             solarcell = DeVosSolarcell(**valid_constructor_quantity_args)
 
 
-class TestDeVosSolarcellConstructorArgsOutsideConstraints():
+class TestDeVosSolarcellConstructorArgsOutsideConstraints:
     """
     DeVosSolarcell should raise exceptions if args are outside their constraints
     """
@@ -229,7 +229,7 @@ def test_methods_units(method_under_test, expected_unit, valid_constructor_args,
     assert output.unit.is_equivalent(expected_unit)
 
 
-class Issues():
+class Issues:
     """
     Tests corresponding to issues raised due to bugs
     """

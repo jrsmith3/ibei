@@ -1,14 +1,14 @@
-# coding=utf-8
+
+from contextlib import nullcontext as does_not_raise
 
 import astropy.units
 import numpy as np
 import pytest
 
-from contextlib import nullcontext as does_not_raise
 from ibei import BEI
 
 
-class TestBEIConstructorHappyPath():
+class TestBEIConstructorHappyPath:
     """
     Circumstances under which BEI instance can be instantiated
     """
@@ -79,7 +79,7 @@ class TestBEIConstructorHappyPath():
             bei = BEI(**valid_constructor_args)
 
 
-class TestBEIConstructorArgsOutsideConstraints():
+class TestBEIConstructorArgsOutsideConstraints:
     """
     BEI should raise exceptions if args are outside their constraints
     """
@@ -181,7 +181,7 @@ def test_order_arg_not_coercible_to_int(valid_constructor_args, val):
         bei = BEI(**invalid_constructor_args)
 
 
-class TestIssues():
+class TestIssues:
     """
     Tests corresponding to issues raised due to bugs
     """
@@ -324,7 +324,7 @@ def test_methods_regression(args, method_under_test, expected_output):
             (3, "J/(m2 s)"),
         ]
     )
-@pytest.mark.parametrize("method_under_test", 
+@pytest.mark.parametrize("method_under_test",
         (
             "lower",
             "upper",

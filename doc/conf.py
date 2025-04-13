@@ -1,6 +1,4 @@
-# coding=utf-8
 import ibei
-
 
 # Configuration file for the Sphinx documentation builder.
 #

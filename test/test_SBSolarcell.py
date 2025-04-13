@@ -1,13 +1,13 @@
-# coding=utf-8
+
+from contextlib import nullcontext as does_not_raise
 
 import astropy.units
 import pytest
 
-from contextlib import nullcontext as does_not_raise
 from ibei import SQSolarcell
 
 
-class TestSQSolarcellConstructorHappyPath():
+class TestSQSolarcellConstructorHappyPath:
     """
     Circumstances under which SQSolarcell instance can be instantiated
     """
@@ -58,7 +58,7 @@ class TestSQSolarcellConstructorHappyPath():
             solarcell = SQSolarcell(**valid_constructor_quantity_args)
 
 
-class TestSQSolarcellConstructorArgsOutsideConstraints():
+class TestSQSolarcellConstructorArgsOutsideConstraints:
     """
     SQSolarcell should raise exceptions if args are outside their constraints
     """

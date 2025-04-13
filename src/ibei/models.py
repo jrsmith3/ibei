@@ -1,14 +1,14 @@
-# coding=utf-8
 """
 Bose-Einstein integral calculators (:mod:`ibei.models`)
 =======================================================
 """
 
+import functools
+import math
+
 import astropy.constants
 import astropy.units
 import attrs
-import functools
-import math
 import mpmath
 import numpy as np
 
@@ -50,8 +50,8 @@ def _validate_is_scalar(instance, attribute, value):
 
 
 @attrs.frozen
-class BEI():
-    """
+class BEI:
+    r"""
     Bose-Einstein integrals
 
 
@@ -266,7 +266,7 @@ class BEI():
 
 
 @attrs.frozen
-class SQSolarcell():
+class SQSolarcell:
     """
     Shockley-Queisser single-junction solar cell
 
