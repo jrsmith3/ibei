@@ -44,7 +44,7 @@ def _int_converter(value):
     return int(value)
 
 
-def _validate_is_scalar(instance, attribute, value):
+def _validate_is_scalar(instance, attribute, value):  #noqa: ARG001
     if not value.isscalar:
         raise TypeError("Attributes must be scalar")
 
