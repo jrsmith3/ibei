@@ -311,10 +311,7 @@ def test_methods_regression(args, method_under_test, expected_output):
     bei = BEI(**args)
     method = getattr(bei, method_under_test)
 
-    if callable(method):
-        output = method()
-    else:
-        output = method
+    output = method() if callable(method) else method
 
     assert astropy.units.allclose(expected_output, output)
 
