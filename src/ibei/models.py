@@ -229,7 +229,7 @@ class BEI:
 
 
     @property
-    def kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
+    def kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:  #noqa: N802
         """
         Product of Boltzmann's constant and :attr:`temperature`.
         """
