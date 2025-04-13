@@ -64,7 +64,7 @@ class TestBEIConstructorHappyPath:
     @pytest.mark.parametrize("val", [
                 "12",
                 12.,
-                12.0,
+                12.0,  #noqa: PT014
             ]
         )
     def test_order_arg_coercible_to_int(self, valid_constructor_args, val):
