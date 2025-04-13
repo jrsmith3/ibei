@@ -20,7 +20,7 @@ class TestDeVosSolarcellConstructorHappyPath:
         valid_constructor_args.pop("voltage")
 
         with does_not_raise():
-            solarcell = DeVosSolarcell(**valid_constructor_args)
+            DeVosSolarcell(**valid_constructor_args)
 
 
     def test_args_with_default_values(self, valid_constructor_args):
@@ -28,7 +28,7 @@ class TestDeVosSolarcellConstructorHappyPath:
         DeVosSolarcell can be instantiated with valid args incl. ones with defaults
         """
         with does_not_raise():
-            solarcell = DeVosSolarcell(**valid_constructor_args)
+            DeVosSolarcell(**valid_constructor_args)
 
 
     @pytest.mark.parametrize("argname", [
@@ -43,7 +43,7 @@ class TestDeVosSolarcellConstructorHappyPath:
         valid_constructor_args[argname] = 0
 
         with does_not_raise():
-            solarcell = DeVosSolarcell(**valid_constructor_args)
+            DeVosSolarcell(**valid_constructor_args)
 
 
     @pytest.mark.parametrize("argname", [
@@ -57,7 +57,7 @@ class TestDeVosSolarcellConstructorHappyPath:
         valid_constructor_args[argname] *= -1
 
         with does_not_raise():
-            solarcell = DeVosSolarcell(**valid_constructor_args)
+            DeVosSolarcell(**valid_constructor_args)
 
 
     @pytest.mark.parametrize("argname,val", [
@@ -77,7 +77,7 @@ class TestDeVosSolarcellConstructorHappyPath:
         valid_constructor_quantity_args[argname] = val
 
         with does_not_raise():
-            solarcell = DeVosSolarcell(**valid_constructor_quantity_args)
+            DeVosSolarcell(**valid_constructor_quantity_args)
 
 
 class TestDeVosSolarcellConstructorArgsOutsideConstraints:
@@ -97,7 +97,7 @@ class TestDeVosSolarcellConstructorArgsOutsideConstraints:
         invalid_constructor_args[argname] *= 0
 
         with pytest.raises(ValueError):
-            solarcell = DeVosSolarcell(**invalid_constructor_args)
+            DeVosSolarcell(**invalid_constructor_args)
 
 
     @pytest.mark.parametrize("argname", [
@@ -114,7 +114,7 @@ class TestDeVosSolarcellConstructorArgsOutsideConstraints:
         invalid_constructor_args[argname] *= -1
 
         with pytest.raises(ValueError):
-            solarcell = DeVosSolarcell(**invalid_constructor_args)
+            DeVosSolarcell(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("argname,val", [
@@ -134,7 +134,7 @@ def test_constructor_args_incompatible_units(valid_constructor_quantity_args, ar
     invalid_constructor_args[argname] = astropy.units.Quantity(valid_constructor_arg_value, val)
 
     with pytest.raises(astropy.units.UnitConversionError):
-        solarcell = DeVosSolarcell(**invalid_constructor_args)
+        DeVosSolarcell(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("argname", [
@@ -153,7 +153,7 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
     invalid_constructor_args[argname] = [val, val]
 
     with pytest.raises(TypeError):
-        solarcell = DeVosSolarcell(**invalid_constructor_args)
+        DeVosSolarcell(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("args,method_under_test,expected_output", [

@@ -19,7 +19,7 @@ class TestBEIConstructorHappyPath:
         valid_constructor_args.pop("chemical_potential")
 
         with does_not_raise():
-            bei = BEI(**valid_constructor_args)
+            BEI(**valid_constructor_args)
 
 
     def test_args_with_default_values(self, valid_constructor_args):
@@ -27,7 +27,7 @@ class TestBEIConstructorHappyPath:
         BEI can be instantiated with valid args incl. ones with defaults
         """
         with does_not_raise():
-            bei = BEI(**valid_constructor_args)
+            BEI(**valid_constructor_args)
 
 
     @pytest.mark.parametrize("argname", [
@@ -42,7 +42,7 @@ class TestBEIConstructorHappyPath:
         valid_constructor_args[argname] = 0
 
         with does_not_raise():
-            bei = BEI(**valid_constructor_args)
+            BEI(**valid_constructor_args)
 
 
     @pytest.mark.parametrize("argname,val", [
@@ -58,7 +58,7 @@ class TestBEIConstructorHappyPath:
         valid_constructor_quantity_args[argname] = val
 
         with does_not_raise():
-            bei = BEI(**valid_constructor_quantity_args)
+            BEI(**valid_constructor_quantity_args)
 
 
     @pytest.mark.parametrize("val", [
@@ -76,7 +76,7 @@ class TestBEIConstructorHappyPath:
         valid_constructor_args["order"] = val
 
         with does_not_raise():
-            bei = BEI(**valid_constructor_args)
+            BEI(**valid_constructor_args)
 
 
 class TestBEIConstructorArgsOutsideConstraints:
@@ -95,7 +95,7 @@ class TestBEIConstructorArgsOutsideConstraints:
         invalid_constructor_args[argname] *= 0
 
         with pytest.raises(ValueError):
-            bei = BEI(**invalid_constructor_args)
+            BEI(**invalid_constructor_args)
 
 
     @pytest.mark.parametrize("argname", [
@@ -112,7 +112,7 @@ class TestBEIConstructorArgsOutsideConstraints:
         invalid_constructor_args[argname] *= -1
 
         with pytest.raises(ValueError):
-            bei = BEI(**invalid_constructor_args)
+            BEI(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("argname,val", [
@@ -137,7 +137,7 @@ def test_constructor_args_incompatible_units(valid_constructor_quantity_args, ar
     invalid_constructor_args[argname] = astropy.units.Quantity(valid_constructor_arg_value, val)
 
     with pytest.raises(astropy.units.UnitConversionError):
-        bei = BEI(**invalid_constructor_args)
+        BEI(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("argname", [
@@ -162,7 +162,7 @@ def test_constructor_args_non_scalar(valid_constructor_args, argname):
     invalid_constructor_args[argname] = [val, val]
 
     with pytest.raises(TypeError):
-        bei = BEI(**invalid_constructor_args)
+        BEI(**invalid_constructor_args)
 
 
 @pytest.mark.parametrize("val", [
@@ -178,7 +178,7 @@ def test_order_arg_not_coercible_to_int(valid_constructor_args, val):
     invalid_constructor_args["order"] = val
 
     with pytest.raises(TypeError):
-        bei = BEI(**invalid_constructor_args)
+        BEI(**invalid_constructor_args)
 
 
 class TestIssues:
