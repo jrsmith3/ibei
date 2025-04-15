@@ -18,6 +18,9 @@ jobs:
       - name: Test package
         run: hatch test
 
+      - name: Lint package
+        run: hatch fmt --check
+
       - name: Build package
         run: hatch build
 

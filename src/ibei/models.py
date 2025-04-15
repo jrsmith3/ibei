@@ -1,14 +1,14 @@
-# coding=utf-8
 """
 Bose-Einstein integral calculators (:mod:`ibei.models`)
 =======================================================
 """
 
+import functools
+import math
+
 import astropy.constants
 import astropy.units
 import attrs
-import functools
-import math
 import mpmath
 import numpy as np
 
@@ -26,8 +26,8 @@ def _int_converter(value):
     if isinstance(value, str):
         try:
             int(value)
-        except ValueError:
-            raise TypeError("Argument must be coercible to type int.")
+        except ValueError as ex:
+            raise TypeError("Argument must be coercible to type int.") from ex  # noqa: TRY003, EM101
 
     elif int(value) != value:
         # I have to do some validation in this converter because if I were
@@ -39,19 +39,19 @@ def _int_converter(value):
         #
         # I'd not be able to catch this case because the attribute
         # would be assigned to the possibly truncated value.
-        raise TypeError("Argument must be coercible to type int without truncation.")
+        raise TypeError("Argument must be coercible to type int without truncation.")  # noqa: TRY003, EM101
 
     return int(value)
 
 
-def _validate_is_scalar(instance, attribute, value):
+def _validate_is_scalar(instance, attribute, value):  # noqa: ARG001
     if not value.isscalar:
-        raise TypeError("Attributes must be scalar")
+        raise TypeError("Attributes must be scalar")  # noqa: TRY003, EM101
 
 
 @attrs.frozen
-class BEI():
-    """
+class BEI:
+    r"""
     Bose-Einstein integrals
 
 
@@ -70,7 +70,7 @@ class BEI():
 
     Attributes
     ----------
-    order: 
+    order:
         Same as constructor parameter.
     energy_bound: astropy.units.Quantity[astropy.units.eV]
         Same as constructor parameter.
@@ -114,41 +114,38 @@ class BEI():
     ----------
     .. [1] https://ibei.readthedocs.io/
     """
-    order: int = attrs.field(
-            converter=_int_converter,
-        )
-    energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
-            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
-            validator=[
-                _validate_is_scalar,
-                attrs.validators.ge(0),
-            ]
-        )
-    temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
-            converter=_temperature_converter,
-            validator=[
-                _validate_is_scalar,
-                attrs.validators.gt(0),
-            ]
-        )
-    chemical_potential: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
-            default=0.,
-            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
-            validator=[
-                _validate_is_scalar,
-                attrs.validators.ge(0),
-            ]
-        )
 
+    order: int = attrs.field(
+        converter=_int_converter,
+    )
+    energy_bound: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
+        converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
+        validator=[
+            _validate_is_scalar,
+            attrs.validators.ge(0),
+        ],
+    )
+    temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
+        converter=_temperature_converter,
+        validator=[
+            _validate_is_scalar,
+            attrs.validators.gt(0),
+        ],
+    )
+    chemical_potential: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
+        default=0.0,
+        converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
+        validator=[
+            _validate_is_scalar,
+            attrs.validators.ge(0),
+        ],
+    )
 
     def lower(self) -> astropy.units.Quantity:
         """
         Lower-incomplete Bose-Einstein integral.
         """
-        bei = self.full() - self.upper()
-
-        return bei
-
+        return self.full() - self.upper()
 
     def upper(self) -> astropy.units.Quantity:
         """
@@ -183,7 +180,6 @@ class BEI():
 
         return bei
 
-
     def full(self) -> astropy.units.Quantity:
         """
         Full Bose-Einstein integral.
@@ -199,7 +195,6 @@ class BEI():
 
         return bei
 
-
     def photon_flux(self) -> astropy.units.Quantity[astropy.units.Unit("1/(m2 s)")]:
         """
         Number of photons radiated per unit time per unit area.
@@ -209,11 +204,9 @@ class BEI():
         This convenience method is a special case of :meth:`BEI.full`. This
         method assumes the value of :attr:`order` is 2.
         """
-        flux = (4 * np.pi * float(mpmath.zeta(3)) * self.kT**3) / \
-            (astropy.constants.h**3 * astropy.constants.c**2)
+        flux = (4 * np.pi * float(mpmath.zeta(3)) * self.kT**3) / (astropy.constants.h**3 * astropy.constants.c**2)
 
         return flux.to("1/(m2 s)")
-
 
     def radiant_power_flux(self) -> astropy.units.Quantity[astropy.units.Unit("J/(m2 s)")]:
         """
@@ -229,9 +222,8 @@ class BEI():
 
         return power_flux.to("J/(m2 s)")
 
-
     @property
-    def kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
+    def kT(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:  # noqa: N802
         """
         Product of Boltzmann's constant and :attr:`temperature`.
         """
@@ -261,12 +253,11 @@ class BEI():
         For :attr:`order` equal to `3`, this factor is NOT equal to the
         Stefan-Boltzmann constant because is missing the Riemann-Zeta term.
         """
-        return (2 * np.pi * self.kT**(self.order + 1)) / \
-            (astropy.constants.h**3 * astropy.constants.c**2)
+        return (2 * np.pi * self.kT ** (self.order + 1)) / (astropy.constants.h**3 * astropy.constants.c**2)
 
 
 @attrs.frozen
-class SQSolarcell():
+class SQSolarcell:
     """
     Shockley-Queisser single-junction solar cell
 
@@ -299,28 +290,27 @@ class SQSolarcell():
     ValueError
         If ``solar_temperature`` <= 0
     """
+
     bei = attrs.field(init=False)
     bandgap: float | astropy.units.Quantity[astropy.units.eV] = attrs.field(
-            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
-            validator=[
-                _validate_is_scalar,
-                attrs.validators.ge(0),
-            ]
-        )
+        converter=functools.partial(astropy.units.Quantity, unit=astropy.units.eV),
+        validator=[
+            _validate_is_scalar,
+            attrs.validators.ge(0),
+        ],
+    )
     solar_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
-            default=5772.,
-            converter=_temperature_converter,
-            validator=[
-                _validate_is_scalar,
-                attrs.validators.gt(0),
-            ]
-        )
-
+        default=5772.0,
+        converter=_temperature_converter,
+        validator=[
+            _validate_is_scalar,
+            attrs.validators.gt(0),
+        ],
+    )
 
     def __attrs_post_init__(self):
-        bei = BEI(order=2, energy_bound=self.bandgap, temperature=self.solar_temperature, chemical_potential=0.)
+        bei = BEI(order=2, energy_bound=self.bandgap, temperature=self.solar_temperature, chemical_potential=0.0)
         object.__setattr__(self, "bei", bei)
-
 
     def power_density(self) -> astropy.units.Quantity[astropy.units.Unit("W/m2")]:
         """
@@ -330,15 +320,11 @@ class SQSolarcell():
         modification of Shockley & Queisser's :cite:`10.1063/1.1736034` Eq.
         2.4.
         """
-        if self.bandgap == 0:
-            solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
-        else:
-            solar_flux = self.bei.upper()
+        solar_flux = astropy.units.Quantity(0.0, "1/(m2 s)") if self.bandgap == 0 else self.bei.upper()
 
         power_density = self.bandgap * solar_flux
 
         return power_density.to("W/m2")
-
 
     def efficiency(self) -> astropy.units.Quantity[astropy.units.dimensionless_unscaled]:
         """
@@ -349,7 +335,7 @@ class SQSolarcell():
         """
         power_density = self.power_density()
         solar_power_density = self.bei.radiant_power_flux()
-        efficiency = power_density/solar_power_density
+        efficiency = power_density / solar_power_density
 
         return efficiency.decompose()
 
@@ -397,22 +383,22 @@ class DeVosSolarcell(SQSolarcell):
     ValueError
         If ``planetary_temperature`` <= 0
     """
-    planetary_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
-            default=300.,
-            converter=_temperature_converter,
-            validator=[
-                _validate_is_scalar,
-                attrs.validators.gt(0),
-            ]
-        )
-    voltage: float | astropy.units.Quantity[astropy.units.V] = attrs.field(
-            default=0.,
-            converter=functools.partial(astropy.units.Quantity, unit=astropy.units.V),
-            validator=[
-                _validate_is_scalar,
-            ]
-        )
 
+    planetary_temperature: float | astropy.units.Quantity[astropy.units.K] = attrs.field(
+        default=300.0,
+        converter=_temperature_converter,
+        validator=[
+            _validate_is_scalar,
+            attrs.validators.gt(0),
+        ],
+    )
+    voltage: float | astropy.units.Quantity[astropy.units.V] = attrs.field(
+        default=0.0,
+        converter=functools.partial(astropy.units.Quantity, unit=astropy.units.V),
+        validator=[
+            _validate_is_scalar,
+        ],
+    )
 
     def power_density(self) -> astropy.units.Quantity[astropy.units.Unit("W/m2")]:
         """
@@ -426,15 +412,15 @@ class DeVosSolarcell(SQSolarcell):
         electron_energy = astropy.constants.e.si * self.voltage
 
         if self.bandgap == 0:
-            solar_flux = astropy.units.Quantity(0., "1/(m2 s)")
-            solar_cell_flux = astropy.units.Quantity(0., "1/(m2 s)")
+            solar_flux = astropy.units.Quantity(0.0, "1/(m2 s)")
+            solar_cell_flux = astropy.units.Quantity(0.0, "1/(m2 s)")
         else:
             bei = BEI(
-                    order=2,
-                    energy_bound=self.bandgap,
-                    temperature=self.planetary_temperature,
-                    chemical_potential=electron_energy
-                )
+                order=2,
+                energy_bound=self.bandgap,
+                temperature=self.planetary_temperature,
+                chemical_potential=electron_energy,
+            )
             solar_flux = self.bei.upper()
             solar_cell_flux = bei.upper()
 
