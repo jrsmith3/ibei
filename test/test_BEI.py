@@ -65,10 +65,10 @@ class TestBEIConstructorHappyPath:
         "val",
         [
             "12",
-            12.,
+            12.,  # Skip formatting on this line.
             12.0,  # noqa: PT014
         ],
-    )
+    )  # fmt: skip
     def test_order_arg_coercible_to_int(self, valid_constructor_args, val):
         """
         BEI can be instantiated with `order` value coercible to int type
