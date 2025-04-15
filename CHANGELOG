@@ -1,3 +1,7 @@
+2.0.3
+=====
+* 103: Configure linting with `ruff`.
+
 2.0.2
 =====
 * 101: Bump `numpy` version.
