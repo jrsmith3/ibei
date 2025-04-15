@@ -77,7 +77,9 @@ class TestSQSolarcellConstructorArgsOutsideConstraints:
         invalid_constructor_args = valid_constructor_args.copy()
         invalid_constructor_args[argname] *= 0
 
-        with pytest.raises(ValueError):
+        msg = rf"'{argname}' must be > 0: {invalid_constructor_args[argname]}"
+
+        with pytest.raises(ValueError, match=msg):
             SQSolarcell(**invalid_constructor_args)
 
     @pytest.mark.parametrize(
@@ -94,7 +96,9 @@ class TestSQSolarcellConstructorArgsOutsideConstraints:
         invalid_constructor_args = valid_constructor_args.copy()
         invalid_constructor_args[argname] *= -1
 
-        with pytest.raises(ValueError):
+        msg = rf"'{argname}' must be >\=? 0: {invalid_constructor_args[argname]}"
+
+        with pytest.raises(ValueError, match=msg):
             SQSolarcell(**invalid_constructor_args)
 
 
