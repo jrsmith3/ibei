@@ -78,7 +78,7 @@ source = "vcs"
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
 
-[tool.ruff.format]
+[tool.ruff]
 exclude = ["src/ibei/_version.py"]
 
 [tool.ruff.lint.per-file-ignores]
