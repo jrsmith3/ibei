@@ -1,3 +1,7 @@
+2.0.4
+=====
+* 111: Update project metadata.
+
 2.0.3
 =====
 * 103: Configure linting with `ruff`.
